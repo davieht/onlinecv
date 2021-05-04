@@ -11,19 +11,22 @@
           gtag('config', 'G-18M3RKKBG2');
         </script>
         <script type="text/javascript">
-        if (location.protocol != 'https:')
-        {
-        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-        }
+//        if (location.protocol != 'https:')
+//        {
+//        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+//        }
         </script>
+        <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
         <title>Pandemieende Österreich</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="title" content="pandemieende.at"/>
+        <meta name="description" content="Wann ist das Ende der Corona-Pandemie? Diese Seite berechnet anhand der Impfdaten das Datum an dem die Herdenimmunität in Österreich erreicht wird."/>
         <meta property="og:site_name" content="pandemieende.at"/>
         <meta property="og:title" content="Pandemieende Österreich" />
-        <meta property="og:description" content="Wann ist das Ende der Corona-Pandemie" />
+        <meta property="og:description" content="Wann ist das Ende der Corona-Pandemie? Diese Seite berechnet anhand der Impfdaten das Datum an dem die Herdenimmunität in Österreich erreicht wird." />
         <meta property="og:image:secure_url" itemprop="image" content="icon.png"/>
         <meta property="og:type" content="website" />
         <meta name="keywords" content="corona, coronavirus, covid, covid-19, SARS-CoV-2, ende, pandemie, pandemieende, impfen, impfrate, Durchimpfung, Pandemiedauer, Herdenimmunität, Österreich"/>
@@ -34,231 +37,225 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="icon" type="image/png" href="icon.png" sizes="32x32">
         <link rel="icon" type="image/png" href="icon.png" sizes="96x96">
-        <style type="text/css">
-            body {font-family: Roboto, sans-serif ;}
-            .main {padding-top: 8vw; padding-bottom: 2vw; }
-            h1 { font-size: 12vw; }
-            h2 { font-size: 4vw; }
-            .subtext { padding: 32px;}
-            .fngroup { padding-top: 32px; }
-            .footnote { color: #888; font-size: 12px}
-            .donate { padding-top: 32px; padding-bottom: 16px; color: #888}
-            .footer {padding: 32px;}
-            .links { padding: 32px;}
-            .update { padding: 32px; color: #888; font-size: 12px; text-align: left}
-            #mainProgress {
-                width: 100%; 
-                background-color: #ddd; 
-                line-height: 30px;
-                position: relative;
-                height: 30px;
-            }
-            .myProgress { 
-                width: 100%; 
-                background-color: #ddd; 
-                line-height: 30px;
-            }
-            .label {
-                text-align: left;
-                margin-top: 10px;
-            }
-            .progressText {
-                color: #55a8ff;
-            }
-            .vaccFirst {
-                background-color: #abd2fb;
-                color: #1b8bff;
-                height: inherit;
-                line-height: inherit;
-                padding-left: 10px;
-            }
-            .vaccSecond {
-                background-color: #84c0ff;
-                color: #0062ca;
-                height: inherit; 
-                line-height: inherit;
-                padding-left: 10px;
-            }
-            #progressBar {
-                width: 0%;
-                height: 30px;
-                background-color: #ddd;
-                text-align: center; /* To center it horizontally (if you want) */
-                line-height: 30px; /* To center it vertically */
-                color: white;
-                padding-left: 10px;
-                position: absolute;
-            }
-            #heardimmune {
-                width: 30%;
-                height: 30px;
-                background-color: #000;
-                line-height:30px;
-                left: 70%;
-                position: absolute;
-                color: forestgreen;
-                text-align: left;
-                padding-left: 10px;
-                background-image: linear-gradient(to right, #ddd, #fff);
-            }
-            #bar {
-                width: 0.3px;
-                height: 30px;
-                background-color: forestgreen;
-                position: absolute;
-                left: 70%;
-            }
-            #recoveredBar {
-                width: 0%;
-                height: 30px;
-                position: absolute;
-            }
-            table.footnote {
-                border: none;
-            }
-            th {
-                font-weight: normal;
-                text-align: right;
-                vertical-align: top;
-            }
-            td {
-                vertical-align: top;
-                text-align: left;
-            }
-            #datatable tbody > tr > td:nth-child(1){
-                text-align: right;
-                padding-right: 10px
-            }
-            #vaccEmpathyPie {
-                    width: 50vw;
-                    height: 20vw;
-                }
-            @media only screen and (max-width: 600px) {
-                h1 { font-size: 18vw}
-                h2 { font-size: 8vw}
-                #vaccEmpathyPie {
-                    width: 100vw;
-                    height: 70vw;
-                }
-            }
-        </style>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="style/style.css"/>
+        <script src="js/main_at.js"></script>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", main)
+        </script>
     </head>
     <body>
-        <header class="main w3-container">
+        <div class="main w3-container">
             <div class="w3-center w3-content">
                 <h1 id="datum" class="verylarge"></h1>
                 <h2 id="tage" class="large"></h2>
-                <h3 id="humanisedDate"></h3>
-                <div class="subtext"><img src="at.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Österreich erreicht ist. *</div>
-                <div style="margin:1vw 4vw">
-                    <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
-                        <p>Achtung: Neue Berechnung! <a href="#changelog">Hier</a> nachzulesen</p>
+                <h2 id="humanisedDate"></h2>
+            
+                <div class="subtext"><img src="at.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Österreich erreicht ist.&nbsp;*</div>
+                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
+                    <p>Achtung: Neue Berechnung! <a href="#changelog">Hier</a> nachzulesen</p>
+                </div>
+
+                <div>Immunitätsrate&nbsp;**</div>
+                <div id="mainProgress">
+                    <div id="progressBar"></div>
+                    <div id="recoveredBar"></div>
+                    <div id="heardimmune">70%</div>
+                    <div id="bar"></div>
+                </div>
+                <p class="footnote">Datenlage Stand <span id="update-date"></span></p>
+                
+                <h3>Allgemeine Daten</h3>
+                
+                <div>
+                    <div class="bubble">
+                        <p id="population"></p>
+                        <p>Bevölkerung Österreich<br/>(stand 1.1.2021)</p>
+                    </div>
+<!--                    <div class="bubble">
+                        <p id="impfbar"></p>
+                        <p>Impfbare Bevölkerung<br/>(Personen über 16 Jahre)</p>
+                    </div>-->
+                </div>
+                <div>
+                    <div class="bubble">
+                        <p id="impfPers"></p>
+                        <p>zu impfende Personen</p>
+                    </div>
+                    <div class="bubble">
+                        <p id="impfDos"></p>
+                        <p>benötigte Impfdosen</p>
                     </div>
                     
-                    <div>Immunitätsrate **</div>
-                    <div id="mainProgress">
-                        <div id="progressBar"></div>
-                        <div id="recoveredBar"></div>
-                        <div id="heardimmune">70%</div>
-                        <div id="bar"></div>
+                    <div class="bubble" style="background-color:hsl(211, 100%, 93%)">
+                        <p id="vaccSum"></p>
+                        <p>Impfungen ges.</p>
                     </div>
-                    <br/>
-                    <div>
-                        <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Erste Teilimpfung</span>
+                    <div class="bubble" style="background-color:hsl(211, 100%, 87%)">
+                        <p id="vaccFirst"></p>
+                        <p>Teilimpfungen</p>
                     </div>
-                    <div>
-                        <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Zweite Teilimpfung</span>
+                    <div class="bubble" style="background-color:hsl(211, 100%, 80%)">
+                        <p id="vaccSecond"></p>
+                        <p>Vollimmunisierte</p>
                     </div>
-                    <div class="label">85+</div>
-                    <div class="myProgress">
-                        <div id="_85_first" class="vaccFirst"></div>
-                        <div id="_85_second" class="vaccSecond"></div>
-                    </div>
-                    <div class="label">75-85</div>
-                    <div class="myProgress">
-                        <div id="_75_first" class="vaccFirst"></div>
-                        <div id="_75_second" class="vaccSecond"></div>
-                    </div>
-                    <div class="label">65-75</div>
-                    <div class="myProgress">
-                        <div id="_65_first" class="vaccFirst"></div>
-                        <div id="_65_second" class="vaccSecond"></div>
-                    </div>
-                    <div class="label">55-65</div>
-                    <div class="myProgress">
-                        <div id="_55_first" class="vaccFirst"></div>
-                        <div id="_55_second" class="vaccSecond"></div>
-                    </div>
-                    <div class="label">45-55</div>
-                    <div class="myProgress">
-                        <div id="_45_first" class="vaccFirst"></div>
-                        <div id="_45_second" class="vaccSecond"></div>
-                    </div>
-                    <div class="label">35-45</div>
-                    <div class="myProgress">
-                        <div id="_35_first" class="vaccFirst"></div>
-                        <div id="_35_second" class="vaccSecond"></div>
-                    </div>
-                    <div class="label">25-35</div>
-                    <div class="myProgress">
-                        <div id="_25_first" class="vaccFirst"></div>
-                        <div id="_25_second" class="vaccSecond"></div>
-                    </div>
-                    <div class="label">unter 25</div>
-                    <div class="myProgress">
-                        <div id="_0_first" class="vaccFirst"></div>
-                        <div id="_0_second" class="vaccSecond"></div>
-                    </div>
-                    <div class="label">Gesamt</div>
-                    <div class="myProgress">
-                        <div id="ges_first" class="vaccFirst"></div>
-                        <div id="ges_second" class="vaccSecond"></div>
+                    <div class="bubble">
+                        <p id="impfRat"></p>
+                        <p>Impfrate<br/>(7-Tage-Schnitt)</p>
                     </div>
                 </div>
+                <div>
+                    <div class="bubble" style="background-color:hsl(40, 100%, 90%)">
+                        <p id="infected"></p>
+                        <p id="infectedDelta"></p>
+                        <p>Infizierte ges.</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(120, 100%, 90%)">
+                        <p id="recovered"></p>
+                        <p id="recoveredDelta"></p>
+                        <p>Genesene</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(0, 0%, 30%);color:white">
+                        <p id="casualties"></p>
+                        <p id="casualtiesDelta"></p>
+                        <p>Todesopfer</p>
+                    </div>               
+                    <div class="bubble" style="background-color:hsl(40, 100%, 90%)">
+                        <p id="infectedCurrent"></p>
+                        <p id="infectedCurrentDelta"></p>
+                        <p>Infizierte aktuell</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(20, 100%, 90%)">
+                        <p id="hospital"></p>
+                        <p id="hospitalDelta"></p>
+                        <p>Hostpitalisierte</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(0, 100%, 90%)">
+                        <p id="intensiveCare"></p>
+                        <p id="intensiveCareDelta"></p>
+                        <p>Intensivpatienten</p>
+                    </div>
+                         
+                    <div class="bubble" style="background-color:hsl(0, 0%, 90%)">
+                        <p id="tests"></p>
+                        <p id="testsDelta"></p>
+                        <p>Testungen</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(0, 0%, 90%)">
+                        <p id="incidence"></p>
+                        <p id="incidenceDelta"></p>
+                        <p>7-Tage-Inzidenz</p>
+                    </div>
+                </div>
+                
+                <h3>Altersgruppen</h3>
+                
+                <div>
+                    <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
+                    <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Zweite Teilimpfung</span>
+                </div>
+                
+                <div class="label">85+</div>
+                <div class="myProgress">
+                    <div id="_85_first" class="vaccFirst"></div>
+                    <div id="_85_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">75-85</div>
+                <div class="myProgress">
+                    <div id="_75_first" class="vaccFirst"></div>
+                    <div id="_75_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">65-75</div>
+                <div class="myProgress">
+                    <div id="_65_first" class="vaccFirst"></div>
+                    <div id="_65_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">55-65</div>
+                <div class="myProgress">
+                    <div id="_55_first" class="vaccFirst"></div>
+                    <div id="_55_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">45-55</div>
+                <div class="myProgress">
+                    <div id="_45_first" class="vaccFirst"></div>
+                    <div id="_45_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">35-45</div>
+                <div class="myProgress">
+                    <div id="_35_first" class="vaccFirst"></div>
+                    <div id="_35_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">25-35</div>
+                <div class="myProgress">
+                    <div id="_25_first" class="vaccFirst"></div>
+                    <div id="_25_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">unter 25</div>
+                <div class="myProgress">
+                    <div id="_0_first" class="vaccFirst"></div>
+                    <div id="_0_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">Gesamt</div>
+                <div class="myProgress">
+                    <div id="ges_first" class="vaccFirst"></div>
+                    <div id="ges_second" class="vaccSecond"></div>
+                </div>
+                
+                <h3>Bundesländer</h3>
+                
+                <div>
+                    <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
+                    <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Zweite Teilimpfung</span>
+                </div>
+                
+                <div class="label">Burgenland</div>
+                <div class="myProgress">
+                    <div id="burgenland_first" class="vaccFirst"></div>
+                    <div id="burgenland_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">Kärnten</div>
+                <div class="myProgress">
+                    <div id="kaernten_first" class="vaccFirst"></div>
+                    <div id="kaernten_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">Niederösterreich</div>
+                <div class="myProgress">
+                    <div id="niederoesterreich_first" class="vaccFirst"></div>
+                    <div id="niederoesterreich_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">Oberösterreich</div>
+                <div class="myProgress">
+                    <div id="oberoesterreich_first" class="vaccFirst"></div>
+                    <div id="oberoesterreich_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">Salzburg</div>
+                <div class="myProgress">
+                    <div id="salzburg_first" class="vaccFirst"></div>
+                    <div id="salzburg_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">Steiermark</div>
+                <div class="myProgress">
+                    <div id="steiermark_first" class="vaccFirst"></div>
+                    <div id="steiermark_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">Tirol</div>
+                <div class="myProgress">
+                    <div id="tirol_first" class="vaccFirst"></div>
+                    <div id="tirol_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">Vorarlberg</div>
+                <div class="myProgress">
+                    <div id="vorarlberg_first" class="vaccFirst"></div>
+                    <div id="vorarlberg_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">Wien</div>
+                <div class="myProgress">
+                    <div id="wien_first" class="vaccFirst"></div>
+                    <div id="wien_second" class="vaccSecond"></div>
+                </div>
             </div>
-        </header>
-        <div class="w3-container">
-            <table class="w3-content" id="datatable">
-                <tr>
-                    <td id="impfPers"></td>
-                    <td>zu impfende Personen</td>
-                </tr>
-                <tr>
-                    <td id="impfDos"></td>
-                    <td>benötigte Impfdosen</td>
-                </tr>
-                <tr>
-                    <td id="impfRat"></td>
-                    <td>Impfrate (7-Tage-Schnitt)</td>
-                </tr>
-                <tr>
-                    <td id="population"></td>
-                    <td>Bevölkerung Österreich (stand 1.1.2021)</td>
-                </tr>
-                <tr>
-                    <td id="impfbar"></td>
-                    <td>Impfbare Bevölkerung (Personen über 16 Jahre)</td>
-                </tr>
-                <tr>
-                    <td><span id="vaccSum"></span> (<span id="vaccSumPercent"></span>)</td>
-                    <td>Impfungen Summe</td>
-                </tr>
-                <tr>
-                    <td><span id="vaccFirst"></span> (<span id="vaccFirstPercent"></span>)</td>
-                    <td>Teilimpfungen (1. Dosis)</td>
-                </tr>
-                <tr>
-                    <td><span id="vaccSecond"></span> (<span id="vaccSecondPercent"></span>)</td>
-                    <td>Vollimmunisierte (2. Dosis)</td>
-                </tr>
-                <tr>
-                    <td><span id="recovered"></span> (<span id="recoveredPercent"></span>)</td>
-                    <td>Genesene</td>
-                </tr>
-            </table>
             
             <div class="w3-content w3-center" style="min-width: 300px!important">
+                <h3>Impfrate 7-Tage-Schnitt</h3>
                 <canvas id="vaccChart"></canvas>
             </div>
 <!--            <div class="w3-content">
@@ -267,7 +264,10 @@
                 <div class="w3-right footnote">Daten von <a href="https://viecer.univie.ac.at/corona-blog/corona-blog-beitraege/corona-dynamiken19/">ACPP (Austrian Corona Panel Project)</a> Stand 26.1.2021</div>
             </div>-->
             <div class="w3-content w3-center">
-                <h4>Wann werde ich geimpft?</h4>
+                <h3>Wann werde ich geimpft?</h3>
+                <div class="w3-panel" style="background-color:hsl(211, 100%, 93%); color: #1b8bff">
+                    <p>Hinweis an Android User: Um die Jahreszahl zu scrollen tippen Sie im Popup auf die <b>Jahreszahl</b> links oben</p>
+                </div>
                 <form action="">
                     <div><label for="birthday" style="">Geburtstag</label></div>
                     <input type="date" id="birthday" name="birthday">
@@ -280,6 +280,7 @@
                     <p>geimpft***</p>
                     <p><span id="impf_date_pop"></span> Personen (oder <span id="impf_date_pop_percent"></span> % der Bevölkerung) werden vor Ihnen geimpft.</p>
                 </div>
+                <p class="footnote">Der Impfrechner berechnet den Termin an dem Ihnen spätestens die zweite Impfdosis verabreicht wird.</p>
             </div>
             <div class="w3-content w3-center links">
                 <div><a href="https://www.sozialministerium.at/Corona-Schutzimpfung/Corona-Schutzimpfung---Haeufig-gestellte-Fragen.html" target="_blank">Warum sollte ich mich impfen lassen? (FAQ)</a></div>
@@ -318,13 +319,36 @@
                     <img alt="" border="0" src="https://www.paypal.com/en_AT/i/scr/pixel.gif" width="1" height="1" />
                     </form>
                 </div>
-                <div class="update">
+                <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (2.5.2021)</p>
+                    <ul>
+                        <li>Neue (alte) Berechnung des finalen Datums: Unter-16-Jährige werden nun wieder mit einberechnet. Aufgrund der neuer Datenlage tragen Kinder, Jugendliche und Erwachsene gleichermaßen zum Infektionsgeschehen bei. Das aktuelle Datum verschiebt sich deshalb in die Zukunft.</li>
+                        <li>Styling issues fixed</li>
+                    </ul>
+                    <p>Update: (1.5.2021)</p>
+                    <ul>
+                        <li>Farbänderungen für bessere Lesbarkeit</li>
+                        <li>Absolute Zahlen für gesamt Impfungen hinzugefügt</li>
+                        <li>Absolute Zahlen bei Allgemeinte Daten hinzugefügt</li>
+                        <li>Anzahl aktuell Infizierte hinzugefügt</li>
+                    </ul>
+                    <p>Update: (29.3.2021)</p>
+                    <ul>
+                        <li>Typos fixed</li>
+                        <li>Styling Issues fixed</li>
+                        <li>Themenabschnitte sortiert</li>
+                        <li>Abschnitt Prozent nach Bundesländern hinzugefügt</li>
+                        <li>Absolute Zahlen bei Balken hinzugefügt</li>
+                        <li>Allgemeine Daten hinzugefügt</li>
+                        <li>Bugs behoben</li>
+                        <li>Code verbessert und aufgeäumt</li>
+                    </ul>
                     <p>Update: (27.3.2021)</p>
                     <ul>
                         <li>Neue Berechnung 1: Unter-16-Jährige werden nicht mehr mit einberechnet</li>
-                        <li>Neue Berechnung-2: Genesene werden nicht mehr mit einberechnet.</li>
-                        <li>Aufgrund der neuen Datenlage, die eingangs nicht verfügbar war, werden die Werte neu berechnet. Bisher wurden Unter-16-Jährige auch gezählt. Anfangs ging man davon aus, dass Genesene bereits eine vollständige Immunität haben. Neueste Auswertungen ergeben jedoch, dass dies nur teilweise der Fall ist. Aufgrund von Häufungen von erneute Infektionen empfielt die WHO nun doch auch Genese Personen zu impfen. Weil einige Genesene auch eine zweite Impfdosis erhalten haben wurden diese doppelt gezählt (sowohl genesen als auch vollimmun) und haben somit das Enddatum bzw. die Immunitätsrate verfälscht.</li>
+                        <li>Neue Berechnung 2: Genesene werden nicht mehr mit einberechnet.</li>
+                        <li>Aufgrund der neuen Datenlage, die eingangs nicht verfügbar war, werden die Werte neu berechnet. Bisher wurden Unter-16-Jährige auch gezählt. Anfangs ging man davon aus, dass Genesene bereits eine vollständige Immunität haben. Neueste Auswertungen ergeben jedoch, dass dies nur teilweise der Fall ist. Aufgrund von Häufungen von erneute Infektionen empfiehlt die WHO nun doch auch Genese Personen zu impfen. Weil einige Genesene auch eine zweite Impfdosis erhalten haben wurden diese doppelt gezählt (sowohl genesen als auch vollimmun) und haben somit das Enddatum bzw. die Immunitätsrate verfälscht.</li>
                     </ul>
                     <p>Update: (20.3.2021)</p>
                     <ul>
@@ -381,266 +405,4 @@
             </div>
         </footer>
     </body>
-    <script type="text/javascript">
-        
-        const impfWillig = 0.17;            // Anzahl der Impfwilligen
-        const herdenImmun = 0.7;            // Herdenimmunität von 70%
-        const VACC_FIRST_ROW = 6;
-        const VACC_SECOND_ROW = 8;
-        const VACC_SUM_ROW = 4;
-        const POP = 2;
-        const GENESEN_ROW = 5;
-        
-        Array.prototype.last = function() {
-            return this.slice(-1)[0];
-        };
-        
-        String.prototype.asRoundInt = function() {
-            let parsed = parseInt(this);
-            if (isNaN(parsed)) {
-                parsed = 0;
-            }
-            return Math.round(parsed);
-        };
-        
-        Number.prototype.asRoundStr = function() {
-            return Math.round(this).toLocaleString("de-AT");
-        };
-        
-        String.prototype.toInt = function() {
-            return parseInt(this);
-        };
-        
-        function humanise(total_days)
-        {
-            //var total_days = 1001;
-            var date_current = new Date();
-            var utime_target = date_current.getTime() + total_days*86400*1000;
-            var date_target = new Date(utime_target);
-
-            var diff_year  = parseInt(date_target.getUTCFullYear() - date_current.getUTCFullYear());
-            var diff_month = parseInt(date_target.getUTCMonth() - date_current.getUTCMonth());
-            var diff_day   = parseInt(date_target.getUTCDate() - date_current.getUTCDate());
-
-            var days_in_month = [31, (date_target.getUTCFullYear()%4?29:28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            var date_string = "";
-            while(true)
-            {
-                date_string = "";
-                date_string += (diff_year>0 ? diff_year + (diff_year > 1 ?" Jahre ": " Jahr "):"");
-
-                if(diff_month<0){diff_year -= 1; diff_month += 12; continue;}
-                date_string += (diff_month > 0 ? diff_month + (diff_month > 1 ? " Monate ": " Monat "):"");
-
-                if(diff_day<0){diff_month -= 1; diff_day += days_in_month[((11+date_target.getUTCMonth())%12)]; continue;}
-                date_string += (diff_day > 0 ? diff_day + (diff_day > 1 ? " Tage" : "Tag") :"");
-                break;
-            }
-            console.log(date_string);
-            return date_string;
-        }
-        
-        function csvJSON(csv){
-            return csv.split("\n").map(element => element.split(";"));
-        }
-        
-        function getGenesen(arr) {
-            return parseInt(arr.last()[GENESEN_ROW]);
-        }
-        
-        function getVaccRate(arr) {
-            arr = arr.filter(row => row[1] === '10'); // fitler Gesamt
-            return Math.round((arr[arr.length - 1][VACC_SUM_ROW] - arr[arr.length - 8][VACC_SUM_ROW]) / 7);
-        }
-        
-        function getColor(value, light){
-            var hue=((value)*120).toString(10);
-            return ["hsl(",hue,",70%,",light,"%)"].join("");
-        }
-        
-        $.get("timeline-eimpfpass.csv?_=" + new Date().getTime(), function(impfData, status) {
-            $.get("timeline-faelle-bundeslaender.csv?_=" + new Date().getTime(), function(allgData, status) {                
-                let csvVaccArr = csvJSON(`${impfData}`);
-                let population = csvVaccArr.last()[POP].toInt(); // Gesamtbevölkerung Österreich
-                let underSixteen = 1369825;
-                
-                let isVacc = csvVaccArr.last()[VACC_SUM_ROW].toInt();    // Anzahl an bisher geimpften Personen
-                let recovered = getGenesen(csvJSON(`${allgData}`));                  // Anzahl der bisher genesenen Personen https://info.gesundheitsministerium.at/data/AllgemeinDaten.csv
-                let vaccRate = getVaccRate(csvVaccArr);     // Impfungen pro Tag im 7-Tage-Schnitt https://info.gesundheitsministerium.gv.at/data/timeline-eimpfpass.csv
-                let sumVaccImmune = csvVaccArr.last()[VACC_SECOND_ROW].toInt();
-
-                //let sumImmune = sumVaccImmune + recovered;    // Anzahl an immunisierten Personen
-                let vaccLeft = (population - sumVaccImmune - underSixteen) * .7; // Noch zu impfende Bevölkerung
-                let impfungen = vaccLeft * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
-                let isImmunePercent = (sumVaccImmune / (population - underSixteen)) * 100;
-
-                let daysSum = Math.round(impfungen / vaccRate); // Tage die benötigt werden um bei derzeitiger Impfrate die Herdenimmunität zu erreichen
-                let endDate = new Date().setDate(new Date().getDate() + daysSum); // Enddatum
-
-                document.getElementById("datum").innerHTML = new Date(endDate).toLocaleDateString("de-AT");
-                document.getElementById("tage").innerHTML = "Noch " + daysSum + " Tage";
-                document.getElementById("humanisedDate").innerHTML = humanise(daysSum);
-                document.getElementById("impfPers").innerHTML = vaccLeft.asRoundStr();
-                document.getElementById("impfDos").innerHTML = impfungen.asRoundStr();
-                document.getElementById("impfRat").innerHTML = vaccRate.asRoundStr();
-                document.getElementById("population").innerHTML = population.asRoundStr();
-                document.getElementById("impfbar").innerHTML = (population - underSixteen).asRoundStr();
-                document.getElementById("vaccSum").innerHTML = csvVaccArr.last()[VACC_SUM_ROW].toInt().toLocaleString("de-AT");;
-                document.getElementById("vaccSumPercent").innerHTML = (csvVaccArr.last()[VACC_SUM_ROW].toInt() / population * 100).toFixed(2) + "&nbsp;%";
-                document.getElementById("vaccFirst").innerHTML = csvVaccArr.last()[VACC_FIRST_ROW].toInt().toLocaleString("de-AT");;
-                document.getElementById("vaccFirstPercent").innerHTML = (csvVaccArr.last()[VACC_FIRST_ROW].toInt() / population * 100).toFixed(2) + "&nbsp;%";
-                document.getElementById("vaccSecond").innerHTML = csvVaccArr.last()[VACC_SECOND_ROW].toInt().toLocaleString("de-AT");;
-                document.getElementById("vaccSecondPercent").innerHTML = (csvVaccArr.last()[VACC_SECOND_ROW].toInt() / population * 100).toFixed(2) + "&nbsp;%";
-                document.getElementById("recovered").innerHTML = recovered.asRoundStr();
-                document.getElementById("recoveredPercent").innerHTML = (recovered / population * 100).toFixed(2) + "&nbsp;%";
-
-//                document.getElementById("myProgress").style.backgroundColor = getColor(istImmunPercent * .01, 90);
-                document.getElementById("progressBar").style.backgroundColor = getColor(isImmunePercent * .01, 50);
-                document.getElementById("progressBar").style.width = (isImmunePercent) + "%";
-                document.getElementById("progressBar").innerHTML = (isImmunePercent).toFixed(2) + "%";
-                document.getElementById("recoveredBar").style.width = ((recovered / population) * 100).toFixed(2) + "%";
-                
-                const bev = [433367, 428302, 423434, 435229, 506704, 595409, 613439, 613920, 571113, 608270, 700673, 698720, 587316, 460755, 411660, 342193, 278480, 140669, 65879, 17814];
-        
-                document.getElementById("bdbutton").onclick = function() {
-                    let bday = Date.parse(document.getElementById("birthday").value);   // Datum
-                    if (isNaN(bday)) {
-                        return;
-                    }
-                    let diff = Date.now() - bday;                                       // Differenz Interval
-                    let age = new Date(diff).getUTCFullYear() - 1970;                   // Alter
-                    let idx = Math.floor(age / 5);                                      // index von bev
-                    let sum = 0;
-                    for (i = bev.length - 1; i > idx; i--) {
-                        sum += bev[i];
-                    }
-                    let perc = sumVaccImmune / population; // Immunanteil der Gesamtbevölkerung
-                    let sumPrio = (sum - (sum * perc)); // Summe an Personen die vorher eine Impfung bekommen minus Anteil an imunisierter Personen, gemessen am Immunanteil der Gesamtbevölkerung
-                    //let sumPrio = sum - sumImmune;
-                    let days = (sumPrio / vaccRate) * 2;                   
-                    
-                    if (days < 0) {
-                        document.getElementById("impf_done").style.display = "block";
-                        document.getElementById("impf_date_group").style.display = "none";
-                    } else {                        
-                        let enddate = new Date().setDate(new Date().getDate() + days);
-                        document.getElementById("impf_date").innerHTML = new Date(enddate).toLocaleDateString("de-AT");
-                        document.getElementById("impf_date_group").style.display = "block";
-                        document.getElementById("impf_done").style.display = "none";
-                        document.getElementById("impf_date_pop").innerHTML = sumPrio.asRoundStr();
-                        document.getElementById("impf_date_pop_percent").innerHTML = ((sumPrio / population) * 100).toFixed(2);
-                    }
-                };
-                
-                const _85_first = (csvVaccArr.last()[31].toInt() + csvVaccArr.last()[32].toInt() + csvVaccArr.last()[33].toInt()) / (bev[17] + bev[18] + bev[19]) * 100;
-                document.getElementById("_85_first").style.width = (_85_first) + "%";
-                document.getElementById("_85_first").innerHTML = _85_first.toFixed(2) + "%";
-                const _85_second = (csvVaccArr.last()[55].toInt() + csvVaccArr.last()[56].toInt() + csvVaccArr.last()[57].toInt()) / (bev[17] + bev[18] + bev[19]) * 100;
-                document.getElementById("_85_second").style.width = (_85_second) + "%";
-                document.getElementById("_85_second").innerHTML = _85_second.toFixed(2) + "%";
-                
-                const _75_first = (csvVaccArr.last()[28].toInt() + csvVaccArr.last()[29].toInt() + csvVaccArr.last()[30].toInt()) / (bev[15] + bev[16]) * 100;
-                document.getElementById("_75_first").style.width = (_75_first) + "%";
-                document.getElementById("_75_first").innerHTML = _75_first.toFixed(2) + "%";
-                const _75_second = (csvVaccArr.last()[52].toInt() + csvVaccArr.last()[53].toInt() + csvVaccArr.last()[54].toInt()) / (bev[15] + bev[16]) * 100;
-                document.getElementById("_75_second").style.width = (_75_second) + "%";
-                document.getElementById("_75_second").innerHTML = _75_second.toFixed(2) + "%";
-                
-                const _65_first = (csvVaccArr.last()[25].toInt() + csvVaccArr.last()[26].toInt() + csvVaccArr.last()[27].toInt()) / (bev[13] + bev[14]) * 100;
-                document.getElementById("_65_first").style.width = (_65_first) + "%";
-                document.getElementById("_65_first").innerHTML = _65_first.toFixed(2) + "%";
-                const _65_second = (csvVaccArr.last()[49].toInt() + csvVaccArr.last()[50].toInt() + csvVaccArr.last()[51].toInt()) / (bev[13] + bev[14]) * 100;
-                document.getElementById("_65_second").style.width = (_65_second) + "%";
-                document.getElementById("_65_second").innerHTML = _65_second.toFixed(2) + "%";
-                
-                const _55_first = (csvVaccArr.last()[22].toInt() + csvVaccArr.last()[23].toInt() + csvVaccArr.last()[24].toInt()) / (bev[11] + bev[12]) * 100;
-                document.getElementById("_55_first").style.width = (_55_first) + "%";
-                document.getElementById("_55_first").innerHTML = _55_first.toFixed(2) + "%";
-                const _55_second = (csvVaccArr.last()[46].toInt() + csvVaccArr.last()[47].toInt() + csvVaccArr.last()[48].toInt()) / (bev[11] + bev[12]) * 100;
-                document.getElementById("_55_second").style.width = (_55_second) + "%";
-                document.getElementById("_55_second").innerHTML = _55_second.toFixed(2) + "%";
-                
-                const _45_first = (csvVaccArr.last()[19].toInt() + csvVaccArr.last()[20].toInt() + csvVaccArr.last()[21].toInt()) / (bev[9] + bev[10]) * 100;
-                document.getElementById("_45_first").style.width = (_45_first) + "%";
-                document.getElementById("_45_first").innerHTML = _45_first.toFixed(2) + "%";
-                const _45_second = (csvVaccArr.last()[43].toInt() + csvVaccArr.last()[44].toInt() + csvVaccArr.last()[45].toInt()) / (bev[9] + bev[10]) * 100;
-                document.getElementById("_45_second").style.width = (_45_second) + "%";
-                document.getElementById("_45_second").innerHTML = _45_second.toFixed(2) + "%";
-                
-                const _35_first = (csvVaccArr.last()[16].toInt() + csvVaccArr.last()[17].toInt() + csvVaccArr.last()[18].toInt()) / (bev[7] + bev[8]) * 100;
-                document.getElementById("_35_first").style.width = (_35_first) + "%";
-                document.getElementById("_35_first").innerHTML = _35_first.toFixed(2) + "%";
-                const _35_second = (csvVaccArr.last()[40].toInt() + csvVaccArr.last()[41].toInt() + csvVaccArr.last()[42].toInt()) / (bev[7] + bev[8]) * 100;
-                document.getElementById("_35_second").style.width = (_35_second) + "%";
-                document.getElementById("_35_second").innerHTML = _35_second.toFixed(2) + "%";
-                
-                const _25_first = (csvVaccArr.last()[13].toInt() + csvVaccArr.last()[14].toInt() + csvVaccArr.last()[15].toInt()) / (bev[5] + bev[6]) * 100;
-                document.getElementById("_25_first").style.width = (_25_first) + "%";
-                document.getElementById("_25_first").innerHTML = _25_first.toFixed(2) + "%";
-                const _25_second = (csvVaccArr.last()[37].toInt() + csvVaccArr.last()[38].toInt() + csvVaccArr.last()[39].toInt()) / (bev[5] + bev[6]) * 100;
-                document.getElementById("_25_second").style.width = (_25_second) + "%";
-                document.getElementById("_25_second").innerHTML = _25_second.toFixed(2) + "%";
-                                
-                const _0_first = (csvVaccArr.last()[10].toInt() + csvVaccArr.last()[11].toInt() + csvVaccArr.last()[12].toInt()) / (bev[0] + bev[1] + bev[2] + bev[3] + bev[4]) * 100;
-                document.getElementById("_0_first").style.width = (_0_first) + "%";
-                document.getElementById("_0_first").innerHTML = _0_first.toFixed(2) + "%";
-                const _0_second = (csvVaccArr.last()[34].toInt() + csvVaccArr.last()[35].toInt() + csvVaccArr.last()[36].toInt()) / (bev[0] + bev[1] + bev[2] + bev[3] + bev[4]) * 100;
-                document.getElementById("_0_second").style.width = (_0_second) + "%";
-                document.getElementById("_0_second").innerHTML = _0_second.toFixed(2) + "%";
-                
-                const ges_first = (csvVaccArr.last()[6].toInt() / population) * 100;
-                document.getElementById("ges_first").style.width = (ges_first) + "%";
-                document.getElementById("ges_first").innerHTML = ges_first.toFixed(2) + "%";
-                const ges_second = (csvVaccArr.last()[8].toInt() / population) * 100;
-                document.getElementById("ges_second").style.width = (ges_second) + "%";
-                document.getElementById("ges_second").innerHTML = ges_second.toFixed(2) + "%";
-                
-                const chartRows = csvVaccArr.filter(row => row[1] === '10');
-                const ctx = document.getElementById("vaccChart").getContext("2d");
-                
-                const vaccDiffSum = chartRows.map(row => row[4]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0));
-                const vaccDiffFirst = chartRows.map(row => row[6]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0));
-                const vaccDiffSecond = chartRows.map(row => row[8]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0));
-                
-                const myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: chartRows.map(row => new Date(row[0]).toLocaleDateString("de-AT")).flat(),
-                        datasets: [{
-                            label: "Vollimmun",
-                            data: vaccDiffSecond,
-                            fill: true,
-                            lineTension: 0,
-                            backgroundColor: 'rgba(132, 192, 255, 1)',
-                            pointRadius: window.screen.width < 600 ? 0 : 3
-                        }, {
-                            label: "Erste Impfung",
-                            data: vaccDiffFirst,
-                            fill: true,
-                            lineTension: 0,
-                            backgroundColor: 'rgba(171, 210, 251, 1)',
-                            pointRadius: window.screen.width < 600 ? 0 : 3
-                        },
-                        {
-                            label: "Gesamt",
-                            data: vaccDiffSum,
-                            fill: true,
-                            lineTension: 0,
-                            backgroundColor: 'rgba(27, 139, 255, 1)',
-                            pointRadius: window.screen.width < 600 ? 0 : 3
-                        }]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: 'Impfrate 7-Tage-Schnitt'
-                        },
-                        aspectRatio: window.screen.width < 600 ? 1 : 2
-                   }
-                });
-            });
-        });
-        
-        
-    </script>
 </html>

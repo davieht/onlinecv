@@ -1,0 +1,148 @@
+:root {
+    --blue-w1: hsl(211, 100%, 93%);
+    --blue-w2: hsl(211, 100%, 87%);
+    --blue-w3: hsl(211, 100%, 80%);
+    --blue-w4: hsl(211, 100%, 40%);
+    --blue-w5: hsl(211, 100%, 30%);
+    --main-bar-height: 50px;
+}
+body {font-family: Roboto, sans-serif ;}
+.main {padding-top: 8vw; padding-bottom: 2vw; }
+h1 { font-size: 12vw; }
+h2 { font-size: 4vw; }
+h3 { margin-top: 30px; }
+.subtext { padding: 32px 0px;}
+.fngroup { padding-top: 32px; }
+.footnote { color: #888; font-size: 12px}
+.donate { padding-top: 32px; padding-bottom: 16px; color: #888}
+.footer {padding: 32px;}
+.links { padding: 32px;}
+.update { padding: 32px; color: #888; font-size: 12px; text-align: left}
+#mainProgress {
+    width: 100%; 
+    background-color: #eee; 
+    line-height: var(--main-bar-height);
+    position: relative;
+    height: var(--main-bar-height);
+}
+.myProgress { 
+    width: 100%; 
+    background-color: #eee; 
+    line-height: 30px;
+}
+.label {
+    text-align: left;
+    margin-top: 10px;
+}
+.progressText {
+    color: #55a8ff;
+}
+.vaccFirst {
+    background-color: var(--blue-w2);
+    color: var(--blue-w4);
+    height: inherit;
+    line-height: inherit;
+    padding-left: 10px;
+    white-space: nowrap;
+}
+.vaccSecond {
+    background-color: var(--blue-w3);
+    color: var(--blue-w5);
+    height: inherit; 
+    line-height: inherit;
+    padding-left: 10px;
+    white-space: nowrap;
+}
+.vaccFull {
+    background-color: #0f0;
+    color: #0062ca;
+    height: inherit; 
+    line-height: inherit;
+    padding-left: 10px;
+}
+#progressBar {
+    width: 0%;
+    height: var(--main-bar-height);
+    background-color: #ddd;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: var(--main-bar-height); /* To center it vertically */
+    color: white;
+    padding-left: 10px;
+    position: absolute;
+}
+#heardimmune {
+    width: 30%;
+    height: var(--main-bar-height);
+    background-color: #000;
+    line-height: var(--main-bar-height);
+    left: 70%;
+    position: absolute;
+    color: forestgreen;
+    text-align: left;
+    padding-left: 10px;
+    background-image: linear-gradient(to right, #eee, #fff);
+}
+#bar {
+    width: 0.3px;
+    height: var(--main-bar-height);
+    background-color: forestgreen;
+    position: absolute;
+    left: 70%;
+}
+#recoveredBar {
+    width: 0%;
+    height: var(--main-bar-height);
+    position: absolute;
+}
+table.footnote {
+    border: none;
+}
+th {
+    font-weight: normal;
+    text-align: right;
+    vertical-align: top;
+}
+td {
+    vertical-align: top;
+    text-align: left;
+}
+#datatable tbody > tr > td:nth-child(1){
+    text-align: right;
+    padding-right: 10px
+}
+#vaccEmpathyPie {
+        width: 50vw;
+        height: 20vw;
+    }
+@media only screen and (max-width: 600px) {
+    h1 { font-size: 18vw }
+    h2 { font-size: 8vw }
+    #humanisedDate { font-size: 8vw; margin-top: 10px}
+    #vaccEmpathyPie {
+        width: 100vw;
+        height: 70vw;
+    }
+}
+
+.barSubText {
+    font-size: 12px;
+    vertical-align: top;
+}
+
+.bubble {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #eee;
+    margin: 4px;
+    padding: 8px;
+    font-size: 16px;
+}
+.bubble > p {
+    margin: 0px;
+}
+.bubble > p:not(:first-of-type) {
+    font-size: 12px;
+}
+.toggle p:not(:first-of-type), .toggle ul:not(:first-of-type){
+    display: none;
+}

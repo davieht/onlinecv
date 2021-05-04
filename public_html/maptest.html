@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Make sure you put this AFTER Leaflet's CSS -->
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        html {font-family: Roboto, sans-serif;}
+        
+        #mapid { width: 100vw; height: 50vw; }
+        .info {
+            background-color: #fffa;
+            padding: 8px;
+            border-radius: 4px;
+            min-width: 140px;
+        }
+
+        .sidenav {
+            display: none;
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1001;
+            top: 0;
+            left: 0;
+            background-color: #eee;
+            overflow-x: hidden;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+   </style>
+    </head>
+    <body>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#" onclick="selectOption(INFECTIONS_COL)">Fälle</a>
+            <a href="#" onclick="selectOption(INFECTIONS_SUM_COL)">Fälle Ges.</a>
+            <a href="#" onclick="selectOption(SEVENDAYINCIDENCE_COL)">7-Tage-Inzidenz</a>
+            <a href="#" onclick="selectOption(CASUALTIES_COL)">Verstorben</a>
+            <a href="#" onclick="selectOption(CASUALTIES_SUM_COL)">Verstorben Ges.</a>
+            <a href="#" onclick="selectOption(RECOVERED_COL)">Genesen</a>
+            <a href="#" onclick="selectOption(RECOVERED_SUM_COL)">Genesen Ges.</a>
+        </div>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menü</span>
+        
+        <div id="mapid"></div>
+        <input id="slider" type="range" min="1" max="200" value="50" style="width: 100vw" oninput="update(this.value)">
+    </body>
+    <script src="districts.js"></script>
+    <script>
+        
+        String.prototype.toInt = function() {
+            return parseInt(this);
+        };
+        
+        String.prototype.toFloat = function() {
+            return parseFloat(this);
+        };
+        
+        const DATE_COL = 0;
+        const INHABITANTS_COL = 3;
+        const INFECTIONS_COL = 4;
+        const INFECTIONS_SUM_COL = 5;
+        const SEVENDAYINCIDENCE_COL = 7;
+        const CASUALTIES_COL = 8;
+        const CASUALTIES_SUM_COL = 9;
+        const RECOVERED_COL = 10;
+        const RECOVERED_SUM_COL = 11;
+        
+        const OPACITY_DESELECTED = .5;
+        const OPACITY_SELECTED = 1;
+        
+        const selected = {
+            districtId: 100,
+            col: INFECTIONS_COL,
+            step: 0
+        };
+        
+        function selectOption(col) {
+            selected.col = col;
+            update();
+        }
+        
+        function openNav() {
+            document.getElementById("mySidenav").style.display = "block";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.display = "none";
+        }
+                
+        function valToColor(value) {
+            if (value < 50) {
+                return 'green';
+            } else if (value < 100) {
+                return 'yellow';
+            } else if (value < 200) {
+                return 'orange';
+            } else if (value < 400) {
+                return 'red';
+            } else {
+                return 'darkred';
+            }
+        }
+        
+        function style(feature, step) {
+            const bla = dateArray[step].get(feature.properties.iso);
+            let color = '#000';
+            if (bla === undefined) {
+                console.log(feature.properties.iso);
+            } else {
+                color = valToColor(bla[selected.col].toInt());
+            }
+            return {
+                fillColor: color,
+                fillOpacity: OPACITY_DESELECTED,
+                weight: 1,
+                opacity: 1,
+                color: 'white'
+            };
+        }
+        
+        var info = L.control({position: 'topleft'});
+
+        info.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this.update();
+            return this._div;
+        };
+
+        // method that we will use to update the control based on feature properties passed
+        info.update = function (props) {
+            const sliderPos = document.getElementById('slider').value;
+            if (props) {
+                const district = dateArray[sliderPos].get(props.iso);            
+                this._div.innerHTML = `${district[DATE_COL].substr(0, 8)}<br/><b>${props.name}</b><br/>Einwohner: ${district[INHABITANTS_COL].toInt()}<br/>Fälle: ${district[INFECTIONS_COL]}<br/>Fälle Ges.: ${district[INFECTIONS_SUM_COL]}<br/>7-Tage-Inzidenz: ${district[SEVENDAYINCIDENCE_COL].toInt()}<br/>Verstorben: ${district[CASUALTIES_COL]}<br/>Verstorben Ges.: ${district[CASUALTIES_SUM_COL]}<br/>Genesen: ${district[RECOVERED_COL]}<br/>Genesen Ges.: ${district[RECOVERED_SUM_COL]}`;
+            } else {
+                this._div.innerHTML = "";
+            }
+        };        
+        
+        function onMouseOver(e) {
+            var layer = e.target;
+            info.update(layer.feature.properties);
+            layer.setStyle({
+                fillOpacity: OPACITY_SELECTED
+            });
+        }
+        
+        function onMouseOut(e) {
+            var layer = e.target;
+            info.update();
+            layer.setStyle({
+                fillOpacity: OPACITY_DESELECTED
+            });
+        }
+        
+        function onEachFeature(feature, layer) {
+            layer.on({
+                mouseover: onMouseOver,
+                mouseout: onMouseOut,
+                click: onMouseOver
+            });
+        }
+        
+        var mymap = L.map('mapid', {
+            zoomControl: false,
+            touchZoom: false,
+            doubleClickZoom: false,
+            scrollWheelZoom: false,
+            boxZoom: false,
+            keyboard: false,
+            dragging: false,
+            zoomSnap: .1
+        }).setView([47.67, 13.65], 6.7);
+        info.addTo(mymap);
+        
+        var wienUnion = turf.union(...districts.features.filter(it=> it.properties.iso.startsWith('9')));
+        districts.features = districts.features.filter(it=>!it.properties.iso.startsWith('9'));
+        wienUnion.properties.iso = '900';
+        districts.features.push(wienUnion);
+        
+        function csvJSON(csv){
+            return csv.split("\n").map(element => element.split(";"));
+        }
+        
+        function update(value) {
+            if (!value) {
+                value = selected.step;
+            } else {
+                selected.step = value.toInt();
+            }
+            layer.eachLayer(function(layer){
+                layer.setStyle(style(layer.feature, value));
+            });
+        }
+        
+        const dateMap = new Map();
+        let dateArray;
+        let layer = null;
+        
+        $.get("CovidFaelle_Timeline_GKZ.csv?_=" + new Date().getTime(), function(data, status) {
+            const arr = csvJSON(`${data}`);            
+            for (let i = 1; i < arr.length; i++) {
+                const date = arr[i][0];
+                if (!dateMap.has(date)) {
+                    dateMap.set(date, new Map());
+                }
+                const districtMap = dateMap.get(date);
+                
+                const gkzNr = arr[i][2];
+                if (!districtMap.has(gkzNr)) {
+                    districtMap.set(gkzNr, arr[i]);
+                }                
+            }
+            dateArray = Array.from(dateMap.values());
+            
+            layer = L.geoJson(districts, {onEachFeature: onEachFeature}).addTo(mymap);
+            
+            document.getElementById("slider").setAttribute("max", dateMap.size);
+        });
+    </script>
+</html>
