@@ -50,7 +50,7 @@
                 <h2 id="tage" class="large"></h2>
                 <h2 id="humanisedDate"></h2>
             
-                <div class="subtext"><img src="at.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Österreich erreicht ist.&nbsp;*</div>
+                <div class="subtext"><img src="src/at.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Österreich erreicht ist.&nbsp;*</div>
                 <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Achtung: Neue Berechnung! <a href="#changelog">Hier</a> nachzulesen</p>
                 </div>
@@ -88,14 +88,17 @@
                     
                     <div class="bubble" style="background-color:hsl(211, 100%, 93%)">
                         <p id="vaccSum"></p>
+                        <p id="vaccSumDelta"></p>
                         <p>Impfungen ges.</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(211, 100%, 87%)">
                         <p id="vaccFirst"></p>
+                        <p id="vaccFirstDelta"></p>
                         <p>Teilimpfungen</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(211, 100%, 80%)">
                         <p id="vaccSecond"></p>
+                        <p id="vaccSecondDelta"></p>
                         <p>Vollimmunisierte</p>
                     </div>
                     <div class="bubble">
@@ -252,6 +255,14 @@
                     <div id="wien_first" class="vaccFirst"></div>
                     <div id="wien_second" class="vaccSecond"></div>
                 </div>
+                
+<!--                <h3>Global</h3>
+                <div>
+                    <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
+                    <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Zweite Teilimpfung</span>
+                </div>
+            
+                <div id="world"></div>-->
             </div>
             
             <div class="w3-content w3-center" style="min-width: 300px!important">
@@ -288,26 +299,26 @@
                 <div><a href="https://covid19-dashboard.ages.at/" target="_blank">Aktuelle Zahlen zu Covid</a></div>
             </div>
             <div class="w3-center">
-                <div><img src="de.svg" width="16"/> <a href="https://pandemieende.de">Pandemieende Deutschland</a></div>
-                <div><img src="ch.svg" width="16"/> <a href="https://pandemieende.ch">Pandemieende Schweiz</a></div>
+                <div><img src="src/de.svg" width="16"/> <a href="https://pandemieende.de">Pandemieende Deutschland</a></div>
+                <div><img src="src/ch.svg" width="16"/> <a href="https://pandemieende.ch">Pandemieende Schweiz</a></div>
             </div>
             <div class="w3-content w3-center">
                 <table class="w3-content footnote fngroup">
                     <tr>
                         <th>*</th>
-                        <td>Das Datum errechnet sich aus der Zeitspanne, die bemessen an der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) benötigt wird, um eine Herdenimmunität von 70% der Gesamtbevölkerung (Stand 1.1.2021) zu erreichen; abzüglich jener Personen, welche die zweite Impfdosis bekommen haben; abzüglich Personen die unter 16 Jahre alt sind.</td>
+                        <td>Das Datum errechnet sich anhand der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) um eine Herdenimmunität von 70% der Gesamtbevölkerung (Stand 1.1.2021) zu erreichen; abzüglich jener Personen, welche bereits Impfungen bekommen haben.</td>
                     </tr>
                     <tr>
                         <th>**</th>
-                        <td>Die Immunitätsrate errechnet sich aus der Anzahl jener Personen, die bereits die zweite Impfdosis erhalten haben; gemessen der Gesamtbevölkerung abzüglich der Personen, die unter 16 Jahre alt sind(Stand 1.1.2021)</td>
+                        <td>Die Immunitätsrate errechnet sich aus der Anzahl jener Personen, die bereits die zweite Impfdosis erhalten haben; gemessen an der Gesamtbevölkerung (Stand 1.1.2021)</td>
                     </tr>
                     <tr>
                         <th>***</th>
-                        <td>Die Berechnung ermittelt das Datum ihrer Erstimpfung anhand der Impfrate, gemessen an der Bevölkerungsverteilung nach Alter. Das bedeutet, je älter Sie sind, desto früher kommen sie dran.</td>
+                        <td>Die Berechnung ermittelt das Datum ihrer Zweitimpfung anhand der aktuellen Impfrate, gemessen an der Bevölkerungsverteilung nach Alter. Das bedeutet, je älter Sie sind, desto früher kommen sie dran.</td>
                     </tr>
                     <tr>
                         <th></th>
-                        <td>Updates immer um 09:15 und 18:15</td>
+                        <td>Updates immer um 12:15</td>
                     </tr>
                 </table>
                 <div class="donate">Sie finden die Idee toll? Spendieren Sie mir ein Bier :)</div>
@@ -321,6 +332,12 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (8.5.2021)</p>
+                    <ul>
+                        <li>Berechnung Enddatum berichtigt. Bereits Geimpfte wurden doppelt abgezogen.</li>
+                        <li>Absolute Zahlen zu Allgemeine Daten hinzugefügt.</li>
+                        <li>Texte angepasst.</li>
+                    </ul>
                     <p>Update: (2.5.2021)</p>
                     <ul>
                         <li>Neue (alte) Berechnung des finalen Datums: Unter-16-Jährige werden nun wieder mit einberechnet. Aufgrund der neuer Datenlage tragen Kinder, Jugendliche und Erwachsene gleichermaßen zum Infektionsgeschehen bei. Das aktuelle Datum verschiebt sich deshalb in die Zukunft.</li>

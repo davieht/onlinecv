@@ -16,10 +16,10 @@ and open the template in the editor.
           gtag('config', 'G-4DQ9FE211L');
         </script>
         <script type="text/javascript">
-        if (location.protocol != 'https:')
-        {
-        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-        }
+//        if (location.protocol != 'https:')
+//        {
+//        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+//        }
         </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
         
@@ -39,112 +39,8 @@ and open the template in the editor.
         <meta http-equiv="Expires" content="0" />
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-        <link rel="icon" type="image/png" href="icon.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="icon.png" sizes="96x96">
-        <style type="text/css">
-            :root {
-                --main-bar-height: 50px;
-            }
-            body {font-family: Roboto, sans-serif ;}
-            .main {padding-top: 8vw; padding-bottom: 2vw; }
-            h1 { font-size: 12vw; }
-            h2 { font-size: 4vw; }
-            h3 { margin-top: 30px; }
-            .subtext { padding: 32px 0px;}
-            .fngroup { padding-top: 32px; }
-            .footnote { color: #888; font-size: 12px}
-            .donate { padding-top: 32px; padding-bottom: 16px; color: #888}
-            .footer {padding: 32px;}
-            .links { padding: 32px;}
-            .update { padding: 32px; color: #888; font-size: 12px; text-align: left}
-            #mainProgress {
-                width: 100%; 
-                background-color: #eee; 
-                line-height: var(--main-bar-height);
-                position: relative;
-                height: var(--main-bar-height);
-            }
-            .myProgress { 
-                width: 100%; 
-                background-color: #eee; 
-                line-height: 30px;
-            }
-            #progressBar {
-                width: 0%;
-                height: var(--main-bar-height);
-                background-color: #ddd;
-                text-align: center; /* To center it horizontally (if you want) */
-                line-height: var(--main-bar-height); /* To center it vertically */
-                color: white;
-                padding-left: 10px;
-                position: absolute;
-            }
-            #heardimmune {
-                width: 30%;
-                height: var(--main-bar-height);
-                background-color: #000;
-                line-height: var(--main-bar-height);
-                left: 70%;
-                position: absolute;
-                color: forestgreen;
-                text-align: left;
-                padding-left: 10px;
-                background-image: linear-gradient(to right, #eee, #fff);
-            }
-            #bar {
-                width: 0.3px;
-                height: var(--main-bar-height);
-                background-color: forestgreen;
-                position: absolute;
-                left: 70%;
-            }
-            table.footnote {
-                border: none;
-            }
-            th {
-                font-weight: normal;
-                text-align: right;
-                vertical-align: top;
-            }
-            td {
-                vertical-align: top;
-                text-align: left;
-            }
-            #datatable tbody > tr > td:nth-child(1){
-                text-align: right;
-                padding-right: 10px
-            }
-            #vaccEmpathyPie {
-                    width: 50vw;
-                    height: 20vw;
-                }
-            @media only screen and (max-width: 600px) {
-                h1 { font-size: 18vw}
-                h2 { font-size: 8vw}
-                #humanisedDate { font-size: 8vw; margin-top: 10px}
-                #vaccEmpathyPie {
-                    width: 100vw;
-                    height: 70vw;
-                }
-            }
-            .bubble {
-                display: inline-block;
-                border-radius: 4px;
-                background-color: #eee;
-                margin: 4px;
-                padding: 8px;
-                font-size: 16px;
-            }
-            .bubble > p {
-                margin: 0px;
-            }
-            .bubble > p:nth-child(2) {
-                font-size: 12px;
-            }
-            .toggle p:not(:first-of-type), .toggle ul:not(:first-of-type){
-                display: none;
-            }
-        </style>
+        <link rel="icon" type="image/png" href="../src/icon.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="../src/icon.png" sizes="96x96">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
@@ -154,7 +50,7 @@ and open the template in the editor.
                 <h2 id="tage" class="large"></h2>
                 <h3 id="humanisedDate"></h3>
                 
-                <div class="subtext"><img src="de.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Deutschland erreicht ist. *</div>
+                <div class="subtext"><img src="../src/de.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Deutschland erreicht ist. *</div>
                 <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Achtung: Neue Berechnung! <a href="#changelog">Hier</a> nachzulesen</p>
                 </div>
@@ -215,22 +111,22 @@ and open the template in the editor.
                 <div><a href="https://www.bundesregierung.de/breg-de/themen/coronavirus/fallzahlen-coronavirus-1738210" target="_blank">Aktuelle Zahlen zu Covid</a></div>
             </div>
             <div class="w3-center w3-center">
-                <div><img src="at.svg" width="16"/> <a href="https://pandemieende.at">Pandemieende Österreich</a></div>
-                <div><img src="ch.svg" width="16"/> <a href="https://pandemieende.ch">Pandemieende Schweiz</a></div>
+                <div><img src="../src/at.svg" width="16"/> <a href="https://pandemieende.at">Pandemieende Österreich</a></div>
+                <div><img src="../src/ch.svg" width="16"/> <a href="https://pandemieende.ch">Pandemieende Schweiz</a></div>
             </div>
             <div class="w3-content w3-center">
                 <table class="w3-content footnote fngroup">
                     <tr>
                         <th>*</th>
-                        <td>Das Datum errechnet sich aus der Zeitspanne, die bemessen an der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) benötigt wird, um eine Herdenimmunität von 70% der Gesamtbevölkerung (Stand 1.1.2020) zu erreichen; abzüglich der genesenen Personen; abzüglich jener Personen, welche die zweite Impfdosis bekommen haben.</td>
+                        <td>Das Datum errechnet sich anhand der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) um eine Herdenimmunität von 70% der Gesamtbevölkerung (Stand 1.1.2020) zu erreichen; abzüglich jener Personen, welche bereits Impfungen bekommen haben.</td>
                     </tr>
                     <tr>
                         <th>**</th>
-                        <td>Die Immunitätsrate errechnet sich aus der Anzahl der bereits genesenen Personen, plus der Anzahl jener Personen, die bereits die zweite Impfdosis erhalten haben; gemessen der Gesamtbevölkerung (Stand 1.1.2020)</td>
+                        <td>Die Immunitätsrate errechnet sich aus der Anzahl jener Personen, die bereits die zweite Impfdosis erhalten haben; gemessen an der Gesamtbevölkerung (Stand 1.1.2020)</td>
                     </tr>
                     <tr>
                         <th></th>
-                        <td>Updates immer um 09:15 und 18:15</td>
+                        <td>Updates immer um 12:15</td>
                     </tr>
                 </table>
                 <div class="donate">Sie finden die Idee toll? Spendieren Sie mir ein Bier :)</div>
@@ -244,6 +140,12 @@ and open the template in the editor.
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (8.5.2021)</p>
+                    <ul>
+                        <li>Berechnung Enddatum berichtigt. Bereits Geimpfte wurden doppelt abgezogen.</li>
+                        <li>Absolute Zahlen zu Allgemeine Daten hinzugefügt.</li>
+                        <li>Texte angepasst.</li>
+                    </ul>
                     <p>Update: (2.5.2021)</p>
                     <ul>
                         <li>Neue (alte) Berechnung des finalen Datums: Unter-16-Jährige werden nun wieder mit einberechnet. Aufgrund der neuer Datenlage tragen Kinder, Jugendliche und Erwachsene gleichermaßen zum Infektionsgeschehen bei. Das aktuelle Datum verschiebt sich deshalb in die Zukunft.</li>
@@ -290,7 +192,7 @@ and open the template in the editor.
         <footer class="footer w3-white w3-center">            
             <div>Made with <span style="color: red">&#10084;</span> by "Daveloper"</div>
             <div>
-                <span>Datenquellen: RKI (Robert Koch Institut), destatis (Statistisches Bundesamt), impfdashboard.de</span> | <span><a href="impressum.html">Impressum</a></span> | <span><a href="mailto:daveloper@pandemieende.at">Kontakt</a></span> | <span><a href="https://www.pandemieende.at">Pandemieende Östereich</a></span>| <span><a href="https://www.pandemieende.ch">Pandemieende Schweiz</a></span> | <span>Alle Angaben ohne Gewähr</span>
+                <span>Datenquellen: RKI (Robert Koch Institut), destatis (Statistisches Bundesamt), impfdashboard.de</span> | <span><a href="../impressum.html">Impressum</a></span> | <span><a href="mailto:daveloper@pandemieende.at">Kontakt</a></span> | <span><a href="https://www.pandemieende.at">Pandemieende Östereich</a></span>| <span><a href="https://www.pandemieende.ch">Pandemieende Schweiz</a></span> | <span>Alle Angaben ohne Gewähr</span>
             </div>
         </footer>
     </body>
@@ -363,22 +265,22 @@ and open the template in the editor.
         const HEARD_IMMUN = .7;
         const UNDER_SIXTEEN = 12166082;
         
-        $.get("germany_vaccinations_timeseries_v2.tsv?_=" + new Date().getTime(), function(impfData, status) {
+        $.get("../data/germany_vaccinations_timeseries_v2.tsv?_=" + new Date().getTime(), function(impfData, status) {
             let csvVaccArr = csvJSON(`${impfData}`);
 
             let isVacc = csvVaccArr.last()[1].toInt();    // Anzahl an bisher geimpften Personen
             let vaccRate = getVaccRate(csvVaccArr);     // Impfungen pro Tag im 7-Tage-Schnitt https://info.gesundheitsministerium.gv.at/data/timeline.csv
             let sumVaccImmune = csvVaccArr.last()[9].toInt();
 
-            let vaccLeft = (POPULATION) * HEARD_IMMUN - sumVaccImmune; // Noch zu impfende Bevölkerung
-            let impfungen = vaccLeft * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
-            let isImmunePercent = (sumVaccImmune / (POPULATION)) * 100;
+            let vaccLeft = POPULATION * HEARD_IMMUN - sumVaccImmune; // Noch zu impfende Bevölkerung
+            let impfungen = (POPULATION * HEARD_IMMUN) * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
+            let isImmunePercent = (sumVaccImmune / POPULATION) * 100;
 
             let daysSum = Math.round(impfungen / vaccRate); // Tage die benötigt werden um bei derzeitiger Impfrate die Herdenimmunität zu erreichen
             let endDate = new Date().setDate(new Date().getDate() + daysSum); // Enddatum
 
             document.getElementById("datum").innerHTML = new Date(endDate).toLocaleDateString("de-AT");
-            document.getElementById("tage").innerHTML = "Noch " + daysSum + " Tage";
+            document.getElementById("tage").innerHTML = `Noch ${daysSum} Tage`;
             document.getElementById("humanisedDate").innerHTML = humanise(daysSum);
             document.getElementById("impfPers").innerHTML = vaccLeft.asRoundStr();
             document.getElementById("impfDos").innerHTML = impfungen.asRoundStr();
@@ -395,8 +297,8 @@ and open the template in the editor.
 
 //                document.getElementById("myProgress").style.backgroundColor = getColor(istImmunPercent * .01, 90);
             document.getElementById("progressBar").style.backgroundColor = getColor(isImmunePercent * .01, 50);
-            document.getElementById("progressBar").style.width = (isImmunePercent) + "%";
-            document.getElementById("progressBar").innerHTML = (isImmunePercent).toFixed(2) + "%";
+            document.getElementById("progressBar").style.width = `${isImmunePercent}%`;
+            document.getElementById("progressBar").innerHTML = `${isImmunePercent.toFixed(2)}%`;
             document.getElementById("update-date").innerHTML = new Date(csvVaccArr.last()[0]).toLocaleDateString("de-AT")
             
             

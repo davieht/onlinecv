@@ -36,13 +36,13 @@ function drawBarState(domElem, vaccArr, rowIdx, colIdxPerc, colIdxAbs) {
 }
 
 async function load() {
-    const impfData = await fetch("timeline-eimpfpass.csv?_=" + new Date().getTime())
+    const impfData = await fetch("data/timeline-eimpfpass.csv?_=" + new Date().getTime())
             .then(response => response.text())
             .then(text => text.split("\n")
                 .map(element => element.split(";"))
                 );
         
-    const allgData = await fetch("timeline-faelle-bundeslaender.csv?_=" + new Date().getTime())
+    const allgData = await fetch("data/timeline-faelle-bundeslaender.csv?_=" + new Date().getTime())
             .then(response => response.text())
             .then(text => text.split("\n")
                 .map(element => element.split(";"))
@@ -56,7 +56,23 @@ async function load() {
 
 function main() {
     load().then(data => draw(data.impfData, data.allgData));
-}
+    
+//    fetch("owid-covid-latest.json?_=" + new Date().getTime())
+//            .then(response => response.json())
+//            .then(function(data){
+//                const str = Object.values(data).sort((a,b) => a.total_vaccinations_per_hundred > b.total_vaccinations_per_hundred ? -1 : 1).map(function(worldData, idx){
+//                    const percentFirst = worldData.peopleVaccinated === null || worldData.population === null ? null : `${(worldData.people_vaccinated / worldData.population * 100).toFixed(2)}%`;
+//                    const percentSecond = worldData.people_fully_vaccinated === null || worldData.population === null ? null : `${(worldData.people_fully_vaccinated / worldData.population * 100).toFixed(2)}%`;
+//                    return `<div class="label">${idx + 1}. ${worldData.location}</div>
+//                    <div class="myProgress">
+//                        <div class="vaccFirst" style="width: ${percentFirst ?? '0px'}">${percentFirst ?? 'keine Daten'}</div>
+//                        <div class="vaccSecond" style="width: ${percentSecond ?? '0px'}">${percentSecond ?? 'keine Daten'}</div>
+//                    </div>`;
+//                }).join('');
+//                document.getElementById("world").innerHTML = str;
+//            
+//    });    
+};
 
 function draw(vaccData, covidData) {
     let population = vaccData.last()[POP].toInt(); // Gesamtbevölkerung Österreich
@@ -84,9 +100,9 @@ function draw(vaccData, covidData) {
     let sumVaccImmune = vaccData.last()[VACC_SECOND_ROW].toInt();
 
     //let sumImmune = sumVaccImmune + recovered;    // Anzahl an immunisierten Personen
-    let vaccLeft = (population) * HEARD_IMMUN - sumVaccImmune; // Noch zu impfende Bevölkerung
-    let impfungen = vaccLeft * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
-    let isImmunePercent = (sumVaccImmune / (population)) * 100;
+    let vaccLeft = population * HEARD_IMMUN - sumVaccImmune; // Noch zu impfende Bevölkerung
+    let impfungen = (population * HEARD_IMMUN) * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
+    let isImmunePercent = (sumVaccImmune / population) * 100;
 
     let daysSum = Math.round(impfungen / vaccRate); // Tage die benötigt werden um bei derzeitiger Impfrate die Herdenimmunität zu erreichen
     let endDate = new Date().setDate(new Date().getDate() + daysSum); // Enddatum
@@ -117,14 +133,13 @@ function draw(vaccData, covidData) {
         document.getElementById("impfRat").innerHTML = vaccRate.asRoundStr();
         document.getElementById("population").innerHTML = population.asRoundStr();
     //                document.getElementById("impfbar").innerHTML = (population).asRoundStr();
-        document.getElementById("vaccSum").innerHTML = vaccData.last()[VACC_SUM_ROW].toInt().toLocaleString("de-AT");;
-    //                document.getElementById("vaccSumPercent").innerHTML = (vaccData.last()[VACC_SUM_ROW].toInt() / population * 100).toFixed(2) + "&nbsp;%";
-        document.getElementById("vaccFirst").innerHTML = vaccData.last()[VACC_FIRST_ROW].toInt().toLocaleString("de-AT");;
-    //                document.getElementById("vaccFirstPercent").innerHTML = (vaccData.last()[VACC_FIRST_ROW].toInt() / population * 100).toFixed(2) + "&nbsp;%";
-        document.getElementById("vaccSecond").innerHTML = vaccData.last()[VACC_SECOND_ROW].toInt().toLocaleString("de-AT");;
-    //                document.getElementById("vaccSecondPercent").innerHTML = (vaccData.last()[VACC_SECOND_ROW].toInt() / population * 100).toFixed(2) + "&nbsp;%";
+        document.getElementById("vaccSum").innerHTML = vaccData.last()[VACC_SUM_ROW].toInt().toLocaleString("de-AT");
+        document.getElementById("vaccSumDelta").innerHTML = `+${(vaccData.last()[VACC_SUM_ROW].toInt() - vaccData.last(11)[VACC_SUM_ROW].toInt()).toLocaleString("de-AT")}`;
+        document.getElementById("vaccFirst").innerHTML = vaccData.last()[VACC_FIRST_ROW].toInt().toLocaleString("de-AT");
+        document.getElementById("vaccFirstDelta").innerHTML = `+${(vaccData.last()[VACC_FIRST_ROW].toInt() - vaccData.last(11)[VACC_FIRST_ROW].toInt()).toLocaleString("de-AT")}`;
+        document.getElementById("vaccSecond").innerHTML = vaccData.last()[VACC_SECOND_ROW].toInt().toLocaleString("de-AT");
+        document.getElementById("vaccSecondDelta").innerHTML = `+${(vaccData.last()[VACC_SECOND_ROW].toInt() - vaccData.last(11)[VACC_SECOND_ROW].toInt()).toLocaleString("de-AT")}`;
         document.getElementById("recovered").innerHTML = recovered.asRoundStr();
-    //                document.getElementById("recoveredPercent").innerHTML = (recovered / population * 100).toFixed(2) + "&nbsp;%";
 
         document.getElementById("recoveredDelta").innerHTML = recoveredDelta.toSignedString();
         document.getElementById("infected").innerHTML = infected.toLocaleString("de-AT");
@@ -173,7 +188,6 @@ function draw(vaccData, covidData) {
             document.getElementById("impf_date_pop_percent").innerHTML = (((sum) / population) * 100).toFixed(2);
         }
     }
-
     
     drawMainBar();
     drawBubbles();

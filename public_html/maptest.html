@@ -17,7 +17,7 @@ and open the template in the editor.
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
     <style>
         html {font-family: Roboto, sans-serif;}
         
@@ -66,20 +66,18 @@ and open the template in the editor.
     <body>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#" onclick="selectOption(INFECTIONS_COL)">Fälle</a>
-            <a href="#" onclick="selectOption(INFECTIONS_SUM_COL)">Fälle Ges.</a>
             <a href="#" onclick="selectOption(SEVENDAYINCIDENCE_COL)">7-Tage-Inzidenz</a>
-            <a href="#" onclick="selectOption(CASUALTIES_COL)">Verstorben</a>
-            <a href="#" onclick="selectOption(CASUALTIES_SUM_COL)">Verstorben Ges.</a>
-            <a href="#" onclick="selectOption(RECOVERED_COL)">Genesen</a>
-            <a href="#" onclick="selectOption(RECOVERED_SUM_COL)">Genesen Ges.</a>
+            <a href="#" onclick="selectOption(SEVENDAYINCIDENCE_COL)">7-Tage-Inzidenz (Veränderung)</a>
+            <a href="#" onclick="selectOption(INFECTIONS_COL)">Fälle pro Einwohner</a>
+            <a href="#" onclick="selectOption(INFECTIONS_SUM_COL)">Tote pro Einwohner</a>
         </div>
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menü</span>
         
         <div id="mapid"></div>
-        <input id="slider" type="range" min="1" max="200" value="50" style="width: 100vw" oninput="update(this.value)">
+        <input id="slider" type="range" min="1" max="200" value="50" style="width: 100%" oninput="update(this.value.toInt())">
+        <div id="mediaBtn" onclick="togglePlay()" style="cursor: pointer; font-size: 30px; width: 30px; margin: auto">&#x23F5;</div>
     </body>
-    <script src="districts.js"></script>
+    <script src="data/districts.js"></script>
     <script>
         
         String.prototype.toInt = function() {
@@ -102,15 +100,18 @@ and open the template in the editor.
         
         const OPACITY_DESELECTED = .5;
         const OPACITY_SELECTED = 1;
+        let timer;
         
-        const selected = {
+        const options = {
             districtId: 100,
-            col: INFECTIONS_COL,
-            step: 0
+            col: SEVENDAYINCIDENCE_COL,
+            step: 0,
+            isPlaying: false,
+            selected: null
         };
         
         function selectOption(col) {
-            selected.col = col;
+            options.col = col;
             update();
         }
         
@@ -142,7 +143,7 @@ and open the template in the editor.
             if (bla === undefined) {
                 console.log(feature.properties.iso);
             } else {
-                color = valToColor(bla[selected.col].toInt());
+                color = valToColor(bla[options.col].toInt());
             }
             return {
                 fillColor: color,
@@ -188,6 +189,31 @@ and open the template in the editor.
             });
         }
         
+        function togglePlay() {            
+            options.isPlaying = !options.isPlaying;
+            options.isPlaying ? play() : stop();
+            document.getElementById('mediaBtn').innerHTML = options.isPlaying ? '&#x23F8;' : '&#x23F5;';
+        }
+        
+        function play() {
+            if (options.step == dateArray.length - 1) {
+                options.step = 0;
+            }
+            timer = setInterval(function() {
+                if (options.step + 1 < dateArray.length) {
+                    update(options.step + 1);
+                    document.getElementById('slider').value = options.step;
+                } else {
+                    stop();
+                    options.isPlaying = false;
+                }
+            }, 100);
+        }
+        
+        function stop() {
+            clearTimeout(timer);
+        }
+        
         function onEachFeature(feature, layer) {
             layer.on({
                 mouseover: onMouseOver,
@@ -219,9 +245,9 @@ and open the template in the editor.
         
         function update(value) {
             if (!value) {
-                value = selected.step;
+                value = options.step;
             } else {
-                selected.step = value.toInt();
+                options.step = value;
             }
             layer.eachLayer(function(layer){
                 layer.setStyle(style(layer.feature, value));
@@ -232,8 +258,13 @@ and open the template in the editor.
         let dateArray;
         let layer = null;
         
-        $.get("CovidFaelle_Timeline_GKZ.csv?_=" + new Date().getTime(), function(data, status) {
-            const arr = csvJSON(`${data}`);            
+        fetch("data/CovidFaelle_Timeline_GKZ.csv?_=" + new Date().getTime())
+            .then(response => response.text())
+            .then(text => text.split("\n")
+                .map(element => element.split(";"))
+                )
+            .then(function(arr) {
+//            const arr = csvJSON(`${data}`);            
             for (let i = 1; i < arr.length; i++) {
                 const date = arr[i][0];
                 if (!dateMap.has(date)) {
@@ -246,11 +277,20 @@ and open the template in the editor.
                     districtMap.set(gkzNr, arr[i]);
                 }                
             }
+            
+//            dateArray = Array.from(dateMap.values());
             dateArray = Array.from(dateMap.values());
+//            dateArray.forEach(function(dateArr, idx){
+//                for (let date of dateArr.values()) {
+//                    date.push(date[]);
+//                }
+//            });
             
             layer = L.geoJson(districts, {onEachFeature: onEachFeature}).addTo(mymap);
             
-            document.getElementById("slider").setAttribute("max", dateMap.size);
+            document.getElementById("slider").setAttribute("max", dateArray.length - 1);
+            document.getElementById("slider").value = dateArray,length - 1;
+            update(dateArray.length - 1);
         });
     </script>
 </html>
