@@ -70,6 +70,7 @@ and open the template in the editor.
             <a href="#" onclick="selectOption(SEVENDAYINCIDENCE_COL)">7-Tage-Inzidenz (Veränderung)</a>
             <a href="#" onclick="selectOption(INFECTIONS_COL)">Fälle pro Einwohner</a>
             <a href="#" onclick="selectOption(INFECTIONS_SUM_COL)">Tote pro Einwohner</a>
+            <a href="#" onclick="selectOption(CASUALTIES_COL)">Tote</a>
         </div>
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menü</span>
         
@@ -89,6 +90,7 @@ and open the template in the editor.
         };
         
         const DATE_COL = 0;
+        const NAME_COL = 1;
         const INHABITANTS_COL = 3;
         const INFECTIONS_COL = 4;
         const INFECTIONS_SUM_COL = 5;
@@ -103,12 +105,15 @@ and open the template in the editor.
         let timer;
         
         const options = {
-            districtId: 100,
+            selected: null,
             col: SEVENDAYINCIDENCE_COL,
             step: 0,
-            isPlaying: false,
-            selected: null
+            isPlaying: false
         };
+        
+        const dateMap = new Map();
+        let dateArray;
+        let layer = null;
         
         function selectOption(col) {
             options.col = col;
@@ -123,7 +128,7 @@ and open the template in the editor.
             document.getElementById("mySidenav").style.display = "none";
         }
                 
-        function valToColor(value) {
+        function inciThreshold(value) {
             if (value < 50) {
                 return 'green';
             } else if (value < 100) {
@@ -132,18 +137,30 @@ and open the template in the editor.
                 return 'orange';
             } else if (value < 400) {
                 return 'red';
-            } else {
+            } else if (value < 1000) {
                 return 'darkred';
+            } else {
+                return 'black';
             }
         }
         
+        function hotspots(value) {
+            return `hsl(${Math.max(120 - value * .25, -100)}, 100%, 50%)`;
+        }
+        
+        function deaths(value) {
+            return value > 0 ? 'black' : 'white';
+        }
+        
         function style(feature, step) {
-            const bla = dateArray[step].get(feature.properties.iso);
+            const district = dateArray[step].get(feature.properties.iso);
             let color = '#000';
-            if (bla === undefined) {
+            if (district === undefined) {
                 console.log(feature.properties.iso);
             } else {
-                color = valToColor(bla[options.col].toInt());
+                color = inciThreshold(district[options.col].toInt());
+//                color = hotspots(district[options.col].toInt());
+//                color = deaths(district[options.col].toInt());
             }
             return {
                 fillColor: color,
@@ -154,28 +171,42 @@ and open the template in the editor.
             };
         }
         
+        function update(value) {
+            if (!value) {
+                value = options.step;
+            } else {
+                options.step = value;
+            }
+            info.update();
+            layer.eachLayer(function(layer){
+                layer.setStyle(style(layer.feature, value));
+            });
+        }
+        
         var info = L.control({position: 'topleft'});
 
         info.onAdd = function (map) {
             this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-            this.update();
+            //this.update();
             return this._div;
         };
 
         // method that we will use to update the control based on feature properties passed
-        info.update = function (props) {
+        info.update = function () {
             const sliderPos = document.getElementById('slider').value;
-            if (props) {
-                const district = dateArray[sliderPos].get(props.iso);            
-                this._div.innerHTML = `${district[DATE_COL].substr(0, 8)}<br/><b>${props.name}</b><br/>Einwohner: ${district[INHABITANTS_COL].toInt()}<br/>Fälle: ${district[INFECTIONS_COL]}<br/>Fälle Ges.: ${district[INFECTIONS_SUM_COL]}<br/>7-Tage-Inzidenz: ${district[SEVENDAYINCIDENCE_COL].toInt()}<br/>Verstorben: ${district[CASUALTIES_COL]}<br/>Verstorben Ges.: ${district[CASUALTIES_SUM_COL]}<br/>Genesen: ${district[RECOVERED_COL]}<br/>Genesen Ges.: ${district[RECOVERED_SUM_COL]}`;
+            
+            if (options.selected) {
+                const district = dateArray[sliderPos].get(options.selected.feature.properties.iso);
+                this._div.innerHTML = `${district[DATE_COL].substr(0, 8)}<br/><b>${district[NAME_COL]}</b><br/>Einwohner: ${district[INHABITANTS_COL].toInt()}<br/>Fälle: ${district[INFECTIONS_COL]}<br/>Fälle Ges.: ${district[INFECTIONS_SUM_COL]}<br/>7-Tage-Inzidenz: ${district[SEVENDAYINCIDENCE_COL].toInt()}<br/>Verstorben: ${district[CASUALTIES_COL]}<br/>Verstorben Ges.: ${district[CASUALTIES_SUM_COL]}<br/>Genesen: ${district[RECOVERED_COL]}<br/>Genesen Ges.: ${district[RECOVERED_SUM_COL]}`;
             } else {
-                this._div.innerHTML = "";
+                const district = dateArray[sliderPos].get("900");
+                this._div.innerHTML = `${district[DATE_COL].substr(0, 8)}`;
             }
         };        
         
         function onMouseOver(e) {
             var layer = e.target;
-            info.update(layer.feature.properties);
+            info.update();
             layer.setStyle({
                 fillOpacity: OPACITY_SELECTED
             });
@@ -184,9 +215,30 @@ and open the template in the editor.
         function onMouseOut(e) {
             var layer = e.target;
             info.update();
-            layer.setStyle({
-                fillOpacity: OPACITY_DESELECTED
-            });
+            if (options.selected !== layer) {
+                layer.setStyle({
+                    fillOpacity: OPACITY_DESELECTED
+                });
+            }
+        }
+        
+        function onClick(e) {
+            var layer = e.target;            
+            if (options.selected === layer) {
+                options.selected = null;
+                layer.setStyle({
+                    fillOpacity: OPACITY_DESELECTED
+                });
+            } else {
+                options.selected?.setStyle({
+                    fillOpacity: OPACITY_DESELECTED
+                });
+                options.selected = layer;
+                layer.setStyle({
+                    fillOpacity: OPACITY_SELECTED
+                });
+            }
+            info.update();
         }
         
         function togglePlay() {            
@@ -206,6 +258,7 @@ and open the template in the editor.
                 } else {
                     stop();
                     options.isPlaying = false;
+                    document.getElementById('mediaBtn').innerHTML = '&#x23F5;';
                 }
             }, 100);
         }
@@ -218,7 +271,7 @@ and open the template in the editor.
             layer.on({
                 mouseover: onMouseOver,
                 mouseout: onMouseOut,
-                click: onMouseOver
+                click: onClick
             });
         }
         
@@ -231,32 +284,14 @@ and open the template in the editor.
             keyboard: false,
             dragging: false,
             zoomSnap: .1
-        }).setView([47.67, 13.65], 6.7);
+        }).fitBounds([[49.09, 8.64], [46.19, 17.82]]);
+//                .setView([47.67, 13.65], 6.7);
         info.addTo(mymap);
         
         var wienUnion = turf.union(...districts.features.filter(it=> it.properties.iso.startsWith('9')));
         districts.features = districts.features.filter(it=>!it.properties.iso.startsWith('9'));
         wienUnion.properties.iso = '900';
         districts.features.push(wienUnion);
-        
-        function csvJSON(csv){
-            return csv.split("\n").map(element => element.split(";"));
-        }
-        
-        function update(value) {
-            if (!value) {
-                value = options.step;
-            } else {
-                options.step = value;
-            }
-            layer.eachLayer(function(layer){
-                layer.setStyle(style(layer.feature, value));
-            });
-        }
-        
-        const dateMap = new Map();
-        let dateArray;
-        let layer = null;
         
         fetch("data/CovidFaelle_Timeline_GKZ.csv?_=" + new Date().getTime())
             .then(response => response.text())
@@ -289,7 +324,7 @@ and open the template in the editor.
             layer = L.geoJson(districts, {onEachFeature: onEachFeature}).addTo(mymap);
             
             document.getElementById("slider").setAttribute("max", dateArray.length - 1);
-            document.getElementById("slider").value = dateArray,length - 1;
+            document.getElementById("slider").value = dateArray.length - 1;
             update(dateArray.length - 1);
         });
     </script>

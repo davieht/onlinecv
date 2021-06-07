@@ -32,6 +32,7 @@ Number.prototype.toSignedString = function() {
 
 function humanise(total_days)
 {
+    //var total_days = 1001;
     var date_current = new Date();
     var utime_target = date_current.getTime() + total_days*86400*1000;
     var date_target = new Date(utime_target);
@@ -42,7 +43,6 @@ function humanise(total_days)
 
     var days_in_month = [31, (date_target.getUTCFullYear()%4?29:28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     var date_string = "";
-    
     while(true)
     {
         date_string = "";
@@ -55,7 +55,7 @@ function humanise(total_days)
         date_string += (diff_day > 0 ? diff_day + (diff_day > 1 ? " Tage" : "Tag") :"");
         break;
     }
-
+    console.log(date_string);
     return date_string;
 }
 

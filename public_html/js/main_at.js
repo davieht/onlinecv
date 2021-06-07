@@ -56,6 +56,7 @@ async function load() {
 
 function main() {
     load().then(data => draw(data.impfData, data.allgData));
+    mapInit();
     
 //    fetch("owid-covid-latest.json?_=" + new Date().getTime())
 //            .then(response => response.json())
@@ -139,8 +140,8 @@ function draw(vaccData, covidData) {
         document.getElementById("vaccFirstDelta").innerHTML = `+${(vaccData.last()[VACC_FIRST_ROW].toInt() - vaccData.last(11)[VACC_FIRST_ROW].toInt()).toLocaleString("de-AT")}`;
         document.getElementById("vaccSecond").innerHTML = vaccData.last()[VACC_SECOND_ROW].toInt().toLocaleString("de-AT");
         document.getElementById("vaccSecondDelta").innerHTML = `+${(vaccData.last()[VACC_SECOND_ROW].toInt() - vaccData.last(11)[VACC_SECOND_ROW].toInt()).toLocaleString("de-AT")}`;
+        
         document.getElementById("recovered").innerHTML = recovered.asRoundStr();
-
         document.getElementById("recoveredDelta").innerHTML = recoveredDelta.toSignedString();
         document.getElementById("infected").innerHTML = infected.toLocaleString("de-AT");
         document.getElementById("infectedDelta").innerHTML = infectedDelta.toSignedString();

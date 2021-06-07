@@ -5,7 +5,6 @@
     --blue-w4: hsl(211, 100%, 40%);
     --blue-w5: hsl(211, 100%, 30%);
     --main-bar-height: 50px;
-    --grey: hsl(0, 0%, 95%);
 }
 body {font-family: Roboto, sans-serif ;}
 .main {padding-top: 8vw; padding-bottom: 2vw; }
@@ -21,14 +20,14 @@ h3 { margin-top: 30px; }
 .update { padding: 32px; color: #888; font-size: 12px; text-align: left}
 #mainProgress {
     width: 100%; 
-    background-color: var(--grey); 
+    background-color: #eee; 
     line-height: var(--main-bar-height);
     position: relative;
     height: var(--main-bar-height);
 }
 .myProgress { 
     width: 100%; 
-    background-color: var(--grey); 
+    background-color: #eee; 
     line-height: 30px;
 }
 .label {
@@ -81,7 +80,7 @@ h3 { margin-top: 30px; }
     color: forestgreen;
     text-align: left;
     padding-left: 10px;
-    background-image: linear-gradient(to right, var(--grey), #fff);
+    background-image: linear-gradient(to right, #eee, #fff);
 }
 #bar {
     width: 0.3px;
@@ -133,7 +132,7 @@ td {
 .bubble {
     display: inline-block;
     border-radius: 4px;
-    background-color: var(--grey);
+    background-color: #eee;
     margin: 4px;
     padding: 8px;
     font-size: 16px;
@@ -146,10 +145,4 @@ td {
 }
 .toggle p:not(:first-of-type), .toggle ul:not(:first-of-type){
     display: none;
-}
-#mapid { 
-    height: 50vw; 
-}
-.leaflet-container {
-    background: none!important;
 }

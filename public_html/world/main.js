@@ -1,32 +1,78 @@
 const HEARD_IMMUN = 0.7;
 
-let cdata = null;
+let cData = null;
 let noDataStr = "no data";
+
+function humanise(total_days)
+{
+    var date_current = new Date();
+    var utime_target = date_current.getTime() + total_days*86400*1000;
+    var date_target = new Date(utime_target);
+
+    var diff_year  = parseInt(date_target.getUTCFullYear() - date_current.getUTCFullYear());
+    var diff_month = parseInt(date_target.getUTCMonth() - date_current.getUTCMonth());
+    var diff_day   = parseInt(date_target.getUTCDate() - date_current.getUTCDate());
+
+    var days_in_month = [31, (date_target.getUTCFullYear()%4?29:28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var date_string = "";
+    
+    while(true)
+    {
+        date_string = "";
+        date_string += (diff_year>0 ? diff_year + (diff_year > 1 ?" years ": " year "):"");
+
+        if(diff_month<0){diff_year -= 1; diff_month += 12; continue;}
+        date_string += (diff_month > 0 ? diff_month + (diff_month > 1 ? " months ": " month "):"");
+
+        if(diff_day<0){diff_month -= 1; diff_day += days_in_month[((11+date_target.getUTCMonth())%12)]; continue;}
+        date_string += (diff_day > 0 ? diff_day + (diff_day > 1 ? " days" : "day") :"");
+        break;
+    }
+
+    return date_string;
+}
 
 function main() {    
     fetch("owid-covid-latest.json?_=" + new Date().getTime())
             .then(response => response.json())
-            .then(function(data) {
-                cdata = data;
+//            .then(function(data) {
+//                cdata = data;
+//                cCode = getCookie('cCode');
+//                draw(cCode !== null ? data[cCode] : data['OWID_WRL']);
+//                drawModal(data);
+//            })
+            .then(function(data){
+                cData = data;
                 cCode = getCookie('cCode');
-                draw(cCode !== null ? data[cCode] : data['OWID_WRL']);
+                draw();
                 drawModal(data);
-            });
-//            .then(function(data){
-//                const str = Object.values(data).sort((a,b) => a.total_vaccinations_per_hundred > b.total_vaccinations_per_hundred ? -1 : 1).map(function(worldData, idx){
-//                    const percentFirst = worldData.peopleVaccinated === null || worldData.population === null ? null : `${(worldData.people_vaccinated / worldData.population * 100).toFixed(2)}%`;
-//                    const percentSecond = worldData.people_fully_vaccinated === null || worldData.population === null ? null : `${(worldData.people_fully_vaccinated / worldData.population * 100).toFixed(2)}%`;
-//                    return `<div class="label">${idx + 1}. ${worldData.location}</div>
-//                    <div class="myProgress">
-//                        <div class="vaccFirst" style="width: ${percentFirst ?? '0px'}">${percentFirst ?? 'keine Daten'}</div>
-//                        <div class="vaccSecond" style="width: ${percentSecond ?? '0px'}">${percentSecond ?? 'keine Daten'}</div>
-//                    </div>`;
-//                }).join('');
-//                document.getElementById("world").innerHTML = str;
-//    });    
+                drawGlobal();
+                
+                
+    });    
 };
 
-function draw(data) {
+function drawGlobal() {
+    const str = Object.values(cData)
+        .filter((d) => d.population > 1000000 && d.people_vaccinated && d.people_fully_vaccinated)
+        .sort((a,b) => a.total_vaccinations_per_hundred > b.total_vaccinations_per_hundred ? -1 : 1)
+        .slice(0, 3)
+        .concat(cCode !== null ? cData[cCode] : cData['OWID_WRL'])
+        .sort((a,b) => a.total_vaccinations_per_hundred > b.total_vaccinations_per_hundred ? -1 : 1)
+        .map(function(worldData, idx){
+            const percentFirst = worldData.peopleVaccinated === null || worldData.population === null ? null : `${(worldData.people_vaccinated / worldData.population * 100).toFixed(2)}%`;
+            const percentSecond = worldData.people_fully_vaccinated === null || worldData.population === null ? null : `${(worldData.people_fully_vaccinated / worldData.population * 100).toFixed(2)}%`;
+            return `<div class="label">${idx + 1}. ${worldData.location}</div>
+            <div class="myProgress">
+                <div class="vaccFirst" style="width: ${percentFirst ?? '0px'}">${percentFirst ?? 'keine Daten'}</div>
+                <div class="vaccSecond" style="width: ${percentSecond ?? '0px'}">${percentSecond ?? 'keine Daten'}</div>
+            </div>`;
+        }).join('');
+        document.getElementById("world").innerHTML = str;
+}
+
+function draw() {
+    data = cCode !== null ? cData[cCode] : cData['OWID_WRL'];
     let population = data['population'];
     
     let vaccRate = data['new_vaccinations'] !== null ? data['new_vaccinations'] : data['new_vaccinations_smoothed'];
@@ -50,7 +96,7 @@ function draw(data) {
     
     function drawBubbles() {
         document.getElementById("date").innerHTML = new Date(endDate).toLocaleDateString("de-AT");
-        document.getElementById("days").innerHTML = `Noch ${daysSum} Tage`;
+        document.getElementById("days").innerHTML = `${daysSum} days left`;
         document.getElementById("humanizedDate").innerHTML = humanise(daysSum);
         document.getElementById("vaccPerson").innerHTML = vaccLeft?.asRoundStr() ?? noDataStr;
         document.getElementById("vaccDoses").innerHTML = vaccinations?.asRoundStr();
@@ -110,6 +156,8 @@ function openModal() {
 
 function selectCountry(countryCode) {
     setCookie('cCode', countryCode);
-    draw(cdata[countryCode]);
+    cCode = countryCode;
+    draw();
+    drawGlobal();
     document.getElementById('countryModal').style.display='none';
 }

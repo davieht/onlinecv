@@ -16,10 +16,10 @@ and open the template in the editor.
           gtag('config', 'G-4DQ9FE211L');
         </script>
         <script type="text/javascript">
-//        if (location.protocol != 'https:')
-//        {
-//        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-//        }
+        if (location.protocol != 'https:')
+        {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
         </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
         
@@ -39,21 +39,23 @@ and open the template in the editor.
         <meta http-equiv="Expires" content="0" />
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-        <link rel="icon" type="image/png" href="../src/icon.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="../src/icon.png" sizes="96x96">
+        <link rel="stylesheet" href="https://pandemieende.at/style/style.css"/>
+        <link rel="icon" type="image/png" href="icon.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="icon.png" sizes="96x96">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://pandemieende.at/js/utils.js"></script>
     </head>
     <body>
         <div class="main w3-container">
             <div class="w3-center w3-content">
-                <h1 id="datum" class="verylarge"></h1>
-                <h2 id="tage" class="large"></h2>
-                <h3 id="humanisedDate"></h3>
+                <h1 id="date" class="verylarge"></h1>
+                <h2 id="days" class="large"></h2>
+                <h3 id="humanizedDate"></h3>
                 
-                <div class="subtext"><img src="../src/de.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Deutschland erreicht ist. *</div>
-                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
+                <div class="subtext"><img src="src/de.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Deutschland erreicht ist. *</div>
+<!--                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Achtung: Neue Berechnung! <a href="#changelog">Hier</a> nachzulesen</p>
-                </div>
+                </div>-->
                 
                 <div>Immunitätsrate **</div>
                 <div id="mainProgress">
@@ -73,29 +75,76 @@ and open the template in the editor.
                 </div>
                 <div>
                     <div class="bubble">
-                        <p id="impfPers"></p>
+                        <p id="vaccPers"></p>
                         <p>zu impfende Personen</p>
                     </div>
                     <div class="bubble">
-                        <p id="impfDos"></p>
+                        <p id="vaccDose"></p>
                         <p>benötigte Impfdosen</p>
                     </div>
                     
                     <div class="bubble" style="background-color:hsl(211, 100%, 93%)">
                         <p id="vaccSum"></p>
+                        <p id="vaccSumDelta"></p>
                         <p>Impfungen Summe</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(211, 100%, 87%)">
                         <p id="vaccFirst"></p>
-                        <p>Teilimpfungen<br/>(1. Dosis)</p>
+                        <p id="vaccFirstDelta"></p>
+                        <p>Teilimpfungen</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(211, 100%, 80%)">
                         <p id="vaccSecond"></p>
-                        <p>Vollimmunisierte<br/>(2. Dosis)</p>
+                        <p id="vaccSecondDelta"></p>
+                        <p>Vollimmunisierte</p>
                     </div>
                     <div class="bubble">
-                        <p id="impfRat"></p>
+                        <p id="vaccRate"></p>
+                        <p id="vaccRateDelta"></p>
                         <p>Impfrate<br/>(7-Tage-Schnitt)</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="bubble" style="background-color:hsl(40, 100%, 90%)">
+                        <p id="infected"></p>
+                        <p id="infectedDelta"></p>
+                        <p>Infizierte ges.</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(120, 100%, 90%)">
+                        <p id="recovered"></p>
+                        <p id="recoveredDelta"></p>
+                        <p>Genesene</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(0, 0%, 30%);color:white">
+                        <p id="casualties"></p>
+                        <p id="casualtiesDelta"></p>
+                        <p>Todesopfer</p>
+                    </div>               
+                    <div class="bubble" style="background-color:hsl(40, 100%, 90%)">
+                        <p id="infectedCurrent"></p>
+                        <p id="infectedCurrentDelta"></p>
+                        <p>Infizierte aktuell</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(20, 100%, 90%)">
+                        <p id="hospital"></p>
+                        <p id="hospitalDelta"></p>
+                        <p>Hostpitalisierte</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(0, 100%, 90%)">
+                        <p id="intensiveCare"></p>
+                        <p id="intensiveCareDelta"></p>
+                        <p>Intensivpatienten</p>
+                    </div>
+                         
+                    <div class="bubble">
+                        <p id="tests"></p>
+                        <p id="testsDelta"></p>
+                        <p>Testungen</p>
+                    </div>
+                    <div class="bubble">
+                        <p id="incidence"></p>
+                        <p id="incidenceDelta"></p>
+                        <p>7-Tage-Inzidenz</p>
                     </div>
                 </div>
             </div>
@@ -111,8 +160,8 @@ and open the template in the editor.
                 <div><a href="https://www.bundesregierung.de/breg-de/themen/coronavirus/fallzahlen-coronavirus-1738210" target="_blank">Aktuelle Zahlen zu Covid</a></div>
             </div>
             <div class="w3-center w3-center">
-                <div><img src="../src/at.svg" width="16"/> <a href="https://pandemieende.at">Pandemieende Österreich</a></div>
-                <div><img src="../src/ch.svg" width="16"/> <a href="https://pandemieende.ch">Pandemieende Schweiz</a></div>
+                <div><img src="src/at.svg" width="16"/> <a href="https://pandemieende.at">Pandemieende Österreich</a></div>
+                <div><img src="src/ch.svg" width="16"/> <a href="https://pandemieende.ch">Pandemieende Schweiz</a></div>
             </div>
             <div class="w3-content w3-center">
                 <table class="w3-content footnote fngroup">
@@ -126,7 +175,7 @@ and open the template in the editor.
                     </tr>
                     <tr>
                         <th></th>
-                        <td>Updates immer um 12:15</td>
+                        <td>Updates täglich um 12:15</td>
                     </tr>
                 </table>
                 <div class="donate">Sie finden die Idee toll? Spendieren Sie mir ein Bier :)</div>
@@ -192,85 +241,38 @@ and open the template in the editor.
         <footer class="footer w3-white w3-center">            
             <div>Made with <span style="color: red">&#10084;</span> by "Daveloper"</div>
             <div>
-                <span>Datenquellen: RKI (Robert Koch Institut), destatis (Statistisches Bundesamt), impfdashboard.de</span> | <span><a href="../impressum.html">Impressum</a></span> | <span><a href="mailto:daveloper@pandemieende.at">Kontakt</a></span> | <span><a href="https://www.pandemieende.at">Pandemieende Östereich</a></span>| <span><a href="https://www.pandemieende.ch">Pandemieende Schweiz</a></span> | <span>Alle Angaben ohne Gewähr</span>
+                <span>Datenquellen: RKI (Robert Koch Institut), destatis (Statistisches Bundesamt), impfdashboard.de</span> | <span><a href="impressum.html">Impressum</a></span> | <span><a href="mailto:daveloper@pandemieende.at">Kontakt</a></span> | <span><a href="https://www.pandemieende.at">Pandemieende Östereich</a></span>| <span><a href="https://www.pandemieende.ch">Pandemieende Schweiz</a></span> | <span>Alle Angaben ohne Gewähr</span>
             </div>
         </footer>
     </body>
     <script type="text/javascript">
-        
-        Array.prototype.last = function() {
-            return this.slice(-1)[0];
-        };
-        
-        String.prototype.asRoundInt = function() {
-            let parsed = parseInt(this);
-            if (isNaN(parsed)) {
-                parsed = 0;
-            }
-            return Math.round(parsed);
-        };
-        
-        Number.prototype.asRoundStr = function() {
-            return Math.round(this).toLocaleString("de-AT");
-        };
-        
-        String.prototype.toInt = function() {
-            return parseInt(this);
-        };
-        
-        function humanise(total_days)
-        {
-            //var total_days = 1001;
-            var date_current = new Date();
-            var utime_target = date_current.getTime() + total_days*86400*1000;
-            var date_target = new Date(utime_target);
-
-            var diff_year  = parseInt(date_target.getUTCFullYear() - date_current.getUTCFullYear());
-            var diff_month = parseInt(date_target.getUTCMonth() - date_current.getUTCMonth());
-            var diff_day   = parseInt(date_target.getUTCDate() - date_current.getUTCDate());
-
-            var days_in_month = [31, (date_target.getUTCFullYear()%4?29:28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            var date_string = "";
-            while(true)
-            {
-                date_string = "";
-                date_string += (diff_year>0 ? diff_year + (diff_year > 1 ?" Jahre ": " Jahr "):"");
-
-                if(diff_month<0){diff_year -= 1; diff_month += 12; continue;}
-                date_string += (diff_month > 0 ? diff_month + (diff_month > 1 ? " Monate ": " Monat "):"");
-
-                if(diff_day<0){diff_month -= 1; diff_day += days_in_month[((11+date_target.getUTCMonth())%12)]; continue;}
-                date_string += (diff_day > 0 ? diff_day + (diff_day > 1 ? " Tage" : "Tag") :"");
-                break;
-            }
-            console.log(date_string);
-            return date_string;
-        }
-        
-        function csvJSON(csv){
-            return csv.trim().split("\n").map(element => element.split("\t"));
-        }
-        
-        function getVaccRate(arr) {
-            return Math.round((arr[arr.length - 1][1] - arr[arr.length - 8][1]) / 7);
-        }
-        
-        function getColor(value, light){
-            var hue=((value)*120).toString(10);
-            return ["hsl(",hue,",70%,",light,"%)"].join("");
-        }
         
         const POPULATION = 83190556; // Gesamtbevölkerung Deutschland
         const RECOVERED = 2287850;
         const HEARD_IMMUN = .7;
         const UNDER_SIXTEEN = 12166082;
         
-        $.get("../data/germany_vaccinations_timeseries_v2.tsv?_=" + new Date().getTime(), function(impfData, status) {
+        const VACC_SUM_COL = 1;
+        const VACC_FIRST_COL = 8;
+        const VACC_FULL_COL = 9
+        
+        function csvJSON(csv){
+            return csv.trim().split("\n").map(element => element.split("\t"));
+        }
+        
+        function getVaccRate(arr, prev) {
+            if (!prev) {
+                prev = 0;
+            }
+            return Math.round((arr[arr.length - (1 + prev)][VACC_SUM_COL] - arr[arr.length - (8 + prev)][VACC_SUM_COL]) / 7);
+        }
+        
+        $.get("data/germany_vaccinations_timeseries_v2.tsv?_=" + new Date().getTime(), function(impfData, status) {
             let csvVaccArr = csvJSON(`${impfData}`);
 
-            let isVacc = csvVaccArr.last()[1].toInt();    // Anzahl an bisher geimpften Personen
+            let isVacc = csvVaccArr.last()[VACC_SUM_COL].toInt();    // Anzahl an bisher geimpften Personen
             let vaccRate = getVaccRate(csvVaccArr);     // Impfungen pro Tag im 7-Tage-Schnitt https://info.gesundheitsministerium.gv.at/data/timeline.csv
-            let sumVaccImmune = csvVaccArr.last()[9].toInt();
+            let sumVaccImmune = csvVaccArr.last()[VACC_FULL_COL].toInt();
 
             let vaccLeft = POPULATION * HEARD_IMMUN - sumVaccImmune; // Noch zu impfende Bevölkerung
             let impfungen = (POPULATION * HEARD_IMMUN) * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
@@ -279,18 +281,22 @@ and open the template in the editor.
             let daysSum = Math.round(impfungen / vaccRate); // Tage die benötigt werden um bei derzeitiger Impfrate die Herdenimmunität zu erreichen
             let endDate = new Date().setDate(new Date().getDate() + daysSum); // Enddatum
 
-            document.getElementById("datum").innerHTML = new Date(endDate).toLocaleDateString("de-AT");
-            document.getElementById("tage").innerHTML = `Noch ${daysSum} Tage`;
-            document.getElementById("humanisedDate").innerHTML = humanise(daysSum);
-            document.getElementById("impfPers").innerHTML = vaccLeft.asRoundStr();
-            document.getElementById("impfDos").innerHTML = impfungen.asRoundStr();
-            document.getElementById("impfRat").innerHTML = vaccRate.asRoundStr();
+            document.getElementById("date").innerHTML = new Date(endDate).toLocaleDateString("de-AT");
+            document.getElementById("days").innerHTML = `Noch ${daysSum} Tage`;
+            document.getElementById("humanizedDate").innerHTML = humanise(daysSum);
+            document.getElementById("vaccPers").innerHTML = vaccLeft.asRoundStr();
+            document.getElementById("vaccDose").innerHTML = impfungen.asRoundStr();
+            document.getElementById("vaccRate").innerHTML = vaccRate.asRoundStr();
+//            document.getElementById("vaccRateDelta").innerHTML = (vaccRate - getVaccRate(csvVaccArr, 1)).toSignedString();
             document.getElementById("population").innerHTML = POPULATION.asRoundStr();
-            document.getElementById("vaccSum").innerHTML = csvVaccArr.last()[1].toInt().toLocaleString("de-AT");;
+            document.getElementById("vaccSum").innerHTML = csvVaccArr.last()[VACC_SUM_COL].toInt().toLocaleString("de-AT");
+            document.getElementById("vaccSumDelta").innerHTML = `+${(csvVaccArr.last()[VACC_SUM_COL].toInt() - csvVaccArr.last(1)[VACC_SUM_COL].toInt()).toLocaleString("de-AT")}`;
 //            document.getElementById("vaccSumPercent").innerHTML = (csvVaccArr.last()[1].toInt() / POPULATION * 100).toFixed(2) + "&nbsp;%";
-            document.getElementById("vaccFirst").innerHTML = csvVaccArr.last()[8].toInt().toLocaleString("de-AT");;
+            document.getElementById("vaccFirst").innerHTML = csvVaccArr.last()[VACC_FIRST_COL].toInt().toLocaleString("de-AT");
+            document.getElementById("vaccFirstDelta").innerHTML = `+${(csvVaccArr.last()[VACC_FIRST_COL].toInt() - csvVaccArr.last(1)[VACC_FIRST_COL].toInt()).toLocaleString("de-AT")}`;
 //            document.getElementById("vaccFirstPercent").innerHTML = (csvVaccArr.last()[8].toInt() / POPULATION * 100).toFixed(2) + "&nbsp;%";
-            document.getElementById("vaccSecond").innerHTML = csvVaccArr.last()[9].toInt().toLocaleString("de-AT");;
+            document.getElementById("vaccSecond").innerHTML = csvVaccArr.last()[VACC_FULL_COL].toInt().toLocaleString("de-AT");
+            document.getElementById("vaccSecondDelta").innerHTML = `+${(csvVaccArr.last()[VACC_FULL_COL].toInt() - csvVaccArr.last(1)[VACC_FULL_COL].toInt()).toLocaleString("de-AT")}`;
 //            document.getElementById("vaccSecondPercent").innerHTML = (csvVaccArr.last()[9].toInt() / POPULATION * 100).toFixed(2) + "&nbsp;%";
 //            document.getElementById("recovered").innerHTML = RECOVERED.asRoundStr();
 //            document.getElementById("recoveredPercent").innerHTML = (RECOVERED / POPULATION * 100).toFixed(2) + "&nbsp;%";
@@ -355,7 +361,28 @@ and open the template in the editor.
                     }
                }
             });
-        });      
+        });
+        
+        $.get("data/RKI_Key_Data.csv?_=" + new Date().getTime(), function(result) {
+            const data = result.split("\n").map(element => element.split(",")).slice(1, -1);
+            
+            document.getElementById("recovered").innerHTML = data.reduce((total, currentValue) => total + currentValue[8].toInt(), 0).toLocaleString("de-AT");
+            document.getElementById("recoveredDelta").innerHTML = data.reduce((total, currentValue) => total + currentValue[9].toInt(), 0).toSignedString("de-AT");
+            document.getElementById("infected").innerHTML = data.reduce((total, currentValue) => total + currentValue[3].toInt(), 0).toLocaleString("de-AT");
+            document.getElementById("infectedDelta").innerHTML = data.reduce((total, currentValue) => total + currentValue[5].toInt(), 0).toSignedString("de-AT");
+            document.getElementById("casualties").innerHTML = data.reduce((total, currentValue) => total + currentValue[4].toInt(), 0).toLocaleString("de-AT");
+            document.getElementById("casualtiesDelta").innerHTML = data.reduce((total, currentValue) => total + currentValue[6].toInt(), 0).toSignedString("de-AT");
+//            document.getElementById("hospital").innerHTML = hospital.toLocaleString("de-AT");
+//            document.getElementById("hospitalDelta").innerHTML = hospitalDelta.toSignedString();
+//            document.getElementById("intensiveCare").innerHTML = intensiveCare.toLocaleString("de-AT");
+//            document.getElementById("intensiveCareDelta").innerHTML = intensiveCareDelta.toSignedString();
+//            document.getElementById("tests").innerHTML = tests.toLocaleString("de-AT");
+//            document.getElementById("testsDelta").innerHTML = testsDelta.toSignedString();
+            document.getElementById("infectedCurrent").innerHTML = data.reduce((total, currentValue) => total + currentValue[10].toInt(), 0).toLocaleString("de-AT");
+            document.getElementById("infectedCurrentDelta").innerHTML = data.reduce((total, currentValue) => total + currentValue[11].toInt(), 0).toSignedString("de-AT");
+            document.getElementById("incidence").innerHTML = (data.reduce((total, currentValue) => total + currentValue[12].toFloat(), 0) / data.length - 2).toFixed(2);
+//            document.getElementById("incidenceDelta").innerHTML = Math.round(incidenceDelta).toSignedString();
+        });
         
         function toggleChangelog(elem) {            
             elem.classList.toggle("toggle");

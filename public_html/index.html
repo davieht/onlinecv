@@ -11,10 +11,10 @@
           gtag('config', 'G-18M3RKKBG2');
         </script>
         <script type="text/javascript">
-//        if (location.protocol != 'https:')
-//        {
-//        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-//        }
+        if (location.protocol != 'https:')
+        {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
         </script>
         <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
@@ -38,10 +38,19 @@
         <link rel="icon" type="image/png" href="icon.png" sizes="32x32">
         <link rel="icon" type="image/png" href="icon.png" sizes="96x96">
         <link rel="stylesheet" href="style/style.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
         <script src="js/main_at.js"></script>
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", main)
         </script>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+    <script src="data/districts.js"></script>
+    <script src="js/map.js"></script>
     </head>
     <body>
         <div class="main w3-container">
@@ -51,9 +60,9 @@
                 <h2 id="humanisedDate"></h2>
             
                 <div class="subtext"><img src="src/at.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Österreich erreicht ist.&nbsp;*</div>
-                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
+<!--                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Achtung: Neue Berechnung! <a href="#changelog">Hier</a> nachzulesen</p>
-                </div>
+                </div>-->
 
                 <div>Immunitätsrate&nbsp;**</div>
                 <div id="mainProgress">
@@ -138,17 +147,47 @@
                         <p>Intensivpatienten</p>
                     </div>
                          
-                    <div class="bubble" style="background-color:hsl(0, 0%, 90%)">
+                    <div class="bubble">
                         <p id="tests"></p>
                         <p id="testsDelta"></p>
                         <p>Testungen</p>
                     </div>
-                    <div class="bubble" style="background-color:hsl(0, 0%, 90%)">
+                    <div class="bubble">
                         <p id="incidence"></p>
                         <p id="incidenceDelta"></p>
                         <p>7-Tage-Inzidenz</p>
                     </div>
                 </div>
+                
+                <h3>7-Tage-Inzidenz auf Bezirksebene</h3>
+                
+                <div style="text-align: initial; margin-top: 20px">
+                    <div>
+                        <span style="background-color: white; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>keine Fälle</span>
+                    </div>
+                    <div>
+                        <span style="background-color: lightgreen; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>0 - 10</span>
+                    </div>
+                    <div>
+                        <span style="background-color: green; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>20 - 50</span>
+                    </div>
+                    <div>
+                        <span style="background-color: yellow; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>50 - 100</span>
+                    </div>
+                    <div>
+                        <span style="background-color: orange; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>100 - 200</span>
+                    </div>
+                    <div>
+                        <span style="background-color: red; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>200 - 400</span>
+                    </div>
+                    <div>
+                        <span style="background-color: darkred; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>400 - 1000</span>
+                    </div>
+                    <div>
+                        <span style="background-color: black; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>&gt; 1000</span>
+                    </div>
+                </div>
+                <div id="mapid"></div>
                 
                 <h3>Altersgruppen</h3>
                 
@@ -314,11 +353,11 @@
                     </tr>
                     <tr>
                         <th>***</th>
-                        <td>Die Berechnung ermittelt das Datum ihrer Zweitimpfung anhand der aktuellen Impfrate, gemessen an der Bevölkerungsverteilung nach Alter. Das bedeutet, je älter Sie sind, desto früher kommen sie dran.</td>
+                        <td>Die Berechnung ermittelt das Datum ihrer Zweitimpfung anhand der aktuellen Impfrate, gemessen an der Bevölkerungsverteilung nach Alter. Das bedeutet je älter Sie sind, desto früher bekommen Sie die Impfung.</td>
                     </tr>
                     <tr>
                         <th></th>
-                        <td>Updates immer um 12:15</td>
+                        <td>Updates täglich um 12:15</td>
                     </tr>
                 </table>
                 <div class="donate">Sie finden die Idee toll? Spendieren Sie mir ein Bier :)</div>
@@ -332,6 +371,10 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (7.6.2021)</p>
+                    <ul>
+                        <li>Karte 7-Tage-Inzidenz hinzugefügt</li>
+                    </ul>
                     <p>Update: (8.5.2021)</p>
                     <ul>
                         <li>Berechnung Enddatum berichtigt. Bereits Geimpfte wurden doppelt abgezogen.</li>

@@ -54,28 +54,28 @@
                 <h2 id="days" class="large"></h2>
                 <h2 id="humanizedDate"></h2>
                 
-                <button class="w3-button" onclick="openModal()" style="background-color: hsl(211, 100%, 87%)">Select your country</button>
-            
-                <div class="subtext">&nbsp;bis eine Immunität von 70% in <span id="subtext-country" style="font-weight: bold">Österreich</span> erreicht ist.&nbsp;*</div>
+                <div class="subtext">&nbsp;until a herd immunity of 70% in <span id="subtext-country" style="font-weight: bold"></span> was reached.&nbsp;*</div>
 <!--                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Achtung: Neue Berechnung! <a href="#changelog">Hier</a> nachzulesen</p>
                 </div>-->
 
-                <div>Immunitätsrate&nbsp;**</div>
+                <div>Immunity rate&nbsp;**</div>
                 <div id="mainProgress">
                     <div id="progressBar"></div>
                     <div id="recoveredBar"></div>
                     <div id="heardimmune">70%</div>
                     <div id="bar"></div>
                 </div>
-                <p class="footnote">Datenlage Stand <span id="update-date"></span></p>
+                <p class="footnote">Data from <span id="update-date"></span></p>
                 
-                <h3>Allgemeine Daten</h3>
+                <button class="w3-button" onclick="openModal()" style="background-color: var(--grey)">Select your country</button>
+                
+                <h3>General data</h3>
                 
                 <div>
                     <div class="bubble">
                         <p id="population"></p>
-                        <p>Bevölkerung</p>
+                        <p>Population</p>
                     </div>
 <!--                    <div class="bubble">
                         <p id="impfbar"></p>
@@ -85,38 +85,38 @@
                 <div>
                     <div class="bubble">
                         <p id="vaccPerson"></p>
-                        <p>zu impfende Personen</p>
+                        <p>people to be vaccinated</p>
                     </div>
                     <div class="bubble">
                         <p id="vaccDoses"></p>
-                        <p>benötigte Impfdosen</p>
+                        <p>required vaccine doses</p>
                     </div>
                     
                     <div class="bubble" style="background-color:hsl(211, 100%, 93%)">
                         <p id="vaccSum"></p>
                         <p id="vaccSumDelta"></p>
-                        <p>Impfungen ges.</p>
+                        <p>Vaccination sum</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(211, 100%, 87%)">
                         <p id="vaccFirst"></p>
                         <p id="vaccFirstDelta"></p>
-                        <p>Teilimpfungen</p>
+                        <p>First vaccination</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(211, 100%, 80%)">
                         <p id="vaccSecond"></p>
                         <p id="vaccSecondDelta"></p>
-                        <p>Vollimmunisierte</p>
+                        <p>Second vaccination</p>
                     </div>
                     <div class="bubble">
                         <p id="vaccRate"></p>
-                        <p>Impfrate<br/>(7-Tage-Schnitt)</p>
+                        <p>Vaccination rate<br/>(7-Tage-Schnitt)</p>
                     </div>
                 </div>
                 <div>
                     <div class="bubble" style="background-color:hsl(40, 100%, 90%)">
                         <p id="infected"></p>
                         <p id="infectedDelta"></p>
-                        <p>Infizierte ges.</p>
+                        <p>Infected sum</p>
                     </div>
 <!--                    <div class="bubble" style="background-color:hsl(120, 100%, 90%)">
                         <p id="recovered"></p>
@@ -126,7 +126,7 @@
                     <div class="bubble" style="background-color:hsl(0, 0%, 30%);color:white">
                         <p id="casualties"></p>
                         <p id="casualtiesDelta"></p>
-                        <p>Todesopfer</p>
+                        <p>Casualties</p>
                     </div>               
 <!--                    <div class="bubble" style="background-color:hsl(40, 100%, 90%)">
                         <p id="infectedCurrent"></p>
@@ -136,35 +136,35 @@
                     <div class="bubble" style="background-color:hsl(20, 100%, 90%)">
                         <p id="hospital"></p>
                         <p id="hospitalDelta"></p>
-                        <p>Hostpitalisierte</p>
+                        <p>Hospitalized</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(0, 100%, 90%)">
                         <p id="intensiveCare"></p>
                         <p id="intensiveCareDelta"></p>
-                        <p>Intensivpatienten</p>
+                        <p>Intensive care</p>
                     </div>
                          
-                    <div class="bubble" style="background-color:hsl(0, 0%, 90%)">
+                    <div class="bubble" style="background-color:var(--grey)">
                         <p id="tests"></p>
                         <p id="testsDelta"></p>
-                        <p>Testungen</p>
+                        <p>Tests</p>
                     </div>
 <!--                    <div class="bubble" style="background-color:hsl(0, 0%, 90%)">
                         <p id="incidence"></p>
                         <p id="incidenceDelta"></p>
                         <p>7-Tage-Inzidenz</p>
                     </div>-->
-                    <div class="bubble" style="background-color:hsl(0, 0%, 90%)">
+                    <div class="bubble" style="background-color:var(--grey)">
                         <p id="reproductionRate"></p>
-                        <p>Reproduktionsrate</p>
+                        <p>Reproduction rate</p>
                     </div>
                 </div>
                 
-                <h3>Impffortschritt</h3>
+                <h3>Vaccination progress</h3>
                 
                 <div>
-                    <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
-                    <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Zweite Teilimpfung</span>
+                    <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">First vaccination</span>
+                    <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Second vaccination</span>
                 </div>
                 
                 <div class="myProgress" style="margin-top:20px">
@@ -172,35 +172,31 @@
                     <div id="ges_second" class="vaccSecond"></div>
                 </div>
                 
-<!--                <h3>Global</h3>
+                <h3>Global</h3>
                 <div>
                     <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
                     <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Zweite Teilimpfung</span>
                 </div>
             
-                <div id="world"></div>-->
+                <div id="world"></div>
             </div>
             
             <div class="w3-content w3-center">
                 <table class="w3-content footnote fngroup">
                     <tr>
                         <th>*</th>
-                        <td>Das Datum errechnet sich aus der Zeitspanne, die bemessen an der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) benötigt wird, um eine Herdenimmunität von 70% der Gesamtbevölkerung (Stand 1.1.2021) zu erreichen; abzüglich jener Personen, welche die zweite Impfdosis bekommen haben; abzüglich Personen die unter 16 Jahre alt sind.</td>
+                        <td>Das Datum errechnet sich aus der Zeitspanne, die bemessen an der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) benötigt wird, um eine Herdenimmunität von 70% der Gesamtbevölkerung zu erreichen; abzüglich der bereits Geimpften</td>
                     </tr>
                     <tr>
                         <th>**</th>
-                        <td>Die Immunitätsrate errechnet sich aus der Anzahl jener Personen, die bereits die zweite Impfdosis erhalten haben; gemessen der Gesamtbevölkerung (Stand 1.1.2021)</td>
-                    </tr>
-                    <tr>
-                        <th>***</th>
-                        <td>Die Berechnung ermittelt das Datum ihrer Zweitimpfung anhand der Impfrate, gemessen an der Bevölkerungsverteilung nach Alter. Das bedeutet, je älter Sie sind, desto früher kommen sie dran.</td>
+                        <td>Die Immunitätsrate errechnet sich aus der Anzahl jener Personen, die bereits die zweite Impfdosis erhalten haben; gemessen der Gesamtbevölkerung</td>
                     </tr>
                     <tr>
                         <th></th>
                         <td>Updates immer um 12:15</td>
                     </tr>
                 </table>
-                <div class="donate">Sie finden die Idee toll? Spendieren Sie mir ein Bier :)</div>
+                <div class="donate">You like this idea?  Donate me a coffee! :)</div>
                 <div>
                     <form action="https://www.paypal.com/donate" method="post" target="_top">
                     <input type="hidden" name="business" value="2PKXWXNHMQ9SU" />
@@ -217,13 +213,13 @@
                         <li>Styling issues fixed</li>
                     </ul>
                 </div>
-                <div class="footnote">Auch wenn diese Seite offizielle Quellen und Links verwendet, ist sie keine öffentliche Seite des Bundes. Pandemieende.at wird nicht von öffentlichen Geldern unterstützt, sondern ist ein privates Unterfangen. Die Seite wird laufend weiterentwickelt. Die Daten sind noch unvollständig, da sich die Infrastruktur zur flächendeckenden Eintragung seitens der Behörden noch im Aufbau befindet. Die Einmeldequote beträgt derzeit ca. 80%</div>
+                <div class="footnote">pandemicend.info is a non-official non-commercial site. pandemic.info is not supportet by any country or public funds. Data from <a href="https://ourworldindata.com">ourworldindata.com</a></div>
             </div>
         </div>
         <footer class="footer w3-white w3-center">            
             <div>Made with <span style="color: red">&#10084;</span> by "Daveloper"</div>
             <div>
-                <span>Datenquellen: <a href="https://www.ages.at/">AGES</a> | <span><a href="impressum.html">Impressum</a></span> | <span>Alle Angaben ohne Gewähr</span>
+                <span>Data sources: <a href="https://ourworldindata.com/">ourworldindata.com</a> | <span><a href="impressum.html">Impressum</a></span> | <span>All statements without guarantee</span>
             </div>
         </footer>
         
