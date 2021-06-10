@@ -32,8 +32,10 @@ function humanise(total_days)
     return date_string;
 }
 
-function main() {    
-    fetch("owid-covid-latest.json?_=" + new Date().getTime())
+function main() {
+    // origin: https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest/owid-covid-latest.json
+    // https://github.com/owid/covid-19-data/blob/master/public/data/latest/owid-covid-latest.json
+    fetch("data/owid-covid-latest.json?_=" + new Date().getTime())
             .then(response => response.json())
 //            .then(function(data) {
 //                cdata = data;
@@ -52,13 +54,13 @@ function main() {
     });    
 };
 
-function drawGlobal() {
-    const str = Object.values(cData)
-        .filter((d) => d.population > 1000000 && d.people_vaccinated && d.people_fully_vaccinated)
+function drawGlobal(showall = false) {
+    const data = Object.values(cData)
+        .filter((d) => d.population > 1000000 && d.people_vaccinated && d.people_fully_vaccinated && d.continent != null)
         .sort((a,b) => a.total_vaccinations_per_hundred > b.total_vaccinations_per_hundred ? -1 : 1)
-        .slice(0, 3)
-        .concat(cCode !== null ? cData[cCode] : cData['OWID_WRL'])
-        .sort((a,b) => a.total_vaccinations_per_hundred > b.total_vaccinations_per_hundred ? -1 : 1)
+        .slice(0, showall ? 1000 : 10)
+//        .concat(cCode !== null ? cData[cCode] : cData['OWID_WRL'])
+//        .sort((a,b) => a.total_vaccinations_per_hundred > b.total_vaccinations_per_hundred ? -1 : 1)
         .map(function(worldData, idx){
             const percentFirst = worldData.peopleVaccinated === null || worldData.population === null ? null : `${(worldData.people_vaccinated / worldData.population * 100).toFixed(2)}%`;
             const percentSecond = worldData.people_fully_vaccinated === null || worldData.population === null ? null : `${(worldData.people_fully_vaccinated / worldData.population * 100).toFixed(2)}%`;
@@ -67,8 +69,16 @@ function drawGlobal() {
                 <div class="vaccFirst" style="width: ${percentFirst ?? '0px'}">${percentFirst ?? 'keine Daten'}</div>
                 <div class="vaccSecond" style="width: ${percentSecond ?? '0px'}">${percentSecond ?? 'keine Daten'}</div>
             </div>`;
-        }).join('');
-        document.getElementById("world").innerHTML = str;
+        });
+        
+    const str = data.join('');
+
+    document.getElementById("world").innerHTML = str;
+    if (showall) { 
+        document.getElementById("showAllBtn").style.display = "none";
+        document.getElementById("noDataCountrySpan").style.display = "inline";
+        document.getElementById("noDataCountrySpan").innerHTML = Object.values(cData).length - (data.length + 11);
+    }
 }
 
 function draw() {

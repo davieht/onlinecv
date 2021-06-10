@@ -2,33 +2,33 @@
 <html>
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18M3RKKBG2"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-D8E58G2XWF"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-18M3RKKBG2');
+          gtag('config', 'G-D8E58G2XWF');
         </script>
         <script type="text/javascript">
-//        if (location.protocol != 'https:')
-//        {
-//        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-//        }
+        if (location.protocol != 'https:' && location.hostname !== 'localhost')
+        {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
         </script>
-        <script type="text/javascript" src="../js/utils.js"></script>
+        <script type="text/javascript" src="js/utils.js"></script>
 
-        <title>Pandemieende Österreich</title>
+        <title>Pandemic End</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="title" content="pandemieende.at"/>
-        <meta name="description" content="Wann ist das Ende der Corona-Pandemie? Diese Seite berechnet anhand der Impfdaten das Datum an dem die Herdenimmunität in Österreich erreicht wird."/>
-        <meta property="og:site_name" content="pandemieende.at"/>
-        <meta property="og:title" content="Pandemieende Österreich" />
-        <meta property="og:description" content="Wann ist das Ende der Corona-Pandemie? Diese Seite berechnet anhand der Impfdaten das Datum an dem die Herdenimmunität in Österreich erreicht wird." />
+        <meta name="title" content="pandemicend.info"/>
+        <meta name="description" content="Did you ever ask yourself when the corona pandemic ends? This site calculates an end date based on real data. Select your country and get the values."/>
+        <meta property="og:site_name" content="pandemicend.info"/>
+        <meta property="og:title" content="Pandemic end" />
+        <meta property="og:description" content="Did you ever ask yourself when the corona pandemic ends? This site calculates an end date based on real data. Select your country and get the values." />
         <meta property="og:image:secure_url" itemprop="image" content="icon.png"/>
         <meta property="og:type" content="website" />
-        <meta name="keywords" content="corona, coronavirus, covid, covid-19, SARS-CoV-2, ende, pandemie, pandemieende, impfen, impfrate, Durchimpfung, Pandemiedauer, Herdenimmunität, Österreich"/>
+        <meta name="keywords" content="corona, coronavirus, covid, covid-19, SARS-CoV-2, end, pandemic, pandemic end, vaccination, vaccine, herd immunity, world"/>
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="0" />
@@ -36,13 +36,16 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="icon" type="image/png" href="../src/icon.png" sizes="32x32">
         <link rel="icon" type="image/png" href="../src/icon.png" sizes="96x96">
-        <link rel="stylesheet" href="../style/style.css"/>
+        <link rel="stylesheet" href="style/style.css"/>
         <style>
             #progressBar {
                 color: black
             }
+            .w3-modal-content {
+                width: fit-content;
+            }
         </style>
-        <script src="main.js"></script>
+        <script src="js/main.js"></script>
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", main)
         </script>
@@ -68,7 +71,7 @@
                 </div>
                 <p class="footnote">Data from <span id="update-date"></span></p>
                 
-                <button class="w3-button" onclick="openModal()" style="background-color: var(--grey)">Select your country</button>
+                <button class="w3-button" onclick="openModal()" style="background-color: var(--blue-w1)">Select your country</button>
                 
                 <h3>General data</h3>
                 
@@ -172,28 +175,34 @@
                     <div id="ges_second" class="vaccSecond"></div>
                 </div>
                 
-                <h3>Global</h3>
+                <h3>Global ***</h3>
                 <div>
-                    <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
-                    <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Zweite Teilimpfung</span>
+                    <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">First vaccination</span>
+                    <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Second vaccination</span>
                 </div>
             
                 <div id="world"></div>
+                <button id="showAllBtn" class="w3-button" onclick="drawGlobal(true)" style="background-color: var(--blue-w1); margin-top: 20px">Show all</button>
+                <p>Plus <span id="noDataCountrySpan" style="display:none"></span> additional countries with insufficient data or a population below 1 mio.</p>
             </div>
             
             <div class="w3-content w3-center">
                 <table class="w3-content footnote fngroup">
                     <tr>
                         <th>*</th>
-                        <td>Das Datum errechnet sich aus der Zeitspanne, die bemessen an der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) benötigt wird, um eine Herdenimmunität von 70% der Gesamtbevölkerung zu erreichen; abzüglich der bereits Geimpften</td>
+                        <td>The date is calculated based on the current the 7-day-average rate. Recovered persons are not included, whereas individuals who got the sedond vaccinations are included. </td>
                     </tr>
                     <tr>
                         <th>**</th>
-                        <td>Die Immunitätsrate errechnet sich aus der Anzahl jener Personen, die bereits die zweite Impfdosis erhalten haben; gemessen der Gesamtbevölkerung</td>
+                        <td>Percentage of individuals who got the second vaccination.</td>
+                    </tr>
+                    <tr>
+                        <th>***</th>
+                        <td>Filtered by countries having a population with at least 1 mio inhabitants, reporting first and second vaccination data. Ordered by vaccination sum.</td>
                     </tr>
                     <tr>
                         <th></th>
-                        <td>Updates immer um 12:15</td>
+                        <td>Updates daily at 10:15 (am)</td>
                     </tr>
                 </table>
                 <div class="donate">You like this idea?  Donate me a coffee! :)</div>
@@ -205,15 +214,15 @@
                     <img alt="" border="0" src="https://www.paypal.com/en_AT/i/scr/pixel.gif" width="1" height="1" />
                     </form>
                 </div>
-                <div class="update toggle" onclick="toggleChangelog(this)">
+<!--                <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
                     <p>Update: (2.5.2021)</p>
                     <ul>
                         <li>Neue (alte) Berechnung des finalen Datums: Unter-16-Jährige werden nun wieder mit einberechnet. Aufgrund der neuer Datenlage tragen Kinder, Jugendliche und Erwachsene gleichermaßen zum Infektionsgeschehen bei. Das aktuelle Datum verschiebt sich deshalb in die Zukunft.</li>
                         <li>Styling issues fixed</li>
                     </ul>
-                </div>
-                <div class="footnote">pandemicend.info is a non-official non-commercial site. pandemic.info is not supportet by any country or public funds. Data from <a href="https://ourworldindata.com">ourworldindata.com</a></div>
+                </div>-->
+                <div class="footnote" style="margin-top: 16px;">pandemicend.info is a non-official non-commercial site. pandemicend.info is not supported by any country, public funds or commercial institution. <br>Data from <a href="https://ourworldindata.com">ourworldindata.com</a></div>
             </div>
         </div>
         <footer class="footer w3-white w3-center">            

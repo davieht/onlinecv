@@ -11,7 +11,7 @@
           gtag('config', 'G-18M3RKKBG2');
         </script>
         <script type="text/javascript">
-        if (location.protocol != 'https:')
+        if (location.protocol != 'https:' && location.hostname !== 'localhost')
         {
         location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
         }
@@ -60,9 +60,9 @@
                 <h2 id="humanisedDate"></h2>
             
                 <div class="subtext"><img src="src/at.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 70% in Österreich erreicht ist.&nbsp;*</div>
-<!--                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
-                    <p>Achtung: Neue Berechnung! <a href="#changelog">Hier</a> nachzulesen</p>
-                </div>-->
+                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
+                    <p>Neue Website mit Daten aus der ganzen Welt online! <a href="https://pandemicend.info">pandemicend.info</a></p>
+                </div>
 
                 <div>Immunitätsrate&nbsp;**</div>
                 <div id="mainProgress">
@@ -161,12 +161,12 @@
                 
                 <h3>7-Tage-Inzidenz auf Bezirksebene</h3>
                 
-                <div style="text-align: initial; margin-top: 20px">
+                <div id="maplegend">
                     <div>
                         <span style="background-color: white; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>keine Fälle</span>
                     </div>
                     <div>
-                        <span style="background-color: lightgreen; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>0 - 10</span>
+                        <span style="background-color: lightgreen; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>0 - 20</span>
                     </div>
                     <div>
                         <span style="background-color: green; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>20 - 50</span>
@@ -338,6 +338,7 @@
                 <div><a href="https://covid19-dashboard.ages.at/" target="_blank">Aktuelle Zahlen zu Covid</a></div>
             </div>
             <div class="w3-center">
+                <div><img src="src/de.svg" width="16"/> <a href="https://pandemicend.info">Pandemieende Weltweit</a></div>
                 <div><img src="src/de.svg" width="16"/> <a href="https://pandemieende.de">Pandemieende Deutschland</a></div>
                 <div><img src="src/ch.svg" width="16"/> <a href="https://pandemieende.ch">Pandemieende Schweiz</a></div>
             </div>
@@ -461,7 +462,7 @@
         <footer class="footer w3-white w3-center">            
             <div>Made with <span style="color: red">&#10084;</span> by "Daveloper"</div>
             <div>
-                <span>Datenquellen: <a href="https://www.ages.at/">AGES</a>, <a href="https://www.statistik.at/">Statistik Austria</a>, <a href="https://www.data.gv.at/covid-19">BMSGPK, Österreichisches COVID-19 Open Data Informationsportal</a></span>, <span><a href="https://viecer.univie.ac.at/corona-blog/corona-blog-beitraege/corona-dynamiken19/">ACPP (Austrian Corona Panel Project)</a></span> | <span><a href="impressum.html">Impressum</a></span> | <span><a href="mailto:daveloper@pandemieende.at">Kontakt</a></span> | <span><a href="https://www.pandemieende.de">Pandemieende Deutschland</a></span> | <span><a href="https://www.pandemieende.ch">Pandemieende Schweiz</a></span> | <span>Alle Angaben ohne Gewähr</span>
+                <span>Datenquellen: <a href="https://www.ages.at/">AGES</a>, <a href="https://www.statistik.at/">Statistik Austria</a>, <a href="https://www.data.gv.at/covid-19">BMSGPK, Österreichisches COVID-19 Open Data Informationsportal</a></span>, <span><a href="https://viecer.univie.ac.at/corona-blog/corona-blog-beitraege/corona-dynamiken19/">ACPP (Austrian Corona Panel Project)</a></span> | <span><a href="impressum.html">Impressum</a></span> | <span><a href="mailto:daveloper@pandemieende.at">Kontakt</a></span> | <span><a href="https://www.pandemicend.info">Pandemieende Weltweit</a></span> | <span><a href="https://www.pandemieende.de">Pandemieende Deutschland</a></span> | <span><a href="https://www.pandemieende.ch">Pandemieende Schweiz</a></span> | <span>Alle Angaben ohne Gewähr</span>
             </div>
         </footer>
     </body>

@@ -29,11 +29,7 @@ function style(feature, districtArray) {
     if (district === undefined) {
         console.log(feature.properties.iso);
     } else {
-        asdf = Math.round(district[SEVENDAYINCIDENCE_COL] / district[POPULATION_COL] * 100000);
-        color = inciThreshold(asdf);
-        console.log(asdf)
-//                color = hotspots(district[options.col].toInt());
-//                color = deaths(district[options.col].toInt());
+        color = inciThreshold(Math.round(district[SEVENDAYINCIDENCE_COL] / district[POPULATION_COL] * 100000));
     }
     return {
         fillColor: color,
