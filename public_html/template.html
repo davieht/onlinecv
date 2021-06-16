@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18M3RKKBG2"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-18M3RKKBG2');
+        </script>
+        <script type="text/javascript">
+        if (location.protocol != 'https:' && location.hostname !== 'localhost')
+        {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+        <title>CV David Viehtauer</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noindex" />
+        <meta name="title" content="Lebenslauf online free - ohne Anmeldung oder Registrierung"/>
+        <meta name="description" content="Lebenslauf online free - ohne Anmeldung, ohne Registrierung"/>
+        <meta property="og:site_name" content="daveloper.at"/>
+        <meta property="og:title" content="Lebenslauf online free - ohne Anmeldung, ohne Registrierung" />
+        <meta property="og:description" content="Erstelle gratis deinen Lebenslauf online. Deine Daten werden nicht gespeichert. Keine Anmeldung erforderlich. Keine Registrierung erforderlich" />
+        <meta property="og:image:secure_url" itemprop="image" content="icon.png"/>
+        <meta property="og:type" content="website" />
+        <meta name="keywords" content="Lebenslauf, online, free, gratis, keine Anmeldung, keine Registrierung, sicher, Vorlage, template"/>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link id="theme" rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css">
+        <style>
+        html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+        hr {
+            clear: both;
+        }
+        .w3-chip {
+            text-align: center;
+            font-size: 12px;
+            padding: 2px 16px;
+            margin: 4px;
+            border-radius: 16px;
+            line-height: 1.5!important;
+            white-space: nowrap;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        #profileimg:hover {
+            border: 2px lightgrey dashed;
+            cursor: pointer;
+        }
+       
+
+        @media print {
+            body.w3-light-grey {
+                background-color: white!important;
+            }
+            .w3-third {
+                width: 33.33333%;
+            }
+            .w3-twothird {
+                width: 66.66666%;
+            }
+            @page {
+                size: 270mm 297mm;
+
+            }
+            /*#experience {page-break-after: always;}*/
+            footer, .del, .faba {
+                display: none;
+            }
+        }
+        
+        .faba {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px 0 #AAA;
+
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            line-height: 32px;
+            vertical-align: middle;
+            cursor: pointer;
+            float: right;
+            margin: 16px 0;
+        }
+        
+        .edtext {
+            cursor: pointer
+        }
+        
+        .del {
+            float: right;
+            color: darkred; 
+            cursor: pointer; 
+            padding: 0 8px;
+        }
+        
+        .dragbox {
+            clear: both; 
+            position: relative;
+        }
+        
+        .dragbox > :first-child {
+            background: lightgrey;
+            position: absolute;
+            height: 1px;
+            width: 100%;
+            margin: auto 0;
+            top: 50%;
+        }
+        
+        .dragbox > :nth-child(2) {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            border: 1px lightgrey solid;
+            background: white;
+            position: relative;
+        }
+        
+        [draggable] {
+            cursor: grab;
+        }
+        
+        #palette.sel {
+            display: block;
+        }
+        
+        #palette > div {
+            width: 40px;
+            height: 20px;
+            margin: 4px;
+            cursor: pointer;
+        }    
+        
+        input[type='range'] {
+            -webkit-appearance: none;
+            background-color: #ddd;
+            height: 16px;
+            overflow: hidden;
+            width: 400px;
+            border-radius: 16px;
+            width:100%;
+        }
+
+        input[type='range']::-webkit-slider-runnable-track {
+            -webkit-appearance: none;
+            height: 16px;
+            cursor: pointer;
+        }
+        
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            background: #009688;
+            border-radius: 50%;
+            box-shadow: -210px 0 0 200px #009688;
+            cursor: pointer;
+            height: 16px;
+            width: 16px;
+            border: 0;
+        }
+        
+        </style>
+        <style id="sliderstyle">
+        input[type='range']::-webkit-slider-thumb {
+            background: #009688;
+            box-shadow: -210px 0 0 200px #009688;
+        }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            
+            let suspended;
+            let data = {
+                color: "teal",
+                name: "Mag. Sophie Musterfrau",
+                subtitle: "\"Störe meine Kreise nicht\" - Archimedes †212 v. Chr.",
+                image: "profileimg.jpg",
+                profession: "Programmiererin",
+                address: "Bahnstraße 1, 1030 Wien",
+                email: "sophie.musterfrau@email.com",
+                phone: "+43 650 123456789",
+                website: "daveloper.at",
+                skills: [{
+                    name: "EDV-Kenntnisse",
+                    value: 90
+                }, {
+                    name: "Buchhaltung",
+                    value: 60
+                }, {
+                    name: "Rechnungswesen",
+                    value: 80
+                }],
+                additional: "Führerschein-B MS-Word Programmieren",
+                languages: [{
+                    name: "Deutsch",
+                    value: 100
+                }, {
+                    name: "Englisch",
+                    value: 90
+                }, {
+                    name: "Spanisch",
+                    value: 40
+                }],
+                interests: "programmieren sport lesen",
+                references: "pandemieende.at pandemieende.de pandemicend.info",
+                experience: [{
+                        start: "6/2018",
+                        end: "6/2021",
+                        title: "Servicetechnikerin",
+                        company: "Musterfirma GmbH",
+                        description: "Servicierung und Reparaturen von Weißware"
+                }, {
+                        start: "6/2017",
+                        end: "6/2018",
+                        title: "Verkaufsberaterin",
+                        company: "Kaufhaus GmbH",
+                        description: "Kundenberatung"
+                }],
+                education: [{
+                        start: "6/2018",
+                        end: "6/2021",
+                        title: "Wirtschaftsstudium",
+                        company: "WU Wien",
+                        description: "Schwerpunkt Wirtschaft und BWL - abgeschlossen mit Magistra"
+                }, {
+                        start: "6/2017",
+                        end: "6/2018",
+                        title: "Schule",
+                        company: "Gymnasium",
+                        description: "Lernen, lernen, lernen - abgeschlossen mit Matura"
+                }]
+            };
+            
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires="+d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            function hasCookie() {
+                return getCookie("username") != "";
+            }
+            
+            function save() {
+                data = {
+                    color: $(".sel").first().attr("data-color"),
+                    name: $("#name").text(),
+                    subtitle: $("#subtitle").text(),
+                    image: $("#profileimg").attr("src"),
+                    profession: $("#profession").text(),
+                    address: $("#address").text(),
+                    email: $("#email").text(),
+                    phone: $("#phone").text(),
+                    website: $("#website").text(),
+                    skills: $("#skills").children().map(function() { return { name: $(this).find("div").text(), value: $(this).find("input").val()}}).toArray(),
+                    additional: $("#additional").children().map(function() { return $(this).text()}).toArray().join(" "),
+                    languages: $("#languages").children().map(function() { return { name: $(this).find("div").text(), value: $(this).find("input").val()}}).toArray(),
+                    interests: $("#interests").children().map(function() { return $(this).text()}).toArray().join(" "),
+                    references: $("#references").children().map(function() { return $(this).text()}).toArray().join(" "),
+                    experience: $("#experience").children().map(function() { let spans = $(this).find("span.edtext"); return {start: spans[0].innerText, end: spans[1].innerText, title: spans[2].innerText, company: spans[3].innerText, description: spans[4].innerText}}).toArray(),
+                    education: $("#education").children().map(function() { let spans = $(this).find("span.edtext"); return {start: spans[0].innerText, end: spans[1].innerText, title: spans[2].innerText, company: spans[3].innerText, description: spans[4].innerText}}).toArray() 
+                };
+                
+                setCookie("user", JSON.stringify(data), 365 * 10);
+            }
+            
+            function load() {
+                let cookie = getCookie("user");
+                data = cookie == "" ? data : JSON.parse(cookie);
+                
+                $(`[data-color=${data.color}]`).addClass("sel");
+                updateTheme(data.color);                
+                $("#name").text(data.name);
+                $("#subtitle").text(data.subtitle);
+                $("#profession").text(data.profession);
+                $("#address").text(data.address);
+                $("#email").text(data.email);
+                $("#phone").text(data.phone);
+                $("#website").text(data.website);
+                $("#profileimg").attr("src", "profileimg.jpg");
+                data.skills.forEach(function(item) {
+                    createProgressWithText($("#skills"), item.name, item.value);
+                });
+                data.additional.split(" ").forEach(function(text) {
+                    $("#additional").append(`<span class="w3-chip w3-theme">${text}</span>\n    `);
+                });
+                data.languages.forEach(function(item) {
+                    createProgressWithText($("#languages"), item.name, item.value);
+                });
+                data.interests.split(" ").forEach(function(text) {
+                    $("#interests").append(`<span class="w3-chip w3-theme">${text}</span>\n    `);
+                });
+                data.references.split(" ").forEach(function(text) {
+                    $("#references").append(`<span class="w3-chip w3-theme">${text}</span>\n    `);
+                });
+                data.experience.forEach(function(item) {
+                    createDateEntry($("#experience"), item.start, item.end, item.title, item.company, item.description);
+                });
+                data.education.forEach(function(item) {
+                    createDateEntry($("#education"), item.start, item.end, item.title, item.company, item.description);
+                });
+            }
+            
+            $(document).on('keypress', function(e) {
+                let activeEl = document.activeElement;
+                if (e.which === 13 && $(activeEl).prop('type') === "text") {
+                    suspended.text(activeEl.value);
+                    suspended.show();
+                    $(activeEl).remove();
+                    save();
+                }
+            });
+            
+            function edtext() {
+                suspended = $(this);
+                const editEl = $('<input />', {
+                    'type': 'text'
+                });
+                editEl.on('focusout', function() {
+                    suspended.text($(this).val());
+                    suspended.show();
+                    $(this).remove();
+                    save();
+                });
+                $(this).after(editEl);
+                editEl.width(editEl.width() + 10);
+                editEl.focus();
+                editEl.val($(this).text());
+                suspended.hide();
+            }
+            
+            function createProgressWithText(parentEl, text = 'skill', progress = 50) {
+                parentEl.append(`
+                    <div>
+                        <span class="del">&#x2718</span>
+                        <div class="edtext">${text}</div>
+                        <input type="range" class="w3-round-xlarge w3-light-grey progress" value="${progress}"/>
+                    </div>`);
+                parentEl.find('.edtext').click(edtext);
+                parentEl.find('.del').click(function() {
+                    $(this).parent().remove();
+                });
+            }
+
+            let dragEl;
+            document.addEventListener("dragstart", function(ev) {
+                setTimeout(function() {
+                    let dragBox = `<div class="dragbox">
+                        <div></div>
+                        <div></div>
+                    </div>`;
+                    
+                    $(ev.target).closest(".dateentry").siblings().after(dragBox);
+                    $(ev.target).closest(".dateentry").siblings().first().before(dragBox);
+                }, 0);
+                
+                ev.target.style.background = "lightgrey";
+                dragEl = ev.target;
+            }, false);
+            
+            document.addEventListener("dragend", function(ev) {
+                $(".dragbox").remove();
+            }, false);
+            
+            document.addEventListener("dragover", function(ev) {
+                ev.preventDefault();
+                
+            }, false);
+            
+            document.addEventListener("drop", function(ev) {
+                ev.preventDefault();
+                dragEl.style.background = "initial";
+                if ($(ev.target).parent().hasClass("dragbox")) {
+                    $(ev.target).parent().after(dragEl);
+                }
+            }, false);
+            
+            function createDateEntry(parentEl, start, end, title, company, text) {
+                parentEl.append(`
+                    <div class="dateentry" style="position: relative" draggable="true">
+                        <div class="w3-third">
+                            <h6 class="w3-text-theme"><i class="fa fa-calendar-alt fa-fw w3-margin-right"></i><span class="edtext">${start}</span> - <span class="edtext">${end}</span></h6>
+                        </div>
+                        <div class="w3-twothird">
+                            <h5 class="w3-opacity"><b><span class="edtext">${title}</span></b></h5>
+                            <span class="del">&#x2718</span>
+                            <p class="w3-text-grey"><span class="edtext">${company}</span></p>
+                            <p><span class="edtext">${text}</span></p>
+                        </div>                   
+                        <br style="clear: both">
+                    </div>`);
+                parentEl.find('.edtext').click(edtext);
+                parentEl.find('.del').click(function() {
+                    $(this).parent().parent().remove();
+                });
+            }
+            
+            function createObjectURL(object) {
+                return (window.URL) ? window.URL.createObjectURL(object) : window.webkitURL.createObjectURL(object);
+            }
+            
+            function showImgModal() {
+                $('#imgModal').show();
+            }
+            
+            function updateTheme(color) {
+                $("#theme").replaceWith(`<link id="theme" rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-${color}.css">`);
+                $("#sliderstyle").text(`input[type='range']::-webkit-slider-thumb {
+                    background: ${$(".sel").css("background-color")};
+                    box-shadow: -210px 0 0 200px ${$(".sel").css("background-color")};
+                }`);
+            }
+            
+            $(document).ready(function() {
+                load();
+                
+                $('.edtext').click(edtext);
+                
+                $('.edchip').click(function() {
+                    const suspended = $(this);
+                    const text = suspended.text().replace(/\n\s+/g," ").trim();
+                    const editEl = $('<textarea />', {
+                        'rows': 5,
+                        'style': 'width: 100%'
+                    });
+                    editEl.on('focusout', function() {
+                        suspended.empty();
+                        editEl.val().split(' ').forEach(function(text) {
+                            suspended.append(`<span class="w3-chip w3-theme">${text}</span>\n    `);
+                        });
+                        suspended.show();
+                        $(this).remove();
+                        save();
+                    });
+                    $(this).after(editEl);
+                    editEl.width(editEl.width());
+                    editEl.focus();
+                    editEl.val(text);
+                    suspended.hide();
+                });
+                
+//                $('.w3-chip').click(function() {
+//                    $(this).remove();
+//                });
+                
+                $('#skillfab').click(function() {
+                    createProgressWithText($(this).prev());
+                });
+                
+                $('#languagefab').click(function() {
+                    createProgressWithText($(this).prev());
+                });
+                
+                $('#experiencefab').click(function() {
+                    createDateEntry($(this).prev(), "2/2021", "5/2021", "Key Account Manager", "Firma GmbH", "Telefonieren und so");
+                });
+                
+                $("#educationfab").click(function() {
+                    createDateEntry($(this).prev(), "2/2021", "5/2021", "Bachelor Studium Wirtschaft", "WU Wien", "Studieren und so");
+                });
+                
+                $('#fileupload').change(function() {
+                    $('#profileimg').attr('src', createObjectURL(this.files[0]));
+                    save();
+                });
+
+                $('#palette > div').click(function() {
+                    $(this).siblings().removeClass("sel");
+                    $(this).addClass("sel");
+                    updateTheme($(this).attr("data-color"));
+                    save();
+                });
+            });
+        </script>
+    </head>
+    <body class="w3-light-grey">
+
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top" style="max-width:1024px;">
+
+      <!-- The Grid -->
+      <div class="w3-row-padding">
+
+        <!-- Left Column -->
+        <div class="w3-third">
+
+            <div class="w3-white w3-text-grey ">
+                
+                <!--<div style="width: 100%; padding-top:100%; position: relative" onclick="$('#fileupload').click()">-->
+                <div style="width: 100%; padding-top:100%; position: relative" onclick="$('#fileupload').click()">
+                    <img id="profileimg" crossorigin="anonymous" style="position:absolute; top:0; width: 100%; height: 100%; object-fit: cover; object-position: top center" alt="Avatar" onerror="this.style.display='none'">
+                </div>
+                    
+                <input id="fileupload" type="file" accept="image/*" style="display:none">
+                
+                <div class="w3-container">
+                    <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="profession" class="edtext">Programmiererin</span></p>
+                    <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="address" class="edtext">Bahnstraße 1, 1220 Wien, Österreich</span></p>
+                    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="email" class="edtext">sophie.musterfrau@email.com</span></p>
+                    <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="phone" class="edtext">+43 650 123456789</span></p>
+                    <p><i class="fa fa-globe fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="website" class="edtext">daveloper.at</span></p>
+                    <hr>
+
+                    <p class="w3-large"><b><i class="fa fa-award fa-fw w3-margin-right w3-text-theme"></i>Fähigkeiten</b></p>
+                    <div id="skills">
+                        
+                    </div>
+                    <div id="skillfab" class="faba w3-theme"> + </div>                    
+                    <hr>
+
+                    <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-theme"></i>Weitere Kenntnisse</b></p>
+                    <div id="additional" class="edchip">
+                    </div>
+                    <hr>
+
+                    <p class="w3-large"><b><i class="fa fa-flag fa-fw w3-margin-right w3-text-theme"></i>Sprachen</b></p>
+                    <div id="languages">
+                        
+                    </div>
+                    <div id="languagefab" class="faba w3-theme"> + </div>
+                    <hr>
+
+                    <p class="w3-large"><b><i class="fa fa-heart fa-fw w3-margin-right w3-text-theme"></i>Interessen</b></p>
+                    <div id="interests" class="edchip">
+                    </div>
+                    <hr>
+
+                    <p class="w3-large"><b><i class="fa fa-link fa-fw w3-margin-right w3-text-theme"></i>Referenzen</b></p>
+                    <div id="references" class="edchip">
+                    </div>
+                    <hr>
+
+                    <p class="w3-large"><b><i class="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme"></i>Likes/Dislikes</b></p>
+                    <div class="w3-half">
+                        <p>honesty</p>
+                        <p>Linux</p>
+                        <p></p>
+                    </div>
+                    <div class="w3-half">
+                        <p>rassism</p>
+                        <p>Apple</p>
+                    </div>
+                  </div>
+            </div>
+            <br>
+
+        <!-- End Left Column -->
+        </div>
+
+        <!-- Right Column -->
+        <div class="w3-twothird">
+            <div id="titlecontainer" class="w3-white w3-container w3-theme w3-text-white" style="margin-bottom: 16px; padding-top: 16px; padding-bottom: 16px">
+                <h1 id="name" class="edtext" style="margin: 0">Mag. Sophie Musterfrau</h1>
+                <h5 id="subtitle" class="edtext" style="margin: 0"><i>"Störe meine Kreise nicht" - Archimedes †212 v. Chr.</i></h5>
+            </div>
+            <div class="w3-container w3-white">
+                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-theme"></i>Arbeitserfahrung</h2>
+                <div id="experience" class="w3-container">
+                </div>
+                <div id="experiencefab" class="faba w3-theme" style="margin-bottom:16px"> + </div>
+            </div>          
+            <br>
+            <div class="w3-container w3-white">
+                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-graduation-cap fa-fw w3-margin-right w3-xxlarge w3-text-theme"></i>Ausbildung</h2>
+                <div id="education" class="w3-container">
+                </div>
+                <div id="educationfab" class="faba w3-theme" style="margin-bottom:16px"> + </div>
+            </div>
+
+        <!-- End Right Column -->
+        </div>
+
+      <!-- End Grid -->
+      </div>
+
+      <!-- End Page Container -->
+    </div>
+
+    <footer class="w3-container w3-theme w3-center w3-margin-top">
+        <p>Find me on social media.</p>
+        <a href=""><i class="fab fa-facebook-square w3-hover-opacity w3-xlarge"></i></a>
+        <a href="https://www.linkedin.com/in/david-viehtauer-435a9367"><i class="fab fa-linkedin w3-hover-opacity w3-xlarge"></i></a>
+        <a href="https://www.xing.com/profile/David_Viehtauer2/cv"><i class="fab fa-xing-square w3-hover-opacity w3-xlarge"></i></a>
+        <p><a href="mailto:david.viehtauer@gmail.com">Contact</a> | <a href="impressum.html">Impressum</a> | Made with <span style="color: white">&#10084;</span> by "Daveloper"</p>
+    </footer>
+    
+    <div id="palette" style="position:fixed; top:100px; background: lightgrey; border-radius: 0 8px 8px 0; padding:4px;">
+        <div class="w3-red" data-color="red"></div>
+        <div class="w3-pink" data-color="pink"></div>
+        <div class="w3-purple" data-color="purple"></div>
+        <div class="w3-deep-purple" data-color="deep-purple"></div>
+        <div class="w3-indigo" data-color="indigo"></div>
+        <div class="w3-blue" data-color="blue"></div>
+        <div class="w3-light-blue" data-color="light-blue"></div>
+        <div class="w3-cyan" data-color="cyan"></div>
+        <div class="w3-teal" data-color="teal"></div>
+        <div class="w3-green" data-color="green"></div>
+        <div class="w3-light-green" data-color="light-green"></div>
+        <div class="w3-lime" data-color="lime"></div>
+        <div class="w3-khaki" data-color="khaki"></div>
+        <div class="w3-yellow" data-color="yellow"></div>
+        <div class="w3-amber" data-color="amber"></div>
+        <div class="w3-orange" data-color="orange"></div>
+        <div class="w3-deep-orange" data-color="deep-orange"></div>
+        <div class="w3-blue-grey" data-color="blue-grey"></div>
+        <div class="w3-brown" data-color="brown"></div>
+        <div class="w3-grey" data-color="grey"></div>
+        <div class="w3-dark-grey" data-color="dark-grey"></div>
+        <div class="w3-black" data-color="black"></div>
+    </div>
+
+</body>
+</html>
