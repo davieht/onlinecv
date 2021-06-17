@@ -2,14 +2,14 @@
 <html>
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18M3RKKBG2"></script>
+<!--        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18M3RKKBG2"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', 'G-18M3RKKBG2');
-        </script>
+        </script>-->
         <script type="text/javascript">
         if (location.protocol != 'https:' && location.hostname !== 'localhost')
         {
@@ -17,7 +17,7 @@
         }
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-        <title>CV David Viehtauer</title>
+        <title>Lebenslauf online</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex" />
@@ -184,7 +184,7 @@
                 color: "teal",
                 name: "Mag. Sophie Musterfrau",
                 subtitle: "\"Störe meine Kreise nicht\" - Archimedes †212 v. Chr.",
-                image: "profileimg.jpg",
+                image: "profileimg.svg",
                 profession: "Programmiererin",
                 address: "Bahnstraße 1, 1030 Wien",
                 email: "sophie.musterfrau@email.com",
@@ -303,7 +303,7 @@
                 $("#email").text(data.email);
                 $("#phone").text(data.phone);
                 $("#website").text(data.website);
-                $("#profileimg").attr("src", "profileimg.jpg");
+                $("#profileimg").attr("src", "profileimg.svg");
                 data.skills.forEach(function(item) {
                     createProgressWithText($("#skills"), item.name, item.value);
                 });
