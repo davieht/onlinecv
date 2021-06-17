@@ -5,7 +5,7 @@ const OPACITY_DESELECTED = .5;
 
 function inciThreshold(value) {
     if (value == 0) {
-        return 'white';
+        return 'lightgrey';
     } else if (value < 20) {
         return 'lightgreen';
     } else if (value < 50) {

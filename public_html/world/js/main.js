@@ -85,7 +85,7 @@ function draw() {
     data = cCode !== null ? cData[cCode] : cData['OWID_WRL'];
     let population = data['population'];
     
-    let vaccRate = data['new_vaccinations'] !== null ? data['new_vaccinations'] : data['new_vaccinations_smoothed'];
+    let vaccRate = data['new_vaccinations_smoothed'];
     let sumVaccImmune = data['people_fully_vaccinated'];
 
     let vaccLeft = population * HEARD_IMMUN - sumVaccImmune; 

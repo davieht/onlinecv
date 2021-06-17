@@ -102,10 +102,10 @@ function draw(vaccData, covidData) {
 
     //let sumImmune = sumVaccImmune + recovered;    // Anzahl an immunisierten Personen
     let vaccLeft = population * HEARD_IMMUN - sumVaccImmune; // Noch zu impfende Bevölkerung
-    let impfungen = (population * HEARD_IMMUN) * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
+    let vaccinations = (population * HEARD_IMMUN) * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
     let isImmunePercent = (sumVaccImmune / population) * 100;
 
-    let daysSum = Math.round(impfungen / vaccRate); // Tage die benötigt werden um bei derzeitiger Impfrate die Herdenimmunität zu erreichen
+    let daysSum = Math.round(vaccinations / vaccRate); // Tage die benötigt werden um bei derzeitiger Impfrate die Herdenimmunität zu erreichen
     let endDate = new Date().setDate(new Date().getDate() + daysSum); // Enddatum
 
     document.getElementById("bdbutton").onclick = calcVaccDate;
@@ -130,7 +130,7 @@ function draw(vaccData, covidData) {
         document.getElementById("tage").innerHTML = `Noch ${daysSum} Tage`;
         document.getElementById("humanisedDate").innerHTML = humanise(daysSum);
         document.getElementById("impfPers").innerHTML = vaccLeft.asRoundStr();
-        document.getElementById("impfDos").innerHTML = impfungen.asRoundStr();
+        document.getElementById("impfDos").innerHTML = vaccinations.asRoundStr();
         document.getElementById("impfRat").innerHTML = vaccRate.asRoundStr();
         document.getElementById("population").innerHTML = population.asRoundStr();
     //                document.getElementById("impfbar").innerHTML = (population).asRoundStr();
