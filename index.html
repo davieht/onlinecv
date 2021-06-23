@@ -54,8 +54,7 @@
         #profileimg:hover {
             border: 2px lightgrey dashed;
             cursor: pointer;
-        }
-       
+        }       
 
         @media print {
             body.w3-light-grey {
@@ -72,7 +71,7 @@
 
             }
             /*#experience {page-break-after: always;}*/
-            footer, .del, .faba {
+            footer, .del, .faba, #sidebar {
                 display: none;
             }
         }
@@ -386,6 +385,7 @@
             
             document.addEventListener("dragend", function(ev) {
                 $(".dragbox").remove();
+                save();
             }, false);
             
             document.addEventListener("dragover", function(ev) {
@@ -521,10 +521,11 @@
                 
                 <div class="w3-container">
                     <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="profession" class="edtext">Programmiererin</span></p>
+                    <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="profession" class="edtext">4.5.1998 Wien</span></p>
                     <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="address" class="edtext">Bahnstraße 1, 1220 Wien, Österreich</span></p>
                     <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="email" class="edtext">sophie.musterfrau@email.com</span></p>
                     <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="phone" class="edtext">+43 650 123456789</span></p>
-                    <p><i class="fa fa-globe fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="website" class="edtext">https://davieht.github.io/onlinecv/</span></p>
+<!--                    <p><i class="fa fa-globe fa-fw w3-margin-right w3-large w3-text-theme"></i><span id="website" class="edtext">https://davieht.github.io/onlinecv/</span></p>-->
                     <hr>
 
                     <p class="w3-large"><b><i class="fa fa-award fa-fw w3-margin-right w3-text-theme"></i>Fähigkeiten</b></p>
@@ -556,7 +557,7 @@
                     </div>
                     <hr>
 
-                    <p class="w3-large"><b><i class="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme"></i>Likes/Dislikes</b></p>
+<!--                    <p class="w3-large"><b><i class="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme"></i>Likes/Dislikes</b></p>
                     <div class="w3-half">
                         <p>honesty</p>
                         <p>Linux</p>
@@ -565,7 +566,7 @@
                     <div class="w3-half">
                         <p>rassism</p>
                         <p>Apple</p>
-                    </div>
+                    </div>-->
                   </div>
             </div>
             <br>
@@ -610,29 +611,49 @@
         <p><a href="mailto:david.viehtauer@gmail.com">Contact</a> | <a href="impressum.html">Impressum</a> | Made with <span style="color: white">&#10084;</span> by "Daveloper"</p>
     </footer>
     
-    <div id="palette" style="position:fixed; top:100px; background: lightgrey; border-radius: 0 8px 8px 0; padding:4px;">
-        <div class="w3-red" data-color="red"></div>
-        <div class="w3-pink" data-color="pink"></div>
-        <div class="w3-purple" data-color="purple"></div>
-        <div class="w3-deep-purple" data-color="deep-purple"></div>
-        <div class="w3-indigo" data-color="indigo"></div>
-        <div class="w3-blue" data-color="blue"></div>
-        <div class="w3-light-blue" data-color="light-blue"></div>
-        <div class="w3-cyan" data-color="cyan"></div>
-        <div class="w3-teal" data-color="teal"></div>
-        <div class="w3-green" data-color="green"></div>
-        <div class="w3-light-green" data-color="light-green"></div>
-        <div class="w3-lime" data-color="lime"></div>
-        <div class="w3-khaki" data-color="khaki"></div>
-        <div class="w3-yellow" data-color="yellow"></div>
-        <div class="w3-amber" data-color="amber"></div>
-        <div class="w3-orange" data-color="orange"></div>
-        <div class="w3-deep-orange" data-color="deep-orange"></div>
-        <div class="w3-blue-grey" data-color="blue-grey"></div>
-        <div class="w3-brown" data-color="brown"></div>
-        <div class="w3-grey" data-color="grey"></div>
-        <div class="w3-dark-grey" data-color="dark-grey"></div>
-        <div class="w3-black" data-color="black"></div>
+    <div id="sidebar" style="position:fixed; top:100px; background: lightgrey; border-radius: 0 8px 8px 0; padding:4px;">
+        <div id="palette">
+            <div class="w3-red" data-color="red"></div>
+            <div class="w3-pink" data-color="pink"></div>
+            <div class="w3-purple" data-color="purple"></div>
+            <div class="w3-deep-purple" data-color="deep-purple"></div>
+            <div class="w3-indigo" data-color="indigo"></div>
+            <div class="w3-blue" data-color="blue"></div>
+            <div class="w3-light-blue" data-color="light-blue"></div>
+            <div class="w3-cyan" data-color="cyan"></div>
+            <div class="w3-teal" data-color="teal"></div>
+            <div class="w3-green" data-color="green"></div>
+            <div class="w3-light-green" data-color="light-green"></div>
+            <div class="w3-lime" data-color="lime"></div>
+            <div class="w3-khaki" data-color="khaki"></div>
+            <div class="w3-yellow" data-color="yellow"></div>
+            <div class="w3-amber" data-color="amber"></div>
+            <div class="w3-orange" data-color="orange"></div>
+            <div class="w3-deep-orange" data-color="deep-orange"></div>
+            <div class="w3-blue-grey" data-color="blue-grey"></div>
+            <div class="w3-brown" data-color="brown"></div>
+            <div class="w3-grey" data-color="grey"></div>
+            <div class="w3-dark-grey" data-color="dark-grey"></div>
+            <div class="w3-black" data-color="black"></div>
+        </div>
+        <div onclick="document.getElementById('print_hint_modal').style.display='block'"><i class="fas fa-print w3-theme" style="line-height: 24px; font-size: 24px; padding: 8px; cursor:pointer; margin:4px; border-radius: 4px"></i></div>
+    </div>
+    
+    <!-- Print hint modal -->
+    <div id="print_hint_modal" class="w3-modal">
+      <div class="w3-modal-content" style="width: fit-content">
+        <div class="w3-container">
+          <span onclick="document.getElementById('print_hint_modal').style.display='none'"
+          class="w3-button w3-display-topright">&times;</span>
+          <h2>Drucken Hinweis</h2>
+          <p>Drucken ohne Kopf- und Fußzeile unter <br/>"Weitere Einstellungen" "Kopf- und Fußzeilen" deselektieren.</p>
+          <img src="print_hint.png"/>   
+          <br>
+          <div class="w3-center" style="padding-bottom: 16px">
+          <button class="w3-button w3-theme" onclick="(function (){ document.getElementById('print_hint_modal').style.display='none'; window.print();})()">Drucken</button>
+          </div>
+        </div>
+      </div>
     </div>
 
 </body>
