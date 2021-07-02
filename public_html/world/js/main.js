@@ -1,4 +1,4 @@
-const HEARD_IMMUN = 0.7;
+const HEARD_IMMUN = 0.8;
 
 let cData = null;
 let noDataStr = "no data";

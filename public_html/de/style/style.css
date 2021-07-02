@@ -71,11 +71,11 @@ h3 { margin-top: 30px; }
     position: absolute;
 }
 #heardimmune {
-    width: 30%;
+    width: 20%;
     height: var(--main-bar-height);
     background-color: #000;
     line-height: var(--main-bar-height);
-    left: 70%;
+    left: 80%;
     position: absolute;
     color: forestgreen;
     text-align: left;
@@ -87,7 +87,7 @@ h3 { margin-top: 30px; }
     height: var(--main-bar-height);
     background-color: forestgreen;
     position: absolute;
-    left: 70%;
+    left: 80%;
 }
 #recoveredBar {
     width: 0%;
