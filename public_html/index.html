@@ -16,7 +16,6 @@
         location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
         }
         </script>
-        <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
         <title>Pandemieende Österreich</title>
@@ -41,7 +40,8 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
-        <script src="js/main_at.js"></script>
+        <script type="text/javascript" src="js/utils.js?v=1"></script>
+        <script src="js/main_at.js?v=1"></script>
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", main)
         </script>
@@ -234,7 +234,12 @@
                     <div id="_25_first" class="vaccFirst"></div>
                     <div id="_25_second" class="vaccSecond"></div>
                 </div>
-                <div class="label">unter 25</div>
+                <div class="label">15-25</div>
+                <div class="myProgress">
+                    <div id="_15_first" class="vaccFirst"></div>
+                    <div id="_15_second" class="vaccSecond"></div>
+                </div>
+                <div class="label">unter 15</div>
                 <div class="myProgress">
                     <div id="_0_first" class="vaccFirst"></div>
                     <div id="_0_second" class="vaccSecond"></div>
@@ -375,6 +380,10 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (14.7.2021)</p>
+                    <ul>
+                        <li>0-25 Jährige aufgetrennt in 0-15-Jährige und 15-25-Jährige</li>
+                    </ul>
                     <p>Update: (2.7.2021)</p>
                     <ul>
                         <li>Herdenimmunität von 70% auf 80% gesetzt. Da die neue Delta Variante das Infektionsgeschehen dominiert, wird nun die Herdenimmunität neu berechnet. Der R0-Wert der Delta Variante ist mit 5-8 wesentlich ansteckender als die Alpha Variante mit R0=3-4. Für Interessierte: Die Herdenimmunität berechnet sich aus dem R0-Wert wie folgt: 1-1/R0. Für die Rechnung auf dieser Seite wird immer nur der unterste Wert von R0 genommen.</li>

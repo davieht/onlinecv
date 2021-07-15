@@ -210,29 +210,32 @@ function drawSum(vaccData, population) {
 }
 
 function drawGroups(vaccData) {
-    drawBarGroups("_85_first", vaccData, [31, 32, 33], bev, [17, 18, 19]);
-    drawBarGroups("_85_second", vaccData, [55, 56, 57], bev, [17, 18, 19]);
+    drawBarGroups("_85_first", vaccData, [34, 35, 36], bev, [17, 18, 19]);
+    drawBarGroups("_85_second", vaccData, [61, 62, 63], bev, [17, 18, 19]);
+    
+    drawBarGroups("_75_first", vaccData, [31, 32, 33], bev, [15, 16]);
+    drawBarGroups("_75_second", vaccData, [58, 59, 60], bev, [15, 16]);
 
-    drawBarGroups("_75_first", vaccData, [28, 29, 30], bev, [15, 16]);
-    drawBarGroups("_75_second", vaccData, [52, 53, 54], bev, [15, 16]);
+    drawBarGroups("_65_first", vaccData, [28, 29, 30], bev, [13, 14]);
+    drawBarGroups("_65_second", vaccData, [55, 56, 57], bev, [13, 14]);
 
-    drawBarGroups("_65_first", vaccData, [25, 26, 27], bev, [13, 14]);
-    drawBarGroups("_65_second", vaccData, [49, 50, 51], bev, [13, 14]);
+    drawBarGroups("_55_first", vaccData, [25, 26, 27], bev, [11, 12]);
+    drawBarGroups("_55_second", vaccData, [52, 53, 54], bev, [11, 12]);
 
-    drawBarGroups("_55_first", vaccData, [22, 23, 24], bev, [11, 12]);
-    drawBarGroups("_55_second", vaccData, [46, 47, 48], bev, [11, 12]);
+    drawBarGroups("_45_first", vaccData, [22, 23, 24], bev, [9, 10]);
+    drawBarGroups("_45_second", vaccData, [49, 50, 51], bev, [9, 10]);
 
-    drawBarGroups("_45_first", vaccData, [19, 20, 21], bev, [9, 10]);
-    drawBarGroups("_45_second", vaccData, [43, 44, 45], bev, [9, 10]);
+    drawBarGroups("_35_first", vaccData, [19, 20, 21], bev, [7, 8]);
+    drawBarGroups("_35_second", vaccData, [46, 47, 48], bev, [7, 8]);
 
-    drawBarGroups("_35_first", vaccData, [16, 17, 18], bev, [7, 8]);
-    drawBarGroups("_35_second", vaccData, [40, 41, 42], bev, [7, 8]);
+    drawBarGroups("_25_first", vaccData, [16, 17, 18], bev, [5, 6]);
+    drawBarGroups("_25_second", vaccData, [43, 44, 45], bev, [5, 6]);
 
-    drawBarGroups("_25_first", vaccData, [13, 14, 15], bev, [5, 6]);
-    drawBarGroups("_25_second", vaccData, [37, 38, 39], bev, [5, 6]);
-
-    drawBarGroups("_0_first", vaccData, [10, 11, 12], bev, [0, 1, 2, 3, 4]);
-    drawBarGroups("_0_second", vaccData, [34, 35, 36], bev, [0, 1, 2, 3, 4]);
+    drawBarGroups("_15_first", vaccData, [13, 14, 15], bev, [3, 4]);
+    drawBarGroups("_15_second", vaccData, [40, 41, 42], bev, [3, 4]);
+    
+    drawBarGroups("_0_first", vaccData, [10, 11, 12], bev, [0, 1, 2]);
+    drawBarGroups("_0_second", vaccData, [37, 38, 39], bev, [0, 1, 2]);
 }
 
 function drawStates(vaccData) {
