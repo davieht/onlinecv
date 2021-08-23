@@ -17,6 +17,7 @@
         }
         </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels"></script>
 
         <title>Pandemieende Österreich</title>
         <meta charset="UTF-8">
@@ -41,7 +42,7 @@
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
         <script type="text/javascript" src="js/utils.js?v=1"></script>
-        <script src="js/main_at.js?v=1"></script>
+        <script src="js/main_at.js?v=2"></script>
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", main)
         </script>
@@ -60,18 +61,17 @@
                 <h2 id="humanisedDate"></h2>
             
                 <div class="subtext"><img src="src/at.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 80% in Österreich erreicht ist.&nbsp;*</div>
-                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
-                    <p>Da die neue Delta Variante das Infektionsgeschehen dominiert, wird nun die Herdenimmunität neu berechnet. Der R0-Wert der Delta Variante ist mit 5-8 wesentlich ansteckender als die Alpha Variante mit R0=3-4. Für Interessierte: Die Herdenimmunität berechnet sich aus dem R0-Wert wie folgt: 1-1/R0. Für die Rechnung auf dieser Seite wird immer nur der unterste Wert von R0 genommen.</p>
-                </div>
 <!--                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Neue Website mit Daten aus der ganzen Welt online! <a href="https://pandemicend.info">pandemicend.info</a></p>
                 </div>-->
 
                 <div>Immunitätsrate&nbsp;**</div>
                 <div id="mainProgress">
+                    <div id="inoculableBar"></div>
                     <div id="progressBar"></div>
                     <div id="recoveredBar"></div>
-                    <div id="heardimmune">80%</div>
+                    
+                    <div id="heardimmune">80%</div>                   
                     <div id="bar"></div>
                 </div>
                 <p class="footnote">Datenlage Stand <span id="update-date"></span></p>
@@ -142,7 +142,7 @@
                     <div class="bubble" style="background-color:hsl(20, 100%, 90%)">
                         <p id="hospital"></p>
                         <p id="hospitalDelta"></p>
-                        <p>Hostpitalisierte</p>
+                        <p>Hospitalisierte</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(0, 100%, 90%)">
                         <p id="intensiveCare"></p>
@@ -316,12 +316,28 @@
                 <h3>Impfrate 7-Tage-Schnitt</h3>
                 <canvas id="vaccChart"></canvas>
             </div>
-<!--            <div class="w3-content">
-                <p class="w3-center">Impfbereitschaft</p>
-                <div id="vaccEmpathyPie"></div>
-                <div class="w3-right footnote">Daten von <a href="https://viecer.univie.ac.at/corona-blog/corona-blog-beitraege/corona-dynamiken19/">ACPP (Austrian Corona Panel Project)</a> Stand 26.1.2021</div>
-            </div>-->
+            <h3 class="w3-center">Impfbereitschaft ***</h3>
             <div class="w3-content w3-center">
+                <div class="w3-half">
+                    <h5>Ich werde mich ehestmöglich impfen lassen</h5>
+                    <canvas id="chartVaccWill"></canvas>    
+                </div>
+                <div class="w3-half">
+                    <h5>Ich werde mich ehestmöglich impfen lassen (ohne Geimpfte)</h5>
+                    <canvas id="chartVaccWillNotYet"></canvas>
+                </div>
+            </div>
+            <div class="w3-content w3-center">
+                <div class="w3-half">
+                    <h5>Es sollte eine Impfpflicht geben</h5>
+                    <canvas id="chartCompulVacc"></canvas>   
+                </div>
+                <div class="w3-half">
+                    <h5>Ich werde meine Kinder ehestmöglich impfen lassen</h5>
+                    <canvas id="chartVaccChild"></canvas>
+                </div>
+            </div>
+<!--            <div class="w3-content w3-center" style="clear:both">
                 <h3>Wann werde ich geimpft?</h3>
                 <div class="w3-panel" style="background-color:hsl(211, 100%, 93%); color: #1b8bff">
                     <p>Hinweis an Android User: Um die Jahreszahl zu scrollen tippen Sie im Popup auf die <b>Jahreszahl</b> links oben</p>
@@ -339,8 +355,9 @@
                     <p><span id="impf_date_pop"></span> Personen (oder <span id="impf_date_pop_percent"></span> % der Bevölkerung) werden vor Ihnen geimpft.</p>
                 </div>
                 <p class="footnote">Der Impfrechner berechnet den Termin an dem Ihnen spätestens die zweite Impfdosis verabreicht wird.</p>
-            </div>
-            <div class="w3-content w3-center links">
+            </div>-->
+            <br/>
+            <div class="w3-content w3-center links" style="clear: both">
                 <div><a href="https://www.sozialministerium.at/Corona-Schutzimpfung/Corona-Schutzimpfung---Haeufig-gestellte-Fragen.html" target="_blank">Warum sollte ich mich impfen lassen? (FAQ)</a></div>
                 <div><a href="https://info.gesundheitsministerium.gv.at/" target="_blank">Impfdashboard</a></div>
                 <div><a href="https://covid19-dashboard.ages.at/" target="_blank">Aktuelle Zahlen zu Covid</a></div>
@@ -354,16 +371,20 @@
                 <table class="w3-content footnote fngroup">
                     <tr>
                         <th>*</th>
-                        <td>Das Datum errechnet sich anhand der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) um eine Herdenimmunität von 80% der Gesamtbevölkerung (Stand 1.1.2021) zu erreichen; abzüglich jener Personen, welche bereits Impfungen bekommen haben.</td>
+                        <td>Das Datum errechnet sich anhand der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) um eine Herdenimmunität von 80% der Gesamtbevölkerung (Stand 1.1.2021) zu erreichen; abzüglich jener Personen, welche bereits Impfungen bekommen haben.<br/> Der R0-Wert der Delta Variante ist mit 5-8 wesentlich ansteckender als die Alpha Variante mit R0=3-4. Für Interessierte: Die Herdenimmunität berechnet sich aus dem R0-Wert wie folgt: 1-1/R0. Für die Rechnung auf dieser Seite wird immer nur der unterste Wert von R0 genommen.</td>
                     </tr>
                     <tr>
                         <th>**</th>
-                        <td>Die Immunitätsrate errechnet sich aus der Anzahl jener Personen, die bereits die zweite Impfdosis erhalten haben; gemessen an der Gesamtbevölkerung (Stand 1.1.2021)</td>
+                        <td>Die Immunitätsrate errechnet sich aus der Anzahl jener Personen, die bereits die zweite Impfdosis erhalten haben; gemessen an der Gesamtbevölkerung (Stand 1.1.2021). Der helle Balken zeigt den Prozentsatz der impfbaren Bevölkerung, also  exklusive unter Zwölfjähriger.</td>
                     </tr>
                     <tr>
                         <th>***</th>
-                        <td>Die Berechnung ermittelt das Datum ihrer Zweitimpfung anhand der aktuellen Impfrate, gemessen an der Bevölkerungsverteilung nach Alter. Das bedeutet je älter Sie sind, desto früher bekommen Sie die Impfung.</td>
+                        <td>Daten von <a href="https://viecer.univie.ac.at/corona-blog/corona-blog-beitraege/corona-dynamiken34/">Austrian Corona Panel Project (ACPP). Stand: Juni 2021</a></td>
                     </tr>
+<!--                    <tr>
+                        <th>***</th>
+                        <td>Die Berechnung ermittelt das Datum ihrer Zweitimpfung anhand der aktuellen Impfrate, gemessen an der Bevölkerungsverteilung nach Alter. Das bedeutet je älter Sie sind, desto früher bekommen Sie die Impfung.</td>
+                    </tr>-->
                     <tr>
                         <th></th>
                         <td>Updates täglich um 12:15</td>
@@ -380,6 +401,10 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (17.7.2021)</p>
+                    <ul>
+                        <li>Umfrage Impfbereitschaft hinzugefügt</li>
+                    </ul>
                     <p>Update: (14.7.2021)</p>
                     <ul>
                         <li>0-25 Jährige aufgetrennt in 0-15-Jährige und 15-25-Jährige</li>
@@ -482,7 +507,7 @@
         <footer class="footer w3-white w3-center">            
             <div>Made with <span style="color: red">&#10084;</span> by "Daveloper"</div>
             <div>
-                <span>Datenquellen: <a href="https://www.ages.at/">AGES</a>, <a href="https://www.statistik.at/">Statistik Austria</a>, <a href="https://www.data.gv.at/covid-19">BMSGPK, Österreichisches COVID-19 Open Data Informationsportal</a></span>, <span><a href="https://viecer.univie.ac.at/corona-blog/corona-blog-beitraege/corona-dynamiken19/">ACPP (Austrian Corona Panel Project)</a></span> | <span><a href="impressum.html">Impressum</a></span> | <span><a href="mailto:daveloper@pandemieende.at">Kontakt</a></span> | <span><a href="https://www.pandemicend.info">Pandemieende Weltweit</a></span> | <span><a href="https://www.pandemieende.de">Pandemieende Deutschland</a></span> | <span><a href="https://www.pandemieende.ch">Pandemieende Schweiz</a></span> | <span>Alle Angaben ohne Gewähr</span>
+                <span>Datenquellen: <a href="https://www.ages.at/">AGES</a>, <a href="https://www.statistik.at/">Statistik Austria</a>, <a href="https://www.data.gv.at/covid-19">BMSGPK, Österreichisches COVID-19 Open Data Informationsportal</a></span>, <span><a href="https://viecer.univie.ac.at/corona-blog/corona-blog-beitraege/corona-dynamiken34/">ACPP (Austrian Corona Panel Project)</a></span> | <span><a href="impressum.html">Impressum</a></span> | <span><a href="mailto:daveloper@pandemieende.at">Kontakt</a></span> | <span><a href="https://www.pandemicend.info">Pandemieende Weltweit</a></span> | <span><a href="https://www.pandemieende.de">Pandemieende Deutschland</a></span> | <span><a href="https://www.pandemieende.ch">Pandemieende Schweiz</a></span> | <span>Alle Angaben ohne Gewähr</span>
             </div>
         </footer>
     </body>

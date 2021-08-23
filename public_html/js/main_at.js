@@ -9,7 +9,7 @@ const HOSPITAL_ROW = 6;
 const CASUALTIES_ROW = 4;
 const INTENSIVE_CARE_ROW = 7;
 const INFECTED_ROW = 3;
-const UNDER_SIXTEEN = 1369825;
+const UNDER_TWELVE = 1031247;
 const TESTS_ROW = 8;
 const PREV_DAY = 10;
 
@@ -104,11 +104,12 @@ function draw(vaccData, covidData) {
     let vaccLeft = population * HEARD_IMMUN - sumVaccImmune; // Noch zu impfende Bevölkerung
     let vaccinations = (population * HEARD_IMMUN) * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
     let isImmunePercent = (sumVaccImmune / population) * 100;
+    let isInoculablePercent = (sumVaccImmune / (population - UNDER_TWELVE)) * 100;
 
     let daysSum = Math.round(vaccinations / vaccRate); // Tage die benötigt werden um bei derzeitiger Impfrate die Herdenimmunität zu erreichen
     let endDate = new Date().setDate(new Date().getDate() + daysSum); // Enddatum
 
-    document.getElementById("bdbutton").onclick = calcVaccDate;
+//    document.getElementById("bdbutton").onclick = calcVaccDate;
 
 //                  const sum = vaccArr.last().map(i=>i.toInt()).sum(vaccArrIdx);
 //            const sumPrev = vaccArr[vaccArr.length - 12].map(i=>i.toInt()).sum(vaccArrIdx);
@@ -118,9 +119,13 @@ function draw(vaccData, covidData) {
 
     function drawMainBar() {
         //                document.getElementById("myProgress").style.backgroundColor = getColor(istImmunPercent * .01, 90);
+        document.getElementById("inoculableBar").innerHTML = (isInoculablePercent).toFixed(2) + "%";
+        document.getElementById("inoculableBar").style.width = (isInoculablePercent) + "%";
+        document.getElementById("inoculableBar").style.backgroundColor = getColor(isInoculablePercent * .01, 70);
+        
         document.getElementById("progressBar").style.backgroundColor = getColor(isImmunePercent * .01, 50);
-        document.getElementById("progressBar").style.width = (isImmunePercent) + "%";
         document.getElementById("progressBar").innerHTML = (isImmunePercent).toFixed(2) + "%";
+        document.getElementById("progressBar").style.width = (isImmunePercent) + "%";        
         document.getElementById("recoveredBar").style.width = ((recovered / population) * 100).toFixed(2) + "%";
         document.getElementById("update-date").innerHTML = new Date(vaccData.last()[0]).toLocaleDateString("de-AT");
     }
@@ -196,6 +201,10 @@ function draw(vaccData, covidData) {
     drawSum(vaccData, population);
     drawStates(vaccData);
     drawChart(vaccData);
+    drawChartVaccWill();
+    drawChartVaccWillNotYet();
+    drawChartCompulVacc();
+    drawChartVaccChild();
 }
 
 function drawSum(vaccData, population) {
@@ -319,6 +328,114 @@ function drawChart(vaccData) {
                 }]
             }
        }
+    });
+}
+
+const doughChartOptions = {
+            legend: {
+                position: 'bottom'
+            },
+            plugins: {
+                legend: false,
+                outlabels: {
+                   text: '%l %p',
+                   color: 'white',
+                   borderRadius: 4,
+                   font: {
+                       resizable: true,
+                       minSize: 12,
+                       maxSize: 18
+                   }
+                }
+            },
+            layout: {
+                padding: 50
+            }
+        };
+
+function drawChartVaccWill() {
+    new Chart(document.getElementById("chartVaccWill").getContext("2d"), {
+        type: 'doughnut',
+        data: {
+            labels: ['Geimpft', 'Teilgeimpft', 'Ja', 'Eher ja', 'Teils', 'Eher nein', 'Nein'],
+            datasets: [{
+                label: "Vollimmun",
+                data: [39, 26, 4, 2, 5, 5, 15],
+                backgroundColor: [
+                  'rgb(27, 139, 255, 1)',
+                  'rgb(132, 192, 255)',
+                  'hsl(120,70%,60%)',
+                  'hsl(100,70%,60%)',
+                  'hsl(0,0%,60%)',
+                  'hsl(20,70%,60%)',
+                  'hsl(0,70%,60%)'
+                ]
+            }]
+        },
+        options: doughChartOptions
+    });
+}
+
+function drawChartVaccWillNotYet() {
+    new Chart(document.getElementById("chartVaccWillNotYet").getContext("2d"), {
+        type: 'doughnut',
+        data: {
+            labels: ['Ja', 'Eher ja', 'Teils', 'Eher nein', 'Nein'],
+            datasets: [{
+                label: "Vollimmun",
+                data: [4, 2, 5, 5, 15],
+                backgroundColor: [
+                  'hsl(120,70%,60%)',
+                  'hsl(100,70%,60%)',
+                  'hsl(0,0%,60%)',
+                  'hsl(20,70%,60%)',
+                  'hsl(0,70%,60%)'
+                ]
+            }]
+        },
+        options: doughChartOptions
+    });
+}
+
+function drawChartCompulVacc() {
+    new Chart(document.getElementById("chartCompulVacc").getContext("2d"), {
+        type: 'doughnut',
+        data: {
+            labels: ['Ja', 'Eher ja', 'Teils', 'Eher nein', 'Nein'],
+            datasets: [{
+                label: "Es sollte eine Impfpflicht geben",
+                data: [14, 13, 18, 14, 38],
+                backgroundColor: [
+                  'hsl(120,70%,60%)',
+                  'hsl(100,70%,60%)',
+                  'hsl(0,0%,60%)',
+                  'hsl(20,70%,60%)',
+                  'hsl(0,70%,60%)'
+                ]
+            }]
+        },
+        options: doughChartOptions
+    });
+}
+
+function drawChartVaccChild() {
+    new Chart(document.getElementById("chartVaccChild").getContext("2d"), {
+        type: 'doughnut',
+        data: {
+            labels: ['Ja', 'Eher ja', 'Teils', 'Eher nein', 'Nein'],
+            datasets: [{
+                label: "Vollimmun",
+                data: [14, 7, 15, 12, 43],
+                backgroundColor: [
+                  'hsl(120,70%,60%)',
+                  'hsl(100,70%,60%)',
+                  'hsl(0,0%,60%)',
+                  'hsl(20,70%,60%)',
+                  'hsl(0,70%,60%)'
+                ]
+            }]
+        },
+        options: doughChartOptions
     });
 }
 

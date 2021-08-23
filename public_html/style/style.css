@@ -61,7 +61,7 @@ h3 { margin-top: 30px; }
     line-height: inherit;
     padding-left: 10px;
 }
-#progressBar {
+#progressBar, #inoculableBar {
     width: 0%;
     height: var(--main-bar-height);
     background-color: #ddd;
@@ -71,6 +71,12 @@ h3 { margin-top: 30px; }
     padding-left: 10px;
     position: absolute;
 }
+
+#inoculableBar {
+    text-align: right;
+    padding-right: 10px;
+}
+
 #heardimmune {
     width: 20%;
     height: var(--main-bar-height);
