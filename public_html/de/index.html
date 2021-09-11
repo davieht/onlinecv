@@ -260,8 +260,8 @@
         const UNDER_SIXTEEN = 12166082;
         
         const VACC_SUM_COL = 1;
-        const VACC_FIRST_COL = 8;
-        const VACC_FULL_COL = 9;
+        const VACC_FIRST_COL = 22;
+        const VACC_FULL_COL = 23;
         
         function csvJSON(csv){
             return csv.trim().split("\n").map(element => element.split("\t"));
@@ -318,9 +318,9 @@
 //            const chartRows = csvVaccArr.filter(row => row[1] === '10');
             const ctx = document.getElementById("vaccChart").getContext("2d");
 
-            const vaccDiffSum = csvVaccArr.map(row => row[1]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
-            const vaccDiffFirst = csvVaccArr.map(row => row[8]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
-            const vaccDiffSecond = csvVaccArr.map(row => row[9]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
+            const vaccDiffSum = csvVaccArr.map(row => row[VACC_SUM_COL]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
+            const vaccDiffFirst = csvVaccArr.map(row => row[VACC_FIRST_COL]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
+            const vaccDiffSecond = csvVaccArr.map(row => row[VACC_FULL_COL]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
 
             Chart.defaults.global.elements.point.radius = '0';
 //                Chart.defaults.global.elements.point.backgroundColor = 'rgba(0, 0, 0, 0)';
