@@ -4,7 +4,7 @@ const POPULATION_COL = 2;
 const OPACITY_DESELECTED = .5;
 
 function inciThreshold(value) {
-    if (value == 0) {
+    if (value === 0) {
         return 'lightgrey';
     } else if (value < 20) {
         return 'lightgreen';

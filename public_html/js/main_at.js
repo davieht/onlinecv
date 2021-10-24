@@ -357,17 +357,14 @@ function drawChartVaccWill() {
     new Chart(document.getElementById("chartVaccWill").getContext("2d"), {
         type: 'doughnut',
         data: {
-            labels: ['Geimpft', 'Teilgeimpft', 'Ja', 'Eher ja', 'Teils', 'Eher nein', 'Nein'],
+            labels: ['Geimpft', 'Ja', 'Teils', 'Nein'],
             datasets: [{
                 label: "Vollimmun",
-                data: [39, 26, 4, 2, 5, 5, 15],
+                data: [75, 1, 8, 17],
                 backgroundColor: [
                   'rgb(27, 139, 255, 1)',
-                  'rgb(132, 192, 255)',
                   'hsl(120,70%,60%)',
-                  'hsl(100,70%,60%)',
                   'hsl(0,0%,60%)',
-                  'hsl(20,70%,60%)',
                   'hsl(0,70%,60%)'
                 ]
             }]
@@ -380,15 +377,13 @@ function drawChartVaccWillNotYet() {
     new Chart(document.getElementById("chartVaccWillNotYet").getContext("2d"), {
         type: 'doughnut',
         data: {
-            labels: ['Ja', 'Eher ja', 'Teils', 'Eher nein', 'Nein'],
+            labels: ['Ja', 'Teils', 'Nein'],
             datasets: [{
                 label: "Vollimmun",
-                data: [4, 2, 5, 5, 15],
+                data: [1, 8, 17],
                 backgroundColor: [
                   'hsl(120,70%,60%)',
-                  'hsl(100,70%,60%)',
                   'hsl(0,0%,60%)',
-                  'hsl(20,70%,60%)',
                   'hsl(0,70%,60%)'
                 ]
             }]
@@ -404,7 +399,7 @@ function drawChartCompulVacc() {
             labels: ['Ja', 'Eher ja', 'Teils', 'Eher nein', 'Nein'],
             datasets: [{
                 label: "Es sollte eine Impfpflicht geben",
-                data: [14, 13, 18, 14, 38],
+                data: [20, 15, 17, 11, 34],
                 backgroundColor: [
                   'hsl(120,70%,60%)',
                   'hsl(100,70%,60%)',
@@ -425,7 +420,7 @@ function drawChartVaccChild() {
             labels: ['Ja', 'Eher ja', 'Teils', 'Eher nein', 'Nein'],
             datasets: [{
                 label: "Vollimmun",
-                data: [14, 7, 15, 12, 43],
+                data: [20, 10, 13, 8, 42],
                 backgroundColor: [
                   'hsl(120,70%,60%)',
                   'hsl(100,70%,60%)',
