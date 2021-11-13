@@ -41,8 +41,8 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
-        <script type="text/javascript" src="js/utils.js?v=1"></script>
-        <script src="js/main_at.js?v=2"></script>
+        <script type="text/javascript" src="js/utils.js?v=2"></script>
+        <script src="js/main_at.js?v=3"></script>
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", main)
         </script>
@@ -51,7 +51,7 @@
     crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
     <script src="data/districts.js"></script>
-    <script src="js/map.js"></script>
+    <script src="js/map.js?v=1"></script>
     </head>
     <body>
         <div class="main w3-container">
@@ -155,7 +155,7 @@
                         <p id="testsDelta"></p>
                         <p>Testungen</p>
                     </div>
-                    <div class="bubble">
+                    <div id="inciBubble" class="bubble">
                         <p id="incidence"></p>
                         <p id="incidenceDelta"></p>
                         <p>7-Tage-Inzidenz</p>
@@ -172,7 +172,7 @@
                         <span style="background-color: lightgreen; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>0 - 20</span>
                     </div>
                     <div>
-                        <span style="background-color: green; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>20 - 50</span>
+                        <span style="background-color: green; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>20 - 40</span>
                     </div>
                     <div>
                         <span style="background-color: yellow; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>50 - 100</span>
@@ -187,7 +187,13 @@
                         <span style="background-color: darkred; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>400 - 1000</span>
                     </div>
                     <div>
-                        <span style="background-color: black; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>&gt; 1000</span>
+                        <span style="background-color: purple; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>1000 - 2000</span>
+                    </div>
+                    <div>
+                        <span style="background-color: magenta; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>2000 - 4000</span>
+                    </div>
+                    <div>
+                        <span style="background-color: black; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>&gt; 4000</span>
                     </div>
                 </div>
                 <div id="mapid"></div>
@@ -401,6 +407,10 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (12.11.2021)</p>
+                    <ul>
+                        <li>Aufgrund der unerwartet hohen Inzidenz musste das Farbschema der Inzidenzen erweitert werden.</li>
+                    </ul>
                     <p>Update: (24.10.2021)</p>
                     <ul>
                         <li>Umfrage Impfbereitschaft Update</li>
@@ -514,5 +524,12 @@
                 <span>Datenquellen: <a href="https://www.ages.at/">AGES</a>, <a href="https://www.statistik.at/">Statistik Austria</a>, <a href="https://www.data.gv.at/covid-19">BMSGPK, Österreichisches COVID-19 Open Data Informationsportal</a></span>, <span><a href="https://viecer.univie.ac.at/corona-blog/corona-blog-beitraege/corona-dynamiken34/">ACPP (Austrian Corona Panel Project)</a></span> | <span><a href="impressum.html">Impressum</a></span> | <span><a href="mailto:daveloper@pandemieende.at">Kontakt</a></span> | <span><a href="https://www.pandemicend.info">Pandemieende Weltweit</a></span> | <span><a href="https://www.pandemieende.de">Pandemieende Deutschland</a></span> | <span><a href="https://www.pandemieende.ch">Pandemieende Schweiz</a></span> | <span>Alle Angaben ohne Gewähr</span>
             </div>
         </footer>
+        
+        <div id="mapModal" class="mapModal">
+            <div>
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div id="modalContent">asdf</div>
+            </div>
+        </div>
     </body>
 </html>

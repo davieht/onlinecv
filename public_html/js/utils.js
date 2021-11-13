@@ -86,3 +86,29 @@ function getCookie(name) {
 function eraseCookie(name) {   
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
+
+function inciThreshold(value) {
+    if (value === 0) {
+        return 'lightgrey';
+    } else if (value < 20) {
+        return 'lightgreen';
+    } else if (value < 40) {
+        return 'green';
+    } else if (value < 100) {
+        return 'yellow';
+    } else if (value < 200) {
+        return 'orange';
+    } else if (value < 400) {
+        return 'red';
+    } else if (value < 1000) {
+        return 'darkred';
+    } else if (value < 2000) {
+        return 'purple';
+    } else if (value < 4000) {
+        return 'magenta';
+    } else if (value < 10000) {
+        return 'darkblue';
+    } else {
+        return 'black';
+    }
+}

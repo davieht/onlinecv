@@ -156,6 +156,8 @@ td {
     text-align: initial;
     margin-top: 20px;
     position: absolute;
+    z-index: 1000;
+    border-radius: 4px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -178,4 +180,31 @@ td {
     background-color: var(--grey);
     margin: 4px;
     padding: 8px;
+}
+
+
+#mapModal{
+    /* To make the modal window center */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* To make the modal content center (additional)*/
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center; /* vertical */
+    z-index: 1000;
+    background: white;
+    padding: 16px;
+    border-radius: 4px;
+    display: none;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  line-height: 12px;
+  font-weight: bold;
+  cursor: pointer;
 }
