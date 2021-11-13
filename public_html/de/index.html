@@ -47,9 +47,9 @@
                 <h2 id="humanizedDate"></h2>
                 
                 <div class="subtext"><img src="src/de.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 80% in Deutschland erreicht ist. *</div>
-                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
+<!--                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Da die neue Delta Variante das Infektionsgeschehen dominiert, wird nun die Herdenimmunität neu berechnet. Der R0-Wert der Delta Variante ist mit 5-8 wesentlich ansteckender als die Alpha Variante mit R0=3-4. Für Interessierte: Die Herdenimmunität berechnet sich aus dem R0-Wert wie folgt: 1-1/R0. Für die Rechnung auf dieser Seite wird immer nur der unterste Wert von R0 genommen.</p>
-                </div>
+                </div>-->
 <!--                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Neue Website mit Daten aus der ganzen Welt online! <a href="https://pandemicend.info">pandemicend.info</a></p>
                 </div>-->
@@ -88,12 +88,20 @@
                     <div class="bubble" style="background-color:hsl(211, 100%, 87%)">
                         <p id="vaccFirst"></p>
                         <p id="vaccFirstDelta"></p>
-                        <p>Teilimpfungen</p>
+                        <p id="vaccFirstPercent"></p>
+                        <p>Erste Impfung</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(211, 100%, 80%)">
                         <p id="vaccSecond"></p>
                         <p id="vaccSecondDelta"></p>
-                        <p>Vollimmunisierte</p>
+                        <p id="vaccSecondPercent"></p>
+                        <p>Zweite Impfung</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(211, 100%, 70%)">
+                        <p id="vaccThird"></p>
+                        <p id="vaccThirdDelta"></p>
+                        <p id="vaccThirdPercent"></p>
+                        <p>Dritte Impfung</p>
                     </div>
                     <div class="bubble">
                         <p id="vaccRate"></p>
@@ -187,6 +195,11 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (13.11.2021)</p>
+                    <ul>
+                        <li>Bugs fixed</li>
+                        <li>3. Impfung wird nun auch berechnet.</li>
+                    </ul>
                     <p>Update: (2.7.2021)</p>
                     <ul>
                         <li>Herdenimmunität von 70% auf 80% gesetzt. Da die neue Delta Variante das Infektionsgeschehen dominiert, wird nun die Herdenimmunität neu berechnet. Der R0-Wert der Delta Variante ist mit 5-8 wesentlich ansteckender als die Alpha Variante mit R0=3-4. Für Interessierte: Die Herdenimmunität berechnet sich aus dem R0-Wert wie folgt: 1-1/R0. Für die Rechnung auf dieser Seite wird immer nur der unterste Wert von R0 genommen.</li>
@@ -260,8 +273,9 @@
         const UNDER_SIXTEEN = 12166082;
         
         const VACC_SUM_COL = 1;
-        const VACC_FIRST_COL = 22;
-        const VACC_FULL_COL = 23;
+        const VACC_FIRST_COL = 18;
+        const VACC_SECOND_COL = 19;
+        const VACC_THIRD_COL = 20;
         
         function csvJSON(csv){
             return csv.trim().split("\n").map(element => element.split("\t"));
@@ -279,7 +293,7 @@
 
             let isVacc = csvVaccArr.last()[VACC_SUM_COL].toInt();    // Anzahl an bisher geimpften Personen
             let vaccRate = getVaccRate(csvVaccArr);     // Impfungen pro Tag im 7-Tage-Schnitt https://info.gesundheitsministerium.gv.at/data/timeline.csv
-            let sumVaccImmune = csvVaccArr.last()[VACC_FULL_COL].toInt();
+            let sumVaccImmune = csvVaccArr.last()[VACC_SECOND_COL].toInt();
 
             let vaccLeft = POPULATION * HEARD_IMMUN - sumVaccImmune; // Noch zu impfende Bevölkerung
             let impfungen = (POPULATION * HEARD_IMMUN) * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
@@ -301,10 +315,13 @@
 //            document.getElementById("vaccSumPercent").innerHTML = (csvVaccArr.last()[1].toInt() / POPULATION * 100).toFixed(2) + "&nbsp;%";
             document.getElementById("vaccFirst").innerHTML = csvVaccArr.last()[VACC_FIRST_COL].toInt().toLocaleString("de-AT");
             document.getElementById("vaccFirstDelta").innerHTML = `+${(csvVaccArr.last()[VACC_FIRST_COL].toInt() - csvVaccArr.last(1)[VACC_FIRST_COL].toInt()).toLocaleString("de-AT")}`;
-//            document.getElementById("vaccFirstPercent").innerHTML = (csvVaccArr.last()[8].toInt() / POPULATION * 100).toFixed(2) + "&nbsp;%";
-            document.getElementById("vaccSecond").innerHTML = csvVaccArr.last()[VACC_FULL_COL].toInt().toLocaleString("de-AT");
-            document.getElementById("vaccSecondDelta").innerHTML = `+${(csvVaccArr.last()[VACC_FULL_COL].toInt() - csvVaccArr.last(1)[VACC_FULL_COL].toInt()).toLocaleString("de-AT")}`;
-//            document.getElementById("vaccSecondPercent").innerHTML = (csvVaccArr.last()[9].toInt() / POPULATION * 100).toFixed(2) + "&nbsp;%";
+            document.getElementById("vaccFirstPercent").innerHTML = (csvVaccArr.last()[VACC_FIRST_COL].toInt() / POPULATION * 100).toFixed(2) + "&nbsp;%";
+            document.getElementById("vaccSecond").innerHTML = csvVaccArr.last()[VACC_SECOND_COL].toInt().toLocaleString("de-AT");
+            document.getElementById("vaccSecondDelta").innerHTML = `+${(csvVaccArr.last()[VACC_SECOND_COL].toInt() - csvVaccArr.last(1)[VACC_SECOND_COL].toInt()).toLocaleString("de-AT")}`;
+            document.getElementById("vaccSecondPercent").innerHTML = (csvVaccArr.last()[VACC_SECOND_COL].toInt() / POPULATION * 100).toFixed(2) + "&nbsp;%";
+            document.getElementById("vaccThird").innerHTML = csvVaccArr.last()[VACC_THIRD_COL].toInt().toLocaleString("de-AT");
+            document.getElementById("vaccThirdDelta").innerHTML = `+${(csvVaccArr.last()[VACC_THIRD_COL].toInt() - csvVaccArr.last(1)[VACC_THIRD_COL].toInt()).toLocaleString("de-AT")}`;
+            document.getElementById("vaccThirdPercent").innerHTML = (csvVaccArr.last()[VACC_THIRD_COL].toInt() / POPULATION * 100).toFixed(2) + "&nbsp;%";
 //            document.getElementById("recovered").innerHTML = RECOVERED.asRoundStr();
 //            document.getElementById("recoveredPercent").innerHTML = (RECOVERED / POPULATION * 100).toFixed(2) + "&nbsp;%";
 
@@ -320,7 +337,8 @@
 
             const vaccDiffSum = csvVaccArr.map(row => row[VACC_SUM_COL]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
             const vaccDiffFirst = csvVaccArr.map(row => row[VACC_FIRST_COL]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
-            const vaccDiffSecond = csvVaccArr.map(row => row[VACC_FULL_COL]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
+            const vaccDiffSecond = csvVaccArr.map(row => row[VACC_SECOND_COL]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
+            const vaccDiffThird = csvVaccArr.map(row => row[VACC_THIRD_COL]).flat().map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8);
 
             Chart.defaults.global.elements.point.radius = '0';
 //                Chart.defaults.global.elements.point.backgroundColor = 'rgba(0, 0, 0, 0)';
@@ -330,19 +348,24 @@
                 data: {
                     labels: csvVaccArr.map(row => new Date(row[0]).toLocaleDateString("de-AT")).flat().slice(8),
                     datasets: [{
-                        label: "Vollimmun",
-                        data: vaccDiffSecond,
-                        fill: true,
-                        lineTension: 0,
-                        backgroundColor: 'rgba(27, 139, 255, 1)'
-                    }, {
                         label: "Erste Impfung",
                         data: vaccDiffFirst,
                         fill: true,
                         lineTension: 0,
                         backgroundColor: 'rgba(132, 192, 255, 1)'
-                    },
-                    {
+                    }, {
+                        label: "Zweite Impfung",
+                        data: vaccDiffSecond,
+                        fill: true,
+                        lineTension: 0,
+                        backgroundColor: 'rgba(27, 139, 255, 1)'
+                    }, {
+                        label: "Dritte Impfung",
+                        data: vaccDiffThird,
+                        fill: true,
+                        lineTension: 0,
+                        backgroundColor: 'rgba(132, 128, 255, 1)'
+                    }, {
                         label: "Gesamt",
                         data: vaccDiffSum,
                         fill: true,
