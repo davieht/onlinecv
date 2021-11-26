@@ -38,7 +38,7 @@ function mapInit() {
         keyboard: false,
         dragging: true,
         zoomSnap: .1,
-        minZoom: 7.3,
+        minZoom: 5,
         maxZoom: 9
     }).fitBounds([[49.09, 12], [46.19, 15]]);
     //[[49.09, 8.64], [46.19, 17.82]]

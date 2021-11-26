@@ -37,12 +37,12 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="icon" type="image/png" href="icon.png" sizes="32x32">
         <link rel="icon" type="image/png" href="icon.png" sizes="96x96">
-        <link rel="stylesheet" href="style/style.css?v=2"/>
+        <link rel="stylesheet" href="style/style.css?v=3"/>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
-        <script type="text/javascript" src="js/utils.js?v=2"></script>
-        <script src="js/main_at.js?v=3"></script>
+        <script type="text/javascript" src="js/utils.js?v=3"></script>
+        <script src="js/main_at.js?v=4"></script>
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", main)
         </script>
@@ -51,7 +51,7 @@
     crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
     <script src="data/districts.js"></script>
-    <script src="js/map.js?v=1"></script>
+    <script src="js/map.js?v=2"></script>
     </head>
     <body>
         <div class="main w3-container">
@@ -60,7 +60,7 @@
                 <h2 id="tage" class="large"></h2>
                 <h2 id="humanisedDate"></h2>
             
-                <div class="subtext"><img src="src/at.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 80% in Österreich erreicht ist.&nbsp;*</div>
+                <div class="subtext"><img src="src/at.svg" width="16"/>&nbsp;bis eine Durchimpfung von 85% in Österreich erreicht ist.&nbsp;*</div>
 <!--                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Neue Website mit Daten aus der ganzen Welt online! <a href="https://pandemicend.info">pandemicend.info</a></p>
                 </div>-->
@@ -71,7 +71,7 @@
                     <div id="progressBar"></div>
                     <div id="recoveredBar"></div>
                     
-                    <div id="heardimmune">80%</div>                   
+                    <div id="heardimmune">85%</div>                   
                     <div id="bar"></div>
                 </div>
                 <p class="footnote">Datenlage Stand <span id="update-date"></span></p>
@@ -197,6 +197,7 @@
                     </div>
                 </div>
                 <div id="mapid"></div>
+                <p style="color: darkred">&gt;&gt;&gt; Ein Klick auf die Bezirke zeigt nun detailierte Daten! Es ist auch möglich zu zoomen. &lt;&lt;&lt;</p>
                 
                 <h3>Altersgruppen</h3>
                 
@@ -377,7 +378,7 @@
                 <table class="w3-content footnote fngroup">
                     <tr>
                         <th>*</th>
-                        <td>Das Datum errechnet sich anhand der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) um eine Herdenimmunität von 80% der Gesamtbevölkerung (Stand 1.1.2021) zu erreichen; abzüglich jener Personen, welche bereits Impfungen bekommen haben.<br/> Der R0-Wert der Delta Variante ist mit 5-8 wesentlich ansteckender als die Alpha Variante mit R0=3-4. Für Interessierte: Die Herdenimmunität berechnet sich aus dem R0-Wert wie folgt: 1-1/R0. Für die Rechnung auf dieser Seite wird immer nur der unterste Wert von R0 genommen.</td>
+                        <td>Das Datum errechnet sich anhand der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) um eine Herdenimmunität von 85% der Gesamtbevölkerung (Stand 1.1.2021) zu erreichen; abzüglich jener Personen, welche bereits Impfungen bekommen haben.<br/> Der R0-Wert der Delta Variante ist mit 5-8 wesentlich ansteckender als die Alpha Variante mit R0=3-4. Für Interessierte: Die Herdenimmunität berechnet sich aus dem R0-Wert wie folgt: 1-1/R0. Für die Rechnung auf dieser Seite wird immer nur der unterste Wert von R0 genommen.</td>
                     </tr>
                     <tr>
                         <th>**</th>
@@ -407,6 +408,10 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (26.11.2021)</p>
+                    <ul>
+                        <li>Durchimpfungsrate auf 85% gesetzt.</li>
+                    </ul>
                     <p>Update: (12.11.2021)</p>
                     <ul>
                         <li>Aufgrund der unerwartet hohen Inzidenz musste das Farbschema der Inzidenzen erweitert werden.</li>

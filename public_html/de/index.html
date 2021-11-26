@@ -46,7 +46,7 @@
                 <h2 id="days" class="large"></h2>
                 <h2 id="humanizedDate"></h2>
                 
-                <div class="subtext"><img src="src/de.svg" width="16"/>&nbsp;bis eine landesweite Immunität von 80% in Deutschland erreicht ist. *</div>
+                <div class="subtext"><img src="src/de.svg" width="16"/>&nbsp;bis eine Durchimpfung von 85% in Deutschland erreicht ist. *</div>
 <!--                <div class="w3-panel w3-border-red w3-pale-red w3-text-red">
                     <p>Da die neue Delta Variante das Infektionsgeschehen dominiert, wird nun die Herdenimmunität neu berechnet. Der R0-Wert der Delta Variante ist mit 5-8 wesentlich ansteckender als die Alpha Variante mit R0=3-4. Für Interessierte: Die Herdenimmunität berechnet sich aus dem R0-Wert wie folgt: 1-1/R0. Für die Rechnung auf dieser Seite wird immer nur der unterste Wert von R0 genommen.</p>
                 </div>-->
@@ -57,7 +57,7 @@
                 <div>Immunitätsrate **</div>
                 <div id="mainProgress">
                     <div id="progressBar"></div>
-                    <div id="heardimmune">80%</div>
+                    <div id="heardimmune">85%</div>
                     <div id="bar"></div>
                 </div>
                 <p class="footnote">Datenlage Stand <span id="update-date"></span></p>
@@ -173,7 +173,7 @@
                 <table class="w3-content footnote fngroup">
                     <tr>
                         <th>*</th>
-                        <td>Das Datum errechnet sich anhand der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) um eine Herdenimmunität von 80% der Gesamtbevölkerung (Stand 1.1.2020) zu erreichen; abzüglich jener Personen, welche bereits Impfungen bekommen haben.</td>
+                        <td>Das Datum errechnet sich anhand der aktuellen Impfrate (gemessen am 7-Tage-Schnitt) um eine Herdenimmunität von 85% der Gesamtbevölkerung (Stand 1.1.2020) zu erreichen; abzüglich jener Personen, welche bereits Impfungen bekommen haben.</td>
                     </tr>
                     <tr>
                         <th>**</th>
@@ -195,6 +195,12 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (26.11.2021)</p>
+                    <ul>
+                        <li>Bugs fixed</li>
+                        <li>3. Impfung wird nicht in Herdenimmunität miteinberechnet.</li>
+                        <li>Herdenimmunität auf 85% gesetzt</li>
+                    </ul>
                     <p>Update: (13.11.2021)</p>
                     <ul>
                         <li>Bugs fixed</li>
@@ -269,7 +275,7 @@
         
         const POPULATION = 83190556; // Gesamtbevölkerung Deutschland
         const RECOVERED = 2287850;
-        const HEARD_IMMUN = .8;
+        const HEARD_IMMUN = .85;
         const UNDER_SIXTEEN = 12166082;
         
         const VACC_SUM_COL = 1;
@@ -296,7 +302,7 @@
             let sumVaccImmune = csvVaccArr.last()[VACC_SECOND_COL].toInt();
 
             let vaccLeft = POPULATION * HEARD_IMMUN - sumVaccImmune; // Noch zu impfende Bevölkerung
-            let impfungen = (POPULATION * HEARD_IMMUN) * 2 - isVacc;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
+            let impfungen = (POPULATION * HEARD_IMMUN) * 2 - sumVaccImmune;           // Derzeit müssen 2 Impfdosen pro Person verabreicht werden
             let isImmunePercent = (sumVaccImmune / POPULATION) * 100;
 
             let daysSum = Math.round(impfungen / vaccRate); // Tage die benötigt werden um bei derzeitiger Impfrate die Herdenimmunität zu erreichen
@@ -348,11 +354,11 @@
                 data: {
                     labels: csvVaccArr.map(row => new Date(row[0]).toLocaleDateString("de-AT")).flat().slice(8),
                     datasets: [{
-                        label: "Erste Impfung",
-                        data: vaccDiffFirst,
+                        label: "Dritte Impfung",
+                        data: vaccDiffThird,
                         fill: true,
                         lineTension: 0,
-                        backgroundColor: 'rgba(132, 192, 255, 1)'
+                        backgroundColor: 'rgba(132, 128, 255, 1)'
                     }, {
                         label: "Zweite Impfung",
                         data: vaccDiffSecond,
@@ -360,17 +366,17 @@
                         lineTension: 0,
                         backgroundColor: 'rgba(27, 139, 255, 1)'
                     }, {
-                        label: "Dritte Impfung",
-                        data: vaccDiffThird,
+                        label: "Erste Impfung",
+                        data: vaccDiffFirst,
                         fill: true,
                         lineTension: 0,
-                        backgroundColor: 'rgba(132, 128, 255, 1)'
+                        backgroundColor: 'rgba(132, 192, 255, 1)'
                     }, {
                         label: "Gesamt",
                         data: vaccDiffSum,
                         fill: true,
                         lineTension: 0,
-                        backgroundColor: 'rgba(171, 210, 251, 1)'
+                        backgroundColor: 'rgba(210, 210, 210, 1)'
                     }]
                 },
                 options: {

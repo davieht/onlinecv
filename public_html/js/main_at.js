@@ -1,5 +1,5 @@
 const impfWillig = 0.17;            // Anzahl der Impfwilligen
-const HEARD_IMMUN = 0.8;            // Herdenimmunität von 70%
+const HEARD_IMMUN = 0.85;            // Herdenimmunität von 70%
 const VACC_FIRST_ROW = 6;
 const VACC_SECOND_ROW = 8;
 const VACC_SUM_ROW = 4;
