@@ -93,25 +93,30 @@
                         <p id="impfPers"></p>
                         <p>zu impfende Personen</p>
                     </div>
-                    <div class="bubble">
-                        <p id="impfDos"></p>
-                        <p>benötigte Impfdosen</p>
-                    </div>
                     
                     <div class="bubble" style="background-color:hsl(211, 100%, 93%)">
                         <p id="vaccSum"></p>
                         <p id="vaccSumDelta"></p>
+                        <p id="vaccSumAvg"></p>
                         <p>Impfungen ges.</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(211, 100%, 87%)">
                         <p id="vaccFirst"></p>
                         <p id="vaccFirstDelta"></p>
-                        <p>Teilimpfungen</p>
+                        <p id="vaccFirstAvg"></p>
+                        <p>1. Impfung</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(211, 100%, 80%)">
                         <p id="vaccSecond"></p>
                         <p id="vaccSecondDelta"></p>
-                        <p>Vollimmunisierte</p>
+                        <p id="vaccSecondAvg"></p>
+                        <p>2. Impfung</p>
+                    </div>
+                    <div class="bubble" style="background-color:hsl(211, 100%, 80%)">
+                        <p id="vaccThird"></p>
+                        <p id="vaccThirdDelta"></p>
+                        <p id="vaccThirdAvg"></p>
+                        <p>3. Impfung</p>
                     </div>
                     <div class="bubble">
                         <p id="impfRat"></p>
@@ -202,112 +207,81 @@
                 <h3>Altersgruppen</h3>
                 
                 <div>
-                    <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
-                    <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Zweite Teilimpfung</span>
+                    <span style="background-color: var(--blue-w1); width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
+                    <span style="background-color: var(--blue-w2); width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Zweite Teilimpfung</span>
+                    <span style="background-color: var(--blue-w3); width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Dritte Teilimpfung</span>
                 </div>
                 
-                <div class="label">85+</div>
-                <div class="myProgress">
-                    <div id="_85_first" class="vaccFirst"></div>
-                    <div id="_85_second" class="vaccSecond"></div>
-                </div>
-                <div class="label">75-85</div>
-                <div class="myProgress">
-                    <div id="_75_first" class="vaccFirst"></div>
-                    <div id="_75_second" class="vaccSecond"></div>
-                </div>
-                <div class="label">65-75</div>
-                <div class="myProgress">
-                    <div id="_65_first" class="vaccFirst"></div>
-                    <div id="_65_second" class="vaccSecond"></div>
-                </div>
-                <div class="label">55-65</div>
-                <div class="myProgress">
-                    <div id="_55_first" class="vaccFirst"></div>
-                    <div id="_55_second" class="vaccSecond"></div>
-                </div>
-                <div class="label">45-55</div>
-                <div class="myProgress">
-                    <div id="_45_first" class="vaccFirst"></div>
-                    <div id="_45_second" class="vaccSecond"></div>
-                </div>
-                <div class="label">35-45</div>
-                <div class="myProgress">
-                    <div id="_35_first" class="vaccFirst"></div>
-                    <div id="_35_second" class="vaccSecond"></div>
-                </div>
-                <div class="label">25-35</div>
-                <div class="myProgress">
-                    <div id="_25_first" class="vaccFirst"></div>
-                    <div id="_25_second" class="vaccSecond"></div>
-                </div>
-                <div class="label">15-25</div>
-                <div class="myProgress">
-                    <div id="_15_first" class="vaccFirst"></div>
-                    <div id="_15_second" class="vaccSecond"></div>
-                </div>
-                <div class="label">unter 15</div>
-                <div class="myProgress">
-                    <div id="_0_first" class="vaccFirst"></div>
-                    <div id="_0_second" class="vaccSecond"></div>
-                </div>
-                <div class="label">Gesamt</div>
-                <div class="myProgress">
-                    <div id="ges_first" class="vaccFirst"></div>
-                    <div id="ges_second" class="vaccSecond"></div>
-                </div>
+                <div id="agegroups"></div>
                 
                 <h3>Bundesländer</h3>
                 
                 <div>
-                    <span style="background-color: #abd2fb; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
-                    <span style="background-color: #84c0ff; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Zweite Teilimpfung</span>
+                    <span style="background-color: var(--blue-w1); width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Erste Teilimpfung</span>
+                    <span style="background-color: var(--blue-w2); width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span style="margin-right: 10px">Zweite Teilimpfung</span>
+                    <span style="background-color: var(--blue-w3); width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>Dritte Teilimpfung</span>
                 </div>
                 
                 <div class="label">Burgenland</div>
                 <div class="myProgress">
-                    <div id="burgenland_first" class="vaccFirst"></div>
-                    <div id="burgenland_second" class="vaccSecond"></div>
+                    <div id="Burgenland_1" class="vacc1"></div>
+                    <div id="Burgenland_2" class="vacc2"></div>
+                    <div id="Burgenland_3" class="vacc3"></div>
                 </div>
                 <div class="label">Kärnten</div>
                 <div class="myProgress">
-                    <div id="kaernten_first" class="vaccFirst"></div>
-                    <div id="kaernten_second" class="vaccSecond"></div>
+                    <div id="Kärnten_1" class="vacc1"></div>
+                    <div id="Kärnten_2" class="vacc2"></div>
+                    <div id="Kärnten_3" class="vacc3"></div>
                 </div>
                 <div class="label">Niederösterreich</div>
                 <div class="myProgress">
-                    <div id="niederoesterreich_first" class="vaccFirst"></div>
-                    <div id="niederoesterreich_second" class="vaccSecond"></div>
+                    <div id="Niederösterreich_1" class="vacc1"></div>
+                    <div id="Niederösterreich_2" class="vacc2"></div>
+                    <div id="Niederösterreich_3" class="vacc3"></div>
                 </div>
                 <div class="label">Oberösterreich</div>
                 <div class="myProgress">
-                    <div id="oberoesterreich_first" class="vaccFirst"></div>
-                    <div id="oberoesterreich_second" class="vaccSecond"></div>
+                    <div id="Oberösterreich_1" class="vacc1"></div>
+                    <div id="Oberösterreich_2" class="vacc2"></div>
+                    <div id="Oberösterreich_3" class="vacc3"></div>
                 </div>
                 <div class="label">Salzburg</div>
                 <div class="myProgress">
-                    <div id="salzburg_first" class="vaccFirst"></div>
-                    <div id="salzburg_second" class="vaccSecond"></div>
+                    <div id="Salzburg_1" class="vacc1"></div>
+                    <div id="Salzburg_2" class="vacc2"></div>
+                    <div id="Salzburg_3" class="vacc3"></div>
                 </div>
                 <div class="label">Steiermark</div>
                 <div class="myProgress">
-                    <div id="steiermark_first" class="vaccFirst"></div>
-                    <div id="steiermark_second" class="vaccSecond"></div>
+                    <div id="Steiermark_1" class="vacc1"></div>
+                    <div id="Steiermark_2" class="vacc2"></div>
+                    <div id="Steiermark_3" class="vacc3"></div>
                 </div>
                 <div class="label">Tirol</div>
                 <div class="myProgress">
-                    <div id="tirol_first" class="vaccFirst"></div>
-                    <div id="tirol_second" class="vaccSecond"></div>
+                    <div id="Tirol_1" class="vacc1"></div>
+                    <div id="Tirol_2" class="vacc2"></div>
+                    <div id="Tirol_3" class="vacc3"></div>
                 </div>
                 <div class="label">Vorarlberg</div>
                 <div class="myProgress">
-                    <div id="vorarlberg_first" class="vaccFirst"></div>
-                    <div id="vorarlberg_second" class="vaccSecond"></div>
+                    <div id="Vorarlberg_1" class="vacc1"></div>
+                    <div id="Vorarlberg_2" class="vacc2"></div>
+                    <div id="Vorarlberg_3" class="vacc3"></div>
                 </div>
                 <div class="label">Wien</div>
                 <div class="myProgress">
-                    <div id="wien_first" class="vaccFirst"></div>
-                    <div id="wien_second" class="vaccSecond"></div>
+                    <div id="Wien_1" class="vacc1"></div>
+                    <div id="Wien_2" class="vacc2"></div>
+                    <div id="Wien_3" class="vacc3"></div>
+                </div>
+                
+                <div class="label">Österreich</div>
+                <div class="myProgress">
+                    <div id="Österreich_1" class="vacc1"></div>
+                    <div id="Österreich_2" class="vacc2"></div>
+                    <div id="Österreich_3" class="vacc3"></div>
                 </div>
                 
 <!--                <h3>Global</h3>

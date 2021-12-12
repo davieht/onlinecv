@@ -2,8 +2,20 @@ Array.prototype.last = function(idx) {
     return this.slice(-1 -(idx ? idx : 0))[0];
 };
 
-Array.prototype.sum = function(idxArr) {
-    return idxArr.reduce((res, idx) => res + this[idx], 0);
+Object.prototype.last = function(idx) {
+    return Object.values(this)[Object.values(this).length - 1 + (idx ? idx : 0)]
+}
+
+Object.prototype.idx = function(idx) {
+    return Object.values(this)[idx]
+}
+
+Object.prototype.sum = function() {
+    return Object.values(this).reduce((res, item) => res + item, 0)
+}
+
+Array.prototype.sum = function(idx) {
+    return this.reduce((res, item) => res + item, 0);
 };
 
 String.prototype.asRoundInt = function() {
