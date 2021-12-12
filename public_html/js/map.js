@@ -31,12 +31,12 @@ function style(feature, districtArray) {
 function mapInit() {
     var mymap = L.map('mapid', {
         zoomControl: false,
-        touchZoom: true,
+        touchZoom: false,
         doubleClickZoom: false,
-        scrollWheelZoom: true,
+        scrollWheelZoom: false,
         boxZoom: false,
         keyboard: false,
-        dragging: true,
+        dragging: false,
         zoomSnap: .1,
         minZoom: 5,
         maxZoom: 9

@@ -19,7 +19,8 @@ h3 { margin-top: 30px; }
 .footer {padding: 32px;}
 .links { padding: 32px;}
 .update { padding: 32px; color: #888; font-size: 12px; text-align: left}
-#mainProgress {
+.mainProgress {
+    display: flex;
     width: 100%; 
     background-color: var(--grey); 
     line-height: var(--main-bar-height);
@@ -30,6 +31,36 @@ h3 { margin-top: 30px; }
     width: 100%; 
     background-color: var(--grey); 
     line-height: 30px;
+}
+.progressBar {
+    width: 0%;
+    height: var(--main-bar-height);
+    background-color: #ddd;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: var(--main-bar-height); /* To center it vertically */
+    color: white;
+    padding-left: 10px;
+    position: absolute;
+}
+
+.heardimmune {
+    width: 20%;
+    height: var(--main-bar-height);
+    background-color: #000;
+    line-height: var(--main-bar-height);
+    left: 80%;
+    position: absolute;
+    color: forestgreen;
+    text-align: left;
+    padding-left: 10px;
+    background-image: linear-gradient(to right, var(--grey), #fff);
+}
+.bar {
+    width: 0.3px;
+    height: var(--main-bar-height);
+    background-color: forestgreen;
+    position: absolute;
+    left: 80%;
 }
 .label {
     text-align: left;
@@ -69,46 +100,7 @@ h3 { margin-top: 30px; }
     line-height: inherit;
     padding-left: 10px;
 }
-#progressBar, #inoculableBar {
-    width: 0%;
-    height: var(--main-bar-height);
-    background-color: #ddd;
-    text-align: center; /* To center it horizontally (if you want) */
-    line-height: var(--main-bar-height); /* To center it vertically */
-    color: white;
-    padding-left: 10px;
-    position: absolute;
-}
 
-#inoculableBar {
-    text-align: right;
-    padding-right: 10px;
-}
-
-#heardimmune {
-    width: 20%;
-    height: var(--main-bar-height);
-    background-color: #000;
-    line-height: var(--main-bar-height);
-    left: 80%;
-    position: absolute;
-    color: forestgreen;
-    text-align: left;
-    padding-left: 10px;
-    background-image: linear-gradient(to right, var(--grey), #fff);
-}
-#bar {
-    width: 0.3px;
-    height: var(--main-bar-height);
-    background-color: forestgreen;
-    position: absolute;
-    left: 80%;
-}
-#recoveredBar {
-    width: 0%;
-    height: var(--main-bar-height);
-    position: absolute;
-}
 table.footnote {
     border: none;
 }

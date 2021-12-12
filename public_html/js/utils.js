@@ -2,16 +2,16 @@ Array.prototype.last = function(idx) {
     return this.slice(-1 -(idx ? idx : 0))[0];
 };
 
-Object.prototype.last = function(idx) {
-    return Object.values(this)[Object.values(this).length - 1 + (idx ? idx : 0)]
+function objectLast(obj, idx) {
+    return Object.values(obj)[Object.values(obj).length - 1 + (idx ? idx : 0)]
 }
 
-Object.prototype.idx = function(idx) {
-    return Object.values(this)[idx]
+function objectIdx(obj, idx) {
+    return Object.values(obj)[idx]
 }
 
-Object.prototype.sum = function() {
-    return Object.values(this).reduce((res, item) => res + item, 0)
+function objectSum(obj) {
+    return Object.values(obj).reduce((res, item) => res + item, 0)
 }
 
 Array.prototype.sum = function(idx) {

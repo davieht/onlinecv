@@ -46,7 +46,7 @@ async function load() {
         
     return {
         impfDataGeo: impfDataGeo,
-        impfDataDemo: impfDataDemo.last(),
+        impfDataDemo: objectLast(impfDataDemo),
         allgData: allgData
     };
 }
@@ -59,8 +59,8 @@ function main() {
 function draw(vaccDataGeo, vaccDataDemo, covidData) {
     
     const vaccDataAut = Object.values(vaccDataGeo).map(date => date["Österreich"])
-    const vaccDataAutCur = vaccDataAut.last().sum()
-    const vaccDataAutPre = vaccDataAut.last(7).sum()
+    const vaccDataAutCur = objectSum(vaccDataAut.last())
+    const vaccDataAutPre = objectSum(vaccDataAut.last(7))
     
     const population = bevDemo.flat().reduce((res, idx) => res + idx, 0); // Gesamtbevölkerung Österreich
 
@@ -104,8 +104,7 @@ function draw(vaccDataGeo, vaccDataDemo, covidData) {
         document.getElementById("progressBar").style.backgroundColor = getColor(isImmunePercent * .01, 50);
         document.getElementById("progressBar").innerHTML = (isImmunePercent).toFixed(2) + "%";
         document.getElementById("progressBar").style.width = (isImmunePercent) + "%";        
-        document.getElementById("recoveredBar").style.width = ((recovered / population) * 100).toFixed(2) + "%";
-        document.getElementById("update-date").innerHTML = new Date(Object.values(vaccDataGeo).last()[0]).toLocaleDateString("de-AT");
+        document.getElementById("update-date").innerHTML = new Date(Object.keys(vaccDataGeo).last()).toLocaleDateString("de-AT")
     }
     
     function drawBubbles() {
@@ -119,7 +118,7 @@ function draw(vaccDataGeo, vaccDataDemo, covidData) {
     //                document.getElementById("impfbar").innerHTML = (population).asRoundStr();
         document.getElementById("vaccSum").innerHTML = vaccDataAutCur.toLocaleString("de-AT");
         document.getElementById("vaccSumDelta").innerHTML = `+${(vaccDataAutCur - vaccDataAutPre).toLocaleString("de-AT")}`;
-        document.getElementById("vaccSumAvg").innerHTML = `Ø ${((vaccDataAut.last().sum() - vaccDataAut.last(7).sum()) / 7).asRoundStr()}`;
+        document.getElementById("vaccSumAvg").innerHTML = `Ø ${(objectSum(vaccDataAut.last()) - objectSum(vaccDataAut.last(7)) / 7).asRoundStr()}`;
         document.getElementById("vaccFirst").innerHTML = vaccDataAut.last()["1"].toLocaleString("de-AT");
         document.getElementById("vaccFirstDelta").innerHTML = `+${(vaccDataAut.last()["1"] - vaccDataAut.last(7)["1"]).asRoundStr()}`;
         document.getElementById("vaccFirstAvg").innerHTML = `Ø ${((vaccDataAut.last()["1"] - vaccDataAut.last(7)["1"]) / 7).asRoundStr()}`;
@@ -244,7 +243,7 @@ function drawChart(vaccData) {
     const cols = Object.keys(vaccData)
     const vaccArr = Object.values(vaccData)
 
-    const vaccSum = vaccArr.map(e => e["Österreich"].sum()).map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8)
+    const vaccSum = vaccArr.map(e => objectSum(e["Österreich"])).map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8)
     const vacc1 = vaccArr.map(e => e["Österreich"]["1"]).map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8)
     const vacc2 = vaccArr.map(e => e["Österreich"]["2"]).map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8)
     const vacc3 = vaccArr.map(e => e["Österreich"]["3"]).map((e, i, arr) => ((arr[i] - arr[i - 7]) / 7).toFixed(0)).slice(8)
