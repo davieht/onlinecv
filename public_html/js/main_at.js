@@ -11,6 +11,7 @@ const INFECTED_ROW = 3;
 const UNDER_TWELVE = 1031247;
 const TESTS_ROW = 8;
 const PREV_DAY = 10;
+const PREV_WEEK = 70;
 
 const bevDemo = [[433367, 428302, 423434], [435229, 506704], [595409, 613439], [613920, 571113], [608270, 700673], [698720, 587316], [460755, 411660], [342193, 278480], [140669, 65879, 17814]];
 const bevGeo = { 
@@ -81,6 +82,14 @@ function draw(vaccDataGeo, vaccDataDemo, covidData) {
     const infectedDelta = infected - covidData.last(PREV_DAY)[INFECTED_ROW].toInt();
     const testsDelta = tests - covidData.last(PREV_DAY)[TESTS_ROW].toInt(); 
     const infectedCurrentDelta = infectedCurrent - (covidData.last(PREV_DAY)[INFECTED_ROW].toInt() - covidData.last(PREV_DAY)[CASUALTIES_ROW].toInt() - covidData.last(PREV_DAY)[RECOVERED_ROW].toInt());
+    
+    const recoveredAvg = (recovered - covidData.last(PREV_WEEK)[RECOVERED_ROW].toInt()) / 7;
+    const hospitalAvg = (hospital - covidData.last(PREV_WEEK)[HOSPITAL_ROW].toInt()) / 7;
+    const intensiveCareAvg = (intensiveCare - covidData.last(PREV_WEEK)[INTENSIVE_CARE_ROW].toInt()) / 7;
+    const casualtiesAvg = (casualties - covidData.last(PREV_WEEK)[CASUALTIES_ROW].toInt()) / 7;
+    const infectedAvg = (infected - covidData.last(PREV_WEEK)[INFECTED_ROW].toInt()) / 7;
+    const testsAvg = (tests - covidData.last(PREV_WEEK)[TESTS_ROW].toInt()) / 7; 
+    const infectedCurrentAvg = (infectedCurrent - (covidData.last(PREV_WEEK)[INFECTED_ROW].toInt() - covidData.last(PREV_WEEK)[CASUALTIES_ROW].toInt() - covidData.last(PREV_WEEK)[RECOVERED_ROW].toInt())) / 7;
 
     const vaccRate = (vaccDataAut.last()["2"] - vaccDataAut.last(7)["2"]) / 7     // Impfungen pro Tag im 7-Tage-Schnitt https://info.gesundheitsministerium.gv.at/data/timeline-eimpfpass.csv
     const sumVaccImmune = vaccDataAut.last()["2"];
@@ -117,32 +126,39 @@ function draw(vaccDataGeo, vaccDataDemo, covidData) {
         document.getElementById("population").innerHTML = population.asRoundStr();
     //                document.getElementById("impfbar").innerHTML = (population).asRoundStr();
         document.getElementById("vaccSum").innerHTML = vaccDataAutCur.toLocaleString("de-AT");
-        document.getElementById("vaccSumDelta").innerHTML = `+${(vaccDataAutCur - vaccDataAutPre).toLocaleString("de-AT")}`;
-        document.getElementById("vaccSumAvg").innerHTML = `Ø ${(objectSum(vaccDataAut.last()) - objectSum(vaccDataAut.last(7)) / 7).asRoundStr()}`;
+        document.getElementById("vaccSumDelta").innerHTML = `+${(objectSum(vaccDataAut.last()) - objectSum(vaccDataAut.last(1))).asRoundStr()}`;
+        document.getElementById("vaccSumAvg").innerHTML = `Ø ${((objectSum(vaccDataAut.last()) - objectSum(vaccDataAut.last(7))) / 7).asRoundStr()}`;
         document.getElementById("vaccFirst").innerHTML = vaccDataAut.last()["1"].toLocaleString("de-AT");
-        document.getElementById("vaccFirstDelta").innerHTML = `+${(vaccDataAut.last()["1"] - vaccDataAut.last(7)["1"]).asRoundStr()}`;
+        document.getElementById("vaccFirstDelta").innerHTML = `+${(vaccDataAut.last()["1"] - vaccDataAut.last(1)["1"]).asRoundStr()}`;
         document.getElementById("vaccFirstAvg").innerHTML = `Ø ${((vaccDataAut.last()["1"] - vaccDataAut.last(7)["1"]) / 7).asRoundStr()}`;
         document.getElementById("vaccSecond").innerHTML = vaccDataAut.last()["2"].toLocaleString("de-AT");
-        document.getElementById("vaccSecondDelta").innerHTML = `+${(vaccDataAut.last()["2"] - vaccDataAut.last(7)["2"]).asRoundStr()}`;
+        document.getElementById("vaccSecondDelta").innerHTML = `+${(vaccDataAut.last()["2"] - vaccDataAut.last(1)["2"]).asRoundStr()}`;
         document.getElementById("vaccSecondAvg").innerHTML = `Ø ${((vaccDataAut.last()["2"] - vaccDataAut.last(7)["2"]) / 7).asRoundStr()}`;
         document.getElementById("vaccThird").innerHTML = vaccDataAut.last()["3"].toLocaleString("de-AT");
-        document.getElementById("vaccThirdDelta").innerHTML = `+${(vaccDataAut.last()["3"] - vaccDataAut.last(7)["3"]).asRoundStr()}`;
+        document.getElementById("vaccThirdDelta").innerHTML = `+${(vaccDataAut.last()["3"] - vaccDataAut.last(1)["3"]).asRoundStr()}`;
         document.getElementById("vaccThirdAvg").innerHTML = `Ø ${((vaccDataAut.last()["3"] - vaccDataAut.last(7)["3"]) / 7).asRoundStr()}`;
         
         document.getElementById("recovered").innerHTML = recovered.asRoundStr();
         document.getElementById("recoveredDelta").innerHTML = recoveredDelta.toSignedString();
+        document.getElementById("recoveredAvg").innerHTML = `Ø ${recoveredAvg.asRoundStr()}`;
         document.getElementById("infected").innerHTML = infected.toLocaleString("de-AT");
         document.getElementById("infectedDelta").innerHTML = infectedDelta.toSignedString();
+        document.getElementById("infectedAvg").innerHTML = `Ø ${infectedAvg.asRoundStr()}`;
         document.getElementById("casualties").innerHTML = casualties.toLocaleString("de-AT");
         document.getElementById("casualtiesDelta").innerHTML = casualtiesDelta.toSignedString();
+        document.getElementById("casualtiesAvg").innerHTML = `Ø ${casualtiesAvg.asRoundStr()}`;
         document.getElementById("hospital").innerHTML = hospital.toLocaleString("de-AT");
         document.getElementById("hospitalDelta").innerHTML = hospitalDelta.toSignedString();
+        document.getElementById("hospitalAvg").innerHTML = `Ø ${hospitalAvg.asRoundStr()}`;
         document.getElementById("intensiveCare").innerHTML = intensiveCare.toLocaleString("de-AT");
         document.getElementById("intensiveCareDelta").innerHTML = intensiveCareDelta.toSignedString();
+        document.getElementById("intensiveCareAvg").innerHTML = `Ø ${intensiveCareAvg.asRoundStr()}`;
         document.getElementById("tests").innerHTML = tests.toLocaleString("de-AT");
         document.getElementById("testsDelta").innerHTML = testsDelta.toSignedString();
+        document.getElementById("testsAvg").innerHTML = `Ø ${testsAvg.asRoundStr()}`;
         document.getElementById("infectedCurrent").innerHTML = infectedCurrent.toLocaleString("de-AT");
         document.getElementById("infectedCurrentDelta").innerHTML = infectedCurrentDelta.toSignedString();
+        document.getElementById("infectedCurrentAvg").innerHTML = `Ø ${infectedCurrentAvg.asRoundStr()}`;
         document.getElementById("incidence").innerHTML = Math.round(incidence).toLocaleString("de-AT");
         document.getElementById("incidenceDelta").innerHTML = Math.round(incidenceDelta).toSignedString();
     }

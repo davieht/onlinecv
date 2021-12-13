@@ -46,7 +46,7 @@
         <script src="data/districts.js"></script>
         <script src="js/map.js?v=2"></script>
         <script type="text/javascript" src="js/utils.js?v=5"></script>
-        <script src="js/main_at.js?v=7"></script>
+        <script src="js/main_at.js?v=8"></script>
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", main)
         </script>
@@ -86,12 +86,6 @@
                         <p id="population"></p>
                         <p>Bevölkerung Österreich<br/>(stand 1.1.2021)</p>
                     </div>
-<!--                    <div class="bubble">
-                        <p id="impfbar"></p>
-                        <p>Impfbare Bevölkerung<br/>(Personen über 16 Jahre)</p>
-                    </div>-->
-                </div>
-                <div>
                     <div class="bubble">
                         <p id="impfPers"></p>
                         <p>zu impfende Personen</p>
@@ -121,52 +115,63 @@
                         <p id="vaccThirdAvg"></p>
                         <p>3. Impfung</p>
                     </div>
-                    <div class="bubble">
-                        <p id="impfRat"></p>
-                        <p>Impfrate<br/>(7-Tage-Schnitt)</p>
-                    </div>
                 </div>
                 <div>
                     <div class="bubble" style="background-color:hsl(40, 100%, 90%)">
                         <p id="infected"></p>
                         <p id="infectedDelta"></p>
+                        <p id="infectedAvg"></p>
                         <p>Infizierte ges.</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(120, 100%, 90%)">
                         <p id="recovered"></p>
                         <p id="recoveredDelta"></p>
+                        <p id="recoveredAvg"></p>
                         <p>Genesene</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(0, 0%, 30%);color:white">
                         <p id="casualties"></p>
                         <p id="casualtiesDelta"></p>
+                        <p id="casualtiesAvg"></p>
                         <p>Todesopfer</p>
                     </div>               
                     <div class="bubble" style="background-color:hsl(40, 100%, 90%)">
                         <p id="infectedCurrent"></p>
                         <p id="infectedCurrentDelta"></p>
+                        <p id="infectedCurrentAvg"></p>
                         <p>Infizierte aktuell</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(20, 100%, 90%)">
                         <p id="hospital"></p>
                         <p id="hospitalDelta"></p>
+                        <p id="hospitalAvg"></p>
                         <p>Hospitalisierte</p>
                     </div>
                     <div class="bubble" style="background-color:hsl(0, 100%, 90%)">
                         <p id="intensiveCare"></p>
                         <p id="intensiveCareDelta"></p>
+                        <p id="intensiveCareAvg"></p>
                         <p>Intensivpatienten</p>
                     </div>
                          
                     <div class="bubble">
                         <p id="tests"></p>
                         <p id="testsDelta"></p>
+                        <p id="testsAvg"></p>
                         <p>Testungen</p>
                     </div>
                     <div id="inciBubble" class="bubble">
                         <p id="incidence"></p>
                         <p id="incidenceDelta"></p>
                         <p>7-Tage-Inzidenz</p>
+                    </div>
+                </div>
+                <div>                    
+                    <div class="bubble">
+                        <p>Aktueller gesamtwert</p>
+                        <p>+ Veränderung zum Vortag</p>
+                        <p>Ø 7 Tage Schnitt</p>
+                        <p>Kennzahl</p>
                     </div>
                 </div>
                 
@@ -385,6 +390,11 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (13.12.2021)</p>
+                    <ul>
+                        <li>Fehler behoben (falsche Veränderungen zum Vortag)</li>
+                        <li>Inzidenz der letzten 7 Tage hinzugefügt</li>
+                    </ul>
                     <p>Update: (12.12.2021)</p>
                     <ul>
                         <li>Seite komplett aufgrund geändeter Datensatzstruktur ueberarbeitet</li>
