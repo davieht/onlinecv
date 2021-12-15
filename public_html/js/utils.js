@@ -39,7 +39,7 @@ String.prototype.toFloat = function() {
 };
 
 Number.prototype.toSignedString = function() {
-    return (this <= 0 ? "" : "+") + this.toLocaleString("de-AT");
+    return (this <= 0 ? "" : "+") + Math.round(this).toLocaleString("de-AT");
 };
 
 function humanise(total_days)
