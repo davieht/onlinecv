@@ -118,8 +118,6 @@ function inciThreshold(value) {
         return 'purple';
     } else if (value < 4000) {
         return 'magenta';
-    } else if (value < 10000) {
-        return 'darkblue';
     } else {
         return 'black';
     }

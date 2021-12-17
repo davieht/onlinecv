@@ -41,17 +41,24 @@ async function load() {
         
     const allgData = await fetch("data/timeline-faelle-bundeslaender.json?_=" + new Date().getTime())
             .then(response => response.json())
+    
+    const mapData = await fetch("data/CovidFaelle_GKZ.json?_=" + new Date().getTime())
+            .then(response => response.json())
         
     return {
         impfDataGeo: impfDataGeo,
         impfDataDemo: objectLast(impfDataDemo),
-        allgData: allgData
+        allgData: allgData,
+        mapData: mapData
     };
 }
 
 function main() {
-    load().then(data => draw(data.impfDataGeo, data.impfDataDemo, data.allgData));
-    mapInit();
+    load().then(data => {
+        draw(data.impfDataGeo, data.impfDataDemo, data.allgData);
+        mapInit(data.mapData);
+        data.mapData
+    })
 };
 
 function draw(vaccDataGeo, vaccDataDemo, covidData) {

@@ -28,7 +28,7 @@ function style(feature, districtArray) {
     };
 }
 
-function mapInit() {
+function mapInit(mapData) {
     var mymap = L.map('mapid', {
         zoomControl: false,
         touchZoom: false,
@@ -51,29 +51,50 @@ function mapInit() {
     districts.features = districts.features.filter(it=>!it.properties.iso.startsWith('9'));
     wienUnion.properties.iso = '900';
     districts.features.push(wienUnion);
-
-    fetch("data/CovidFaelle_GKZ.csv?_=" + new Date().getTime())
-        .then(response => response.text())
-        .then(text => text.split("\n")
-            .map(element => element.split(";"))
-            )
-        .then(function(arr) {
           
-            for (let i = 1; i < arr.length; i++) {
-                const gkzNr = arr[i][1];
-                if (!districtMap.has(gkzNr)) {
-                    districtMap.set(gkzNr, arr[i]);
-                }                
-            }
+    for (let i = 1; i < mapData.length; i++) {
+        const gkzNr = mapData[i][1];
+        if (!districtMap.has(gkzNr)) {
+            districtMap.set(gkzNr, mapData[i]);
+        }                
+    }
+    
+    const inciDistri = new Array(10).fill(0)
+    mapData.slice(1, mapData.length -1).forEach(item => {
+        const value = realIncidence(item[SEVENDAYINCIDENCE_COL], item[INHABITANTS_COL])
+        if (value === 0) {
+            inciDistri[0]++
+        } else if (value < 20) {
+            inciDistri[1]++
+        } else if (value < 40) {
+            inciDistri[2]++
+        } else if (value < 100) {
+            inciDistri[3]++
+        } else if (value < 200) {
+            inciDistri[4]++
+        } else if (value < 400) {
+            inciDistri[5]++
+        } else if (value < 1000) {
+            inciDistri[6]++
+        } else if (value < 2000) {
+            inciDistri[7]++
+        } else if (value < 4000) {
+            inciDistri[8]++
+        } else {
+            inciDistri[9]++
+        }
+    })
+    
+    console.log(inciDistri)
+    
 
-            districtArray = Array.from(districtMap.values());
+    districtArray = Array.from(districtMap.values());
 
-            layer = L.geoJson(districts,{onEachFeature: onEachFeature}).addTo(mymap);
+    layer = L.geoJson(districts,{onEachFeature: onEachFeature}).addTo(mymap);
 
-            layer.eachLayer(function(layer){
-                layer.setStyle(style(layer.feature, districtMap));
-            });            
-        });
+    layer.eachLayer(function(layer){
+        layer.setStyle(style(layer.feature, districtMap));
+    });
         
     function onClick(e) {
         var layer = e.target;            

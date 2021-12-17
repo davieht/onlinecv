@@ -44,9 +44,9 @@
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
         <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
         <script src="data/districts.js"></script>
-        <script src="js/map.js?v=2"></script>
-        <script type="text/javascript" src="js/utils.js?v=6"></script>
-        <script src="js/main_at.js?v=9"></script>
+        <script src="js/map.js?v=3"></script>
+        <script type="text/javascript" src="js/utils.js?v=7"></script>
+        <script src="js/main_at.js?v=10"></script>
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", main)
         </script>
@@ -190,7 +190,7 @@
                         <span style="background-color: green; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>20 - 40</span>
                     </div>
                     <div>
-                        <span style="background-color: yellow; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>50 - 100</span>
+                        <span style="background-color: yellow; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>40 - 100</span>
                     </div>
                     <div>
                         <span style="background-color: orange; opacity: .5; width: 10px; height: 10px; margin-right: 10px; display: inline-block"></span><span>100 - 200</span>
@@ -388,6 +388,10 @@
                 </div>
                 <div class="update toggle" onclick="toggleChangelog(this)">
                     <h4 id="changelog">Changelog:</h4>
+                    <p>Update: (17.12.2021)</p>
+                    <ul>
+                        <li>Fehler behoben (Map bekam keine Updates)</li>
+                    </ul>
                     <p>Update: (15.12.2021)</p>
                     <ul>
                         <li>Fehler behoben (Inzidenzen bekamen kein Update)</li>
